@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Cart from './components/Cart';
 
-function App() {
-  return (
-    <div>The Met Gallery</div>
-    
-  )
-}
+const App = () => (
+  <div>
+    <Cart />
+  </div>
+);
 
-export default App
+export default App;
