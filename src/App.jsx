@@ -1,10 +1,13 @@
-import React from 'react'
+import React from 'react';
+import './App.css';
+import UserProfile from './components/UserProfile';
 
 function App() {
   return (
-    <div>App</div>
-    
-  )
+    <div>
+      <UserProfile />
+    </div>
+  );
 }
 
-export default App
+export default App;
