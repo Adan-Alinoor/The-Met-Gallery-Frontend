@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
+import HomePage from './HomePage';
 
 const LoginPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,16 +37,13 @@ const LoginPage = () => {
 
   return (
     <div className="container">
-      <div className="profile-icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Icon" />
-      </div>
       {isLoggedIn? (
-        <div>
-          <h1>Welcome, {email}!</h1>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+        <HomePage email={email} onLogout={handleLogout} />
       ) : (
         <div>
+          <div className="profile-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Icon" />
+          </div>
           {!isSigningUp && (
             <LogIn
               setEmail={setEmail}
