@@ -37,6 +37,7 @@ label {
   color: #EC2784; 
 }
 
+input[type="text"], /* added for username input */
 input[type="email"],
 input[type="password"] {
   width: 100%;
