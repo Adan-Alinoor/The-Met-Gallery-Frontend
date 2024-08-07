@@ -45,7 +45,7 @@ const images = {
 const HomePage = () => {
   return (
     <div>
-      {/* Navbar */}
+      
       <nav className="navbar">
         <div className="nav-logo">The Met Gallery</div>
         <ul className="nav-links">
@@ -57,7 +57,7 @@ const HomePage = () => {
         </ul>
       </nav>
 
-      {/* Gallery Section */}
+      
       <div className="gallery-container">
         <h1 className="gallery-title">Discover Why Art Lovers Choose Us</h1>
 
