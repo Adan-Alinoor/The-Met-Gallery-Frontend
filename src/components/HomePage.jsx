@@ -89,6 +89,15 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+      <footer className="footer">
+        <div className="footer-content">
+          <a href="#messages" className="footer-link">Messages</a>
+          <p className="footer-text">Email: metgallery.ke@gmail.com</p>
+          <p className="footer-text">Phone: (254) 456-7890</p>
+          <p className="footer-text">Address: P.O.BOX 13505-0400</p>
+        </div>
+      </footer>
     </div>
   );
 };
