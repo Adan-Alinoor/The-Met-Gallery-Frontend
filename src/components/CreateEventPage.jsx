@@ -1,50 +1,43 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './CreateEventPage.css';
 
 const CreateEventPage = ({ addEvent }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     eventName: '',
     eventDescription: '',
     location: '',
     eventWebsite: '',
     startTime: '',
     endTime: '',
-    image: '',
     ticketInfo: '',
+    ticketPrice: '',
+    eventImage: ''
   });
 
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      image: URL.createObjectURL(e.target.files[0]),
+      [name]: files ? files[0] : value
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addEvent(formData);
-    navigate('/events');
+    const newEvent = {
+      ...formData,
+      ticketPrice: parseFloat(formData.ticketPrice),
+    };
+    addEvent(newEvent);
   };
 
   return (
     <div className="create-event-page">
-      <h1>Create an Event</h1>
-      <p>Complete the submission below</p>
-      <p className="note">NB: Only Met Gallery based events will be approved.</p>
+      <h1>Create Event</h1>
+      <p>Complete the submission below. NB: Only Met Gallery-based events will be approved.</p>
       <form onSubmit={handleSubmit}>
         <label>
           Name:
@@ -56,7 +49,7 @@ const CreateEventPage = ({ addEvent }) => {
         </label>
         <label>
           Phone Number:
-          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
+          <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
         </label>
         <label>
           Event Name:
@@ -83,12 +76,16 @@ const CreateEventPage = ({ addEvent }) => {
           <input type="datetime-local" name="endTime" value={formData.endTime} onChange={handleChange} required />
         </label>
         <label>
-          Upload Image:
-          <input type="file" accept="image/*" onChange={handleFileChange} required />
+          Ticket Information:
+          <input type="text" name="ticketInfo" value={formData.ticketInfo} onChange={handleChange} required />
         </label>
         <label>
-          Ticket Info:
-          <textarea name="ticketInfo" value={formData.ticketInfo} onChange={handleChange} required />
+          Ticket Price:
+          <input type="number" name="ticketPrice" value={formData.ticketPrice} onChange={handleChange} required />
+        </label>
+        <label>
+          Event Image:
+          <input type="file" name="eventImage" onChange={handleChange} required />
         </label>
         <button type="submit">Submit Event</button>
       </form>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './EventsPage.css';
 
@@ -12,7 +11,8 @@ const EventsPage = ({ events }) => {
           <Link to="/signup" className="auth-button">Sign Up</Link>
         </div>
       </div>
-      <ul className="events-list">
+      <div className=''>
+      <ul className="">
         {events.map(event => (
           <li key={event.id} className="event-item">
             <img src={event.image} alt={event.name} className="event-image" />
@@ -23,6 +23,7 @@ const EventsPage = ({ events }) => {
           </li>
         ))}
       </ul>
+      </div>
       <Link to="/create-event" className="create-event-button">Create an Event</Link>
     </div>
   );

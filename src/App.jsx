@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import EventsPage from './components/EventsPage';
+import EventDetailPage from './components/EventDetailPage';
 import CreateEventPage from './components/CreateEventPage';
-import LoginPage from './components/LoginPage'; // Cindy
-import SignupPage from './components/SignupPage'; // Cindy
+import TicketBookingPage from './components/TicketBookingPage';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 
-function App() {
+const App = () => {
   const [events, setEvents] = useState([
-    { id: 1, name: 'Art Expo', details: 'An amazing art expo...', image: 'https://i.pinimg.com/564x/a9/af/9c/a9af9c55a1dda2f048a3e15311e14b75.jpg' },
-    { id: 2, name: 'Gallery Night', details: 'A wonderful gallery night...', image: 'https://i.pinimg.com/564x/6c/b8/e4/6cb8e40714a7ab4d208b11c55cdc1f9b.jpg' },
+    {  
+      id: 1,
+      name: 'Art Expo',
+      details: 'An amazing art expo...',
+      image: 'https://i.pinimg.com/564x/4d/7c/46/4d7c4673fdc622d124962b5ee7a146b5.jpg',
+      location: 'City Ground',
+      eventWebsite: 'https://www.eventbrite.com/',
+      startTime: '2024-08-01T10:00',
+      endTime: '2024-08-01T18:00',
+      ticketPrice: 500 
+    },
+    {
+      id: 2,
+      name: 'Gallery Night',
+      details: 'A wonderful gallery night...',
+      image: 'https://i.pinimg.com/736x/d3/de/6d/d3de6d10d31e9f262a2a8391ae07a5b6.jpg',
+      location: 'City Ground',
+      eventWebsite: 'https://www.eventbrite.com/',
+      startTime: '2024-08-01T20:00',
+      endTime: '2024-08-01T22:00',
+      ticketInfo: 'Tickets available at https://www.eventbrite.com/',
+      ticketPrice: 800 
+    }
   ]);
 
   const addEvent = (newEvent) => {
@@ -18,14 +41,16 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<EventsPage events={events} />} />
         <Route path="/events" element={<EventsPage events={events} />} />
+        <Route path="/events/:eventId" element={<EventDetailPage events={events} />} />
         <Route path="/create-event" element={<CreateEventPage addEvent={addEvent} />} />
+        <Route path="/events/:eventId/book" element={<TicketBookingPage events={events} />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="*" element={<EventsPage events={events} />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
