@@ -44,8 +44,7 @@ const images = {
 
 const HomePage = () => {
   return (
-    <div>
-      
+    <div className="gallery-container">
       <nav className="navbar">
         <div className="nav-logo">The Met Gallery</div>
         <ul className="nav-links">
@@ -57,44 +56,40 @@ const HomePage = () => {
         </ul>
       </nav>
 
-      
-      <div className="gallery-container">
-        <h1 className="gallery-title">Discover Why Art Lovers Choose Us</h1>
+      <h1 className="gallery-title">Discover Why Art Lovers Choose Us</h1>
 
-        <div className="top-row">
-          {images.artImages.slice(0, 6).map((image, index) => (
-            <div key={index} className="image-card">
-              <img src={image.src} alt={image.alt} />
-            </div>
-          ))}
+      <div className="top-row">
+        {images.artImages.slice(0, 6).map((image, index) => (
+          <div key={index} className="image-card">
+            <img src={image.src} alt={image.alt} />
+          </div>
+        ))}
+      </div>
+
+      <div className="bottom-row">
+        <div className="left-column">
+          <p className="description">
+            Capturing Moments, One Brushstroke at a Time <br />
+            Be the First to See Our Latest Creations <br />
+            Join Us in Celebrating Art <br />
+            Explore a World of Artistic Wonders
+          </p>
+          <img src={images.otherImages.paintbrush} alt="Paintbrush" className="small-image"/>
+          <img src={images.otherImages.palette} alt="Palette" className="small-image"/>
         </div>
 
-        <div className="bottom-row">
-          <div className="left-column">
-            <p className="description">
-              Capturing Moments, One Brushstroke at a Time <br />
-              Be the First to See Our Latest Creations <br />
-              Join Us in Celebrating Art <br />
-              Explore a World of Artistic Wonders
-            </p>
-            <img src={images.otherImages.paintbrush} alt="Paintbrush" className="small-image"/>
-            <img src={images.otherImages.palette} alt="Palette" className="small-image"/>
-          </div>
-
-          <div className="right-column">
-            <p className="description">
-              Get to Discover Timeless Masterpieces and Emerging Talent
-            </p>
-            <div className="image-wrapper">
-              {images.artImages.slice(6).map((image, index) => (
-                <img key={index} src={image.src} alt={image.alt} className="art-image"/>
-              ))}
-            </div>
+        <div className="right-column">
+          <p className="description">
+            Get to Discover Timeless Masterpieces and Emerging Talent
+          </p>
+          <div className="image-wrapper">
+            {images.artImages.slice(6).map((image, index) => (
+              <img key={index} src={image.src} alt={image.alt} className="art-image"/>
+            ))}
           </div>
         </div>
       </div>
     </div>
-    
   );
 };
 
