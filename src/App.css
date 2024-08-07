@@ -3,25 +3,24 @@ body {
   background-image: url(https://i.pinimg.com/474x/08/f7/95/08f79530d077a6b900cd46c33832752e.jpg);
   background-size: cover;
   background-position: center;
-  margin: 0; /* added to remove default margin */
-  padding: 0; /* added to remove default padding */
-  height: 100vh; /* added to make body full height */
-  width: 100vw; /* added to make body full width */
+  margin: 0; 
+  padding: 0; 
+  height: 100vh; 
+  width: 100vw; 
 }
 
 .container {
-  width: 100%; /* changed from 300px to full width */
-  height: 100vh; /* added to make container full height */
-  margin: 0; /* removed margin */
-  padding: 20px; /* kept padding */
+  width: 100%; 
+  height: 100vh; 
+  padding: 20px; 
   border: 1px solid #7a288a; 
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.5); 
   box-shadow: 0 0 20px rgba(236, 39, 132, 0.8); 
-  display: flex; /* added to make container a flex container */
-  flex-direction: column; /* added to make container a column flex container */
-  align-items: center; /* added to center content horizontally */
-  justify-content: center; /* added to center content vertically */
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
 }
 
 .profile-icon {
@@ -42,7 +41,7 @@ label {
   color: #EC2784; 
 }
 
-input[type="text"], /* added for username input */
+input[type="text"], 
 input[type="email"],
 input[type="password"] {
   width: 100%;
