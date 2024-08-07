@@ -1,0 +1,98 @@
+.container {
+  padding: 20px;
+  background: linear-gradient(135deg, #7e57c2, #f06292, #d1c4e9);
+  min-height: 100vh;
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.card-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px; /* Increased gap for better spacing */
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  width: 300px; /* Increased width */
+  border-radius: 12px; /* Slightly rounded corners */
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Soft shadow for a more subtle effect */
+  background: #fff;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-image {
+  width: 100%;
+  height: 250px; /* Increased height */
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4); /* Reduced opacity for a lighter overlay */
+  color: #fff;
+  padding: 15px; /* Increased padding for more spacious feel */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  border-radius: 0 0 12px 12px; /* Matches card radius */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card:hover .card-overlay {
+  opacity: 0.8; /* Slightly higher opacity on hover for better visibility */
+}
+
+.card-overlay h2 {
+  margin: 0;
+  font-size: 16px; /* Slightly smaller text */
+  font-weight: 600; /* Slightly bold text */
+}
+
+.card-overlay p {
+  margin: 4px 0; /* Reduced margin */
+  font-size: 12px; /* Slightly smaller text */
+}
+
+.view-more {
+  display: inline-block;
+  margin-top: 15px;
+  color: #f06292;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 5px 10px; /* More padding for better click area */
+  border: 1px solid #f06292;
+  border-radius: 5px;
+  font-size: 12px; /* Slightly smaller text for minimalistic look */
+  transition: background 0.3s, color 0.3s;
+}
+
+.view-more:hover {
+  background: #f06292;
+  color: #fff;
+}
