@@ -32,13 +32,13 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 1px solid #EC2784; 
+  border: 1px solid #E0115F; 
 }
 
 label {
   display: block;
   margin-bottom: 10px;
-  color: #EC2784; 
+  color: #E0115F; 
 }
 
 input[type="text"], 
@@ -48,14 +48,14 @@ input[type="password"] {
   height: 40px;
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #EC2784; 
+  border: 1px solid #E0115F; 
   border-radius: 5px;
 }
 
 button[type="submit"] {
   width: 100%;
   height: 40px;
-  background-color: #EC2784; 
+  background-color: #E0115F; 
   color: #fff;
   padding: 10px;
   border: none;
@@ -64,13 +64,13 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #EC2784; 
+  background-color: #E0115F; 
 }
 
 button {
   width: 100%;
   height: 40px;
-  background-color: #EC2784; 
+  background-color: #E0115F; 
   color: #fff;
   padding: 10px;
   border: none;
@@ -79,5 +79,5 @@ button {
 }
 
 button:hover {
-  background-color: #EC2784; 
+  background-color: #E0115F; 
 }
