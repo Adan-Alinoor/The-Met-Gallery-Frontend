@@ -67,49 +67,45 @@ const CheckoutPageModal = ({ isOpen, onClose, cartItems, calculateTotalPrice }) 
             {isShippingOpen ? 'Hide Shipping Details' : 'Add Shipping Details'}
           </button>
           {isShippingOpen && (
-            <div className="form-content">
-              <label htmlFor="full-name">Full Name:</label>
-              <input
-                id="full-name"
-                type="text"
-                value={fullName}
-                onChange={handleInputChange(setFullName)}
-                placeholder="Full Name"
-              />
-              <label htmlFor="email">Email:</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={handleInputChange(setEmail)}
-                placeholder="Email"
-              />
-              <label htmlFor="address">Address:</label>
-              <textarea
-                id="address"
-                value={address}
-                onChange={handleInputChange(setAddress)}
-                placeholder="Address"
-              />
-              <label htmlFor="city">City:</label>
-              <input
-                id="city"
-                type="text"
-                value={city}
-                onChange={handleInputChange(setCity)}
-                placeholder="City"
-              />
-              <label htmlFor="country">Country:</label>
-              <input
-                id="country"
-                type="text"
-                value={country}
-                onChange={handleInputChange(setCountry)}
-                placeholder="Country"
-              />
+            <div className="form-card">
+              <div className="form-card-content">
+                <input
+                  id="full-name"
+                  type="text"
+                  value={fullName}
+                  onChange={handleInputChange(setFullName)}
+                  placeholder="Full Name"
+                />
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={handleInputChange(setEmail)}
+                  placeholder="Email"
+                />
+                <textarea
+                  id="address"
+                  value={address}
+                  onChange={handleInputChange(setAddress)}
+                  placeholder="Address"
+                />
+                <input
+                  id="city"
+                  type="text"
+                  value={city}
+                  onChange={handleInputChange(setCity)}
+                  placeholder="City"
+                />
+                <input
+                  id="country"
+                  type="text"
+                  value={country}
+                  onChange={handleInputChange(setCountry)}
+                  placeholder="Country"
+                />
+              </div>
             </div>
           )}
-          <label htmlFor="mobile-number">Mobile Number:</label>
           <input
             id="mobile-number"
             type="text"

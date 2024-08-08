@@ -1,8 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './ArtworkDetailsPage.css'; // Import component-specific CSS
 
-// Sample data for artwork - in a real application, we will fetch this data from our API
+// Sample data for artwork
 const artworks = [
   { id: 1, title: 'Starry Night', price: 'Ksh 15,000', artist: 'Vincent van Gogh', image: 'https://www.researchgate.net/publication/236767323/figure/fig1/AS:299512636690434@1448420785738/Vincent-van-Gogh-The-Starry-Night-1889.png' },
   { id: 2, title: 'Mona Lisa', price: 'Ksh 20,000', artist: 'Leonardo da Vinci', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3S07h-WnsTnD7eCppKFBSWVqmTeKuliXa0g&s' },
@@ -23,6 +23,9 @@ const ArtworkDetailsPage = ({ addItemToCart }) => {
     return <p>Artwork not found.</p>;
   }
 
+  // Get related artworks excluding the current artwork
+  const relatedArtworks = artworks.filter(a => a.id !== artwork.id);
+
   const handleAddToCart = () => {
     console.log('Adding item to cart:', artwork); // Debugging log
     addItemToCart({ ...artwork, quantity: 1 });
@@ -40,6 +43,25 @@ const ArtworkDetailsPage = ({ addItemToCart }) => {
           <p><strong>Size:</strong> Not available</p>
           <p><strong>Price:</strong> {artwork.price}</p>
           <button className="add-to-cart" onClick={handleAddToCart}>Add to Cart</button>
+        </div>
+      </div>
+
+      {/* Related Artworks Section */}
+      <div className="related-artworks">
+        <h2>Related Artworks</h2>
+        <div className="card-gallery">
+          {relatedArtworks.map((art) => (
+            <Link to={`/artwork/${art.id}`} key={art.id} className="card-link">
+              <div className="card">
+                <img src={art.image} alt={art.title} className="card-image" />
+                <div className="card-overlay">
+                  <h2>{art.title}</h2>
+                  <p>{art.artist}</p>
+                  <p>{art.price}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
