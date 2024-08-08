@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BackToEventsButton.css';
+import './CreateEventPage.css';
 
 const CreateEventPage = ({ addEvent }) => {
   const navigate = useNavigate();

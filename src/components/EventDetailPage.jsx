@@ -1,8 +1,10 @@
-import { useParams, Link } from 'react-router-dom';
-import './EventDetailPage.css';
+import React from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import './EventDetailPage.css'; // Assuming this file has the necessary styles
 
 const EventDetailPage = ({ events }) => {
   const { eventId } = useParams();
+  const navigate = useNavigate();
   const event = events.find(e => e.id === parseInt(eventId));
 
   if (!event) {
@@ -19,13 +21,14 @@ const EventDetailPage = ({ events }) => {
       <p><strong>Start Time:</strong> {event.startTime}</p>
       <p><strong>End Time:</strong> {event.endTime}</p>
       <p><strong>Ticket Info:</strong> {event.ticketInfo}</p>
-      <Link to={'/events/${event.id}/book'}>
+      <Link to={`/events/${event.id}/book`}>
         <button>Book Now</button>
       </Link>
+      <button className="back-to-events-button" onClick={() => navigate('/')}>
+        Back to Events
+      </button>
     </div>
   );
 };
 
 export default EventDetailPage;
-
-  

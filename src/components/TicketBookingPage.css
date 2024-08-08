@@ -35,14 +35,23 @@
   }
   
   .ticket-booking-page button {
-    padding: 10px;
-    background-color: #d81b60; /* Pink */
-    color: white;
+    background-color: #8a2be2; /* Purple */
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 10px 0;
   }
   
   .ticket-booking-page button:hover {
-    background-color: #c2185b;
+    background-color: #ff69b4; /* Pink */
+    transform: scale(1.05);
+  }
+  .ticket-booking-page button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.5);
   }
