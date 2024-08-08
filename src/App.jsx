@@ -1,3 +1,7 @@
+
+import React from 'react'
+import Dashboard from './components/Dashboard'
+
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
@@ -5,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import UserProfile from './components/UserProfile';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,6 +19,19 @@ function App() {
   };
 
   return (
+
+    <>
+  
+    <div><Dashboard/></div>
+    </>
+    
+  )
+}
+
+export default App
+
+
+
     <Router>
       <Routes>
         {/* Public Routes */}
@@ -37,3 +55,4 @@ function App() {
 }
 
 export default App;
+
