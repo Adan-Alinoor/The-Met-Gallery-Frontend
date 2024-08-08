@@ -1,97 +1,91 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './CreateEventPage.css';
+import './BackToEventsButton.css';
 
 const CreateEventPage = ({ addEvent }) => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [event, setEvent] = useState({
     name: '',
     email: '',
-    phoneNumber: '',
+    phone: '',
     eventName: '',
     eventDescription: '',
     location: '',
     eventWebsite: '',
     startTime: '',
     endTime: '',
-    ticketInfo: '',
-    ticketPrice: '',
-    eventImage: ''
+    image: null,
+    ticketInfo: ''
   });
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value
+    const { name, value } = e.target;
+    setEvent({
+      ...event,
+      [name]: value
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    setEvent({
+      ...event,
+      image: e.target.files[0]
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newEvent = {
-      ...formData,
-      ticketPrice: parseFloat(formData.ticketPrice),
-    };
-    addEvent(newEvent);
-    navigate('/my-events');
+
+    if (new Date(event.endTime) <= new Date(event.startTime)) {
+      setError('End time must be after start time.');
+      return;
+    }
+
+    const formData = new FormData();
+    for (const key in event) {
+      formData.append(key, event[key]);
+    }
+
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      // Assuming addEvent is an async function
+      await addEvent(formData);
+      navigate('/');
+    } catch (err) {
+      setError('Failed to create event. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="create-event-page">
       <h1>Create Event</h1>
-      <p>Complete the submission below. NB: Only Met Gallery-based events will be approved.</p>
+      <p>Complete the submission below. <br /> NB: “Only Met Gallery based events will be approved.”</p>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-        </label>
-        <label>
-          Email:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </label>
-        <label>
-          Phone Number:
-          <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-        </label>
-        <label>
-          Event Name:
-          <input type="text" name="eventName" value={formData.eventName} onChange={handleChange} required />
-        </label>
-        <label>
-          Event Description:
-          <textarea name="eventDescription" value={formData.eventDescription} onChange={handleChange} required />
-        </label>
-        <label>
-          Location (City and Ground Name):
-          <input type="text" name="location" value={formData.location} onChange={handleChange} required />
-        </label>
-        <label>
-          Event Website:
-          <input type="url" name="eventWebsite" value={formData.eventWebsite} onChange={handleChange} required />
-        </label>
-        <label>
-          Start Time:
-          <input type="datetime-local" name="startTime" value={formData.startTime} onChange={handleChange} required />
-        </label>
-        <label>
-          End Time:
-          <input type="datetime-local" name="endTime" value={formData.endTime} onChange={handleChange} required />
-        </label>
-        <label>
-          Ticket Information:
-          <input type="text" name="ticketInfo" value={formData.ticketInfo} onChange={handleChange} required />
-        </label>
-        <label>
-          Ticket Price:
-          <input type="number" name="ticketPrice" value={formData.ticketPrice} onChange={handleChange} required />
-        </label>
-        <label>
-          Event Image:
-          <input type="file" name="eventImage" onChange={handleChange} required />
-        </label>
-        <button type="submit">Submit Event</button>
+        <input type="text" name="name" placeholder="Name" value={event.name} onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" value={event.email} onChange={handleChange} required />
+        <input type="tel" name="phone" placeholder="Phone Number" value={event.phone} onChange={handleChange} required />
+        <input type="text" name="eventName" placeholder="Event Name" value={event.eventName} onChange={handleChange} required />
+        <textarea name="eventDescription" placeholder="Event Description" value={event.eventDescription} onChange={handleChange} required></textarea>
+        <input type="text" name="location" placeholder="Location (City and Ground Name)" value={event.location} onChange={handleChange} required />
+        <input type="url" name="eventWebsite" placeholder="Event Website" value={event.eventWebsite} onChange={handleChange} required />
+        <input type="datetime-local" name="startTime" placeholder="Start Time" value={event.startTime} onChange={handleChange} required />
+        <input type="datetime-local" name="endTime" placeholder="End Time" value={event.endTime} onChange={handleChange} required />
+        <input type="file" name="image" onChange={handleFileChange} required />
+        <input type="text" name="ticketInfo" placeholder="Where clients can get the ticket" value={event.ticketInfo} onChange={handleChange} required />
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting...' : 'Submit Event'}
+        </button>
+        {error && <p className="error">{error}</p>}
       </form>
+      <button className="back-to-events-button" onClick={() => navigate('/')}>
+        Back to Events
+      </button>
     </div>
   );
 };
