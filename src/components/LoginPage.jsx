@@ -1,14 +1,3 @@
-
-// to perfection by Cindy
-import React from 'react';
-
-const LoginPage = () => (
-  <div>
-    <h1>Login Page</h1>
-    {/* Cindy */}
-  </div>
-);
-
 import React, { useState } from 'react';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
@@ -22,15 +11,17 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Send request to server to login
+    // Simulate login request
     console.log(`Login: ${email} ${password}`);
+    // Set logged in state
     setIsLoggedIn(true);
   };
 
   const handleSignup = (e) => {
     e.preventDefault();
-    // Send request to server to signup
+    // Simulate signup request
     console.log(`Signup: ${email} ${password}`);
+    // Set logged in state
     setIsLoggedIn(true);
   };
 
@@ -48,22 +39,25 @@ const LoginPage = () => {
 
   return (
     <div className="container">
-      {isLoggedIn? (
+      {isLoggedIn ? (
         <HomePage email={email} onLogout={handleLogout} />
       ) : (
         <div>
           <div className="profile-icon">
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Icon" />
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+              alt="Profile Icon"
+              style={{ width: 50, height: 50 }}
+            />
           </div>
-          {!isSigningUp && (
+          {!isSigningUp ? (
             <LogIn
               setEmail={setEmail}
               setPassword={setPassword}
               handleLogin={handleLogin}
               handleShowSignupForm={handleShowSignupForm}
             />
-          )}
-          {isSigningUp && (
+          ) : (
             <SignUp
               setEmail={setEmail}
               setPassword={setPassword}
@@ -83,6 +77,5 @@ const LoginPage = () => {
     </div>
   );
 };
-
 
 export default LoginPage;
