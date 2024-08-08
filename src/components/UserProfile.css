@@ -1,0 +1,43 @@
+.user-profile {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #da1fd0bb;
+  text-align: center;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.user-profile h1 {
+  margin-bottom: 20px;
+}
+
+.user-profile p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.user-profile p strong {
+  margin-right: 10px;
+}
+
+.user-profile button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #a74caf;
+  color: rgb(248, 245, 248);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-profile button:hover {
+  background-color: #8345a0;
+}

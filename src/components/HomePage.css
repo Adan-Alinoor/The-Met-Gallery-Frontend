@@ -1,0 +1,229 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url('https://i.pinimg.com/236x/f5/16/88/f51688fdbe1fd3cac01cdac903dd63b1.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: rgba(255, 255, 255, 0.9); 
+  color: #E0115F;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 1px solid #E0115F; 
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #E0115F;
+  font-weight: bold;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover {
+  color: #C8102E;
+  transform: scale(1.05);
+}
+
+
+.gallery-container {
+  flex: 1;
+  padding: 30px;
+  background-color: rgba(8, 8, 8, 0.8); 
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow: hidden;
+  margin: 20px; 
+}
+
+
+.gallery-title {
+  text-align: center;
+  color: #E0115F;
+  font-style: italic;
+  margin-bottom: 30px;
+  font-size: 2.5rem; 
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); 
+}
+
+
+.top-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px; 
+  margin-bottom: 30px;
+}
+
+.image-card {
+  flex: 1;
+  max-width: calc(33.333% - 20px);
+}
+
+.image-card img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.image-card img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+.bottom-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.left-column {
+  background: linear-gradient(to bottom right, #fce4ec, #f8bbd0); 
+}
+
+.right-column {
+  background: linear-gradient(to bottom right, #e3f2fd, #bbdefb); 
+}
+
+
+.description {
+  text-align: center;
+  font-family: 'Island Moments', cursive;
+  font-style: italic;
+  color: #E0115F;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+*/
+.small-image {
+  width: 150px; 
+  margin: 0 15px;
+  border-radius: 10px; 
+}
+
+
+.image-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.art-image {
+  width: 48%;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.art-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+.footer {
+  background-color: rgba(255, 255, 255, 0.9); 
+  color: #E0115F; 
+  padding: 20px;
+  border-top: 1px solid #E0115F; 
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2); 
+}
+
+
+.footer-content {
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+
+.footer-link {
+  color: #E0115F;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.footer-link:hover {
+  color: #C8102E; 
+  text-decoration: underline;
+}
+
+
+.footer-text {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 0 10px;
+  }
+
+  .footer-link {
+    font-size: 16px;
+  }
+
+  .footer-text {
+    font-size: 14px;
+  }
+}
