@@ -1,0 +1,76 @@
+.details-container {
+    background: linear-gradient(to right, #e0aaff, #dcb0e2, #cba0d9, #ffffff);
+    padding: 20px;
+  }
+  
+  .cards-container {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+    gap: 20px; /* Add space between the cards */
+  }
+  
+  .image-card,
+  .info-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Ensures content does not overflow */
+    flex: 1;
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    position: relative;
+  }
+  
+  .image-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .details-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the card area */
+  }
+  
+  .image-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the image card on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+  }
+  
+  .info-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-card h1 {
+    color: #5c2192;
+  }
+  
+  .info-card p {
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .add-to-cart {
+    background-color: #fa2727b6;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #8e22d6e1;
+  }
+  
