@@ -1,10 +1,13 @@
+// src/App.jsx
+
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar'; // Import the Navbar component
 import ArtworkPage from './components/ArtworkPage';
 import ArtworkDetailsPage from './components/ArtworkDetailsPage';
 import CartPage from './components/CartPage';
 import AddArtPage from './components/AddArtPage'; // Import AddArtPage component
+import Footer from './components/Footer'; // Import the Footer component
 import './App.css'; // Import global CSS
 
 const App = () => {
@@ -59,9 +62,15 @@ const App = () => {
               path="/cart"
               element={<CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} />}
             />
-            <Route path="/add-art" element={<AddArtPage />} /> {/* Add this route */}
+            <Route
+              path="/add-art"
+              element={isArtist ? <AddArtPage /> : <Navigate to="/" replace />} // Redirect if not an artist
+            />
+            {/* Optionally add a route for not-authorized */}
+            <Route path="/not-authorized" element={<div>This page is only available to artists. Please log in with an artist account to access this feature.</div>} />
           </Routes>
         </main>
+        <Footer /> {/* Include the Footer component here */}
       </div>
     </Router>
   );
