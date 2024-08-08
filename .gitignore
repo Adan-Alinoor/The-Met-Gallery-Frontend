@@ -22,3 +22,115 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+
+'''
+import React from 'react';
+import './Dashboard.css';
+import { Line } from 'react-chartjs-2';
+import { Palette as ArtBudgetIcon, Event as EventBudgetIcon } from '@mui/icons-material';
+
+const Dashboard = ({ artBudget = 30000, eventBudget = 20000 }) => {
+  const chartData = {
+    labels: ['January', 'February', 'March', 'April', 'May'],
+    datasets: [
+      {
+        label: 'Art Budget',
+        data: [5000, 6000, 5500, 7000, 8000],
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
+      },
+      {
+        label: 'Event Budget',
+        data: [3000, 4000, 3500, 4500, 5000],
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: {
+        display: true,
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => Ksh ${context.raw},
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 10,
+        },
+      },
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
+  return (
+    <div className="mainpage-container">
+      <div className="main-content">
+        <div className="info-container">
+          <div className="info-item art-budget">
+            <ArtBudgetIcon className="icon" />
+            <h2>Art Budget</h2>
+            <p>Ksh {artBudget.toFixed(2)}</p>
+            <div className="tooltip">Your art budget for the period</div>
+            <div className="progress-bar">
+              <span style={{ width: ${(artBudget / 40000) * 100}% }}></span>
+            </div>
+          </div>
+          <div className="info-item event-budget">
+            <EventBudgetIcon className="icon" style={{ fontSize: '50px' }} />
+            <h2>Event Budget</h2>
+            <p>Ksh {eventBudget.toFixed(2)}</p>
+            <div className="tooltip">Your event budget for the period</div>
+            <div className="progress-bar">
+              <span style={{ width: ${(eventBudget / 40000) * 100}% }}></span>
+            </div>
+          </div>
+        </div>
+        <div className="chart-container">
+          <h2>Budget Overview</h2>
+          <Line data={chartData} options={options} />
+        </div>
+        <div className="recent-transactions">
+          <h2>Recent Transactions</h2>
+          <ul>
+            <li>
+              <span className="transaction-description">Art supplies</span>
+              <span className="transaction-amount negative">Ksh -1200</span>
+            </li>
+            <li>
+              <span className="transaction-description">Event setup</span>
+              <span className="transaction-amount negative">Ksh -5000</span>
+            </li>
+            <li>
+              <span className="transaction-description">Art sales</span>
+              <span className="transaction-amount positive">Ksh 8000</span>
+            </li>
+            <li>
+              <span className="transaction-description">Event ticket sales</span>
+              <span className="transaction-amount positive">Ksh 6000</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
+
+
+
+'''

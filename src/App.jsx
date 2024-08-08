@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard'
 function App() {
   return (
     <>
-    <div>App</div>
+  
     <div><Dashboard/></div>
     </>
     
@@ -12,3 +12,5 @@ function App() {
 }
 
 export default App
+
+
