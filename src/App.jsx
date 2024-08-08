@@ -1,4 +1,16 @@
+// src/App.jsx
+
 import React, { useState } from 'react';
+<<<<<<< HEAD
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar'; // Import the Navbar component
+import ArtworkPage from './components/ArtworkPage';
+import ArtworkDetailsPage from './components/ArtworkDetailsPage';
+import CartPage from './components/CartPage';
+import AddArtPage from './components/AddArtPage'; // Import AddArtPage component
+import Footer from './components/Footer'; // Import the Footer component
+import './App.css'; // Import global CSS
+=======
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import './App.css'; 
@@ -18,6 +30,7 @@ import AddArtPage from './components/AddArtPage';
 import Dashboard from './components/Dashboard';
 import HomePage from './components/HomePage';
 import UserProfile from './components/UserProfile';
+>>>>>>> 4d1c0fb5824411d1f1692656d6a589b4d1ce27c7
 
 // Main App Component
 const App = () => {
@@ -81,6 +94,28 @@ const App = () => {
 
   return (
     <Router>
+<<<<<<< HEAD
+      <div className="app">
+        <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} /> {/* Pass cartItemsCount and isArtist to Navbar */}
+        <main>
+          <Routes>
+            <Route path="/" element={<ArtworkPage addItemToCart={addItemToCart} />} />
+            <Route path="/artworks/:id" element={<ArtworkDetailsPage addItemToCart={addItemToCart} />} />
+            <Route
+              path="/cart"
+              element={<CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} />}
+            />
+            <Route
+              path="/add-art"
+              element={isArtist ? <AddArtPage /> : <Navigate to="/" replace />} // Redirect if not an artist
+            />
+            {/* Optionally add a route for not-authorized */}
+            <Route path="/not-authorized" element={<div>This page is only available to artists. Please log in with an artist account to access this feature.</div>} />
+          </Routes>
+        </main>
+        <Footer /> {/* Include the Footer component here */}
+      </div>
+=======
       <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} />
       <Routes>
         {/* Public Routes */}
@@ -107,6 +142,7 @@ const App = () => {
         {/* Redirect all other paths to the login page */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+>>>>>>> 4d1c0fb5824411d1f1692656d6a589b4d1ce27c7
     </Router>
   );
 };

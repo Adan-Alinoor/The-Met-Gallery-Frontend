@@ -1,31 +1,52 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AddArtPage.css'; // Import CSS for this component
 
-const AddArtPage = () => {
+const AddArtPage = ({ onNewArtwork }) => {
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
+  const [notification, setNotification] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newArtwork = { title, artist, description, price, image };
 
-    // TODO: Send `newArtwork` to backend API
-    console.log('New artwork submitted:', newArtwork);
+    if (!title || !artist || !description || !price || !image) {
+      setNotification('Please fill out all fields.');
+      return;
+    }
 
-    // Clear the form after submission
-    setTitle('');
-    setArtist('');
-    setDescription('');
-    setPrice('');
-    setImage(null);
+    const newArtwork = {
+      id: Date.now(), // Simple unique ID generator
+      title,
+      artist,
+      description,
+      price,
+      image
+    };
+
+    console.log('Submitting artwork:', newArtwork);
+
+    // Call the callback to update artworks in the parent component
+    onNewArtwork(newArtwork);
+
+    // Set the notification message
+    setNotification('Artwork added successfully!');
+
+    // Redirect to the artwork page after a short delay
+    setTimeout(() => {
+      console.log('Redirecting to:', `/artwork/${newArtwork.id}`);
+      navigate(`/artwork/${newArtwork.id}`);
+    }, 1000); // 1 second delay to allow the notification to be seen
   };
 
   return (
     <div className="add-art-container">
       <h1>Add New Artwork</h1>
+      {notification && <div className="notification">{notification}</div>}
       <form onSubmit={handleSubmit} className="add-art-form">
         <label>
           Title:

@@ -43,4 +43,22 @@
   .add-art-form button:hover {
     background-color: #4A1D6A; /* Darker purple for hover */
   }
-  
+  /* Add this CSS to ArtworkPage.css */
+
+.add-art-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #E0115F; /* Same as your primary color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.add-art-button:hover {
+  background-color: #C8102E; /* Slightly darker shade for hover effect */
+}
