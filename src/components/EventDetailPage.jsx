@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import './EventDetailPage.css'; // Assuming this file has the necessary styles
+import './EventDetailPage.css'; 
 
 const EventDetailPage = ({ events }) => {
   const { eventId } = useParams();

@@ -53,7 +53,7 @@ const CreateEventPage = ({ addEvent }) => {
     setError('');
 
     try {
-      // Assuming addEvent is an async function
+     
       await addEvent(formData);
       navigate('/');
     } catch (err) {
