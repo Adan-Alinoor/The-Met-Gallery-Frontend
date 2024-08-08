@@ -4,11 +4,12 @@ import Navbar from './components/Navbar'; // Import the Navbar component
 import ArtworkPage from './components/ArtworkPage';
 import ArtworkDetailsPage from './components/ArtworkDetailsPage';
 import CartPage from './components/CartPage';
-import CheckoutPage from './components/CheckoutPage';
+import AddArtPage from './components/AddArtPage'; // Import AddArtPage component
 import './App.css'; // Import global CSS
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [isArtist, setIsArtist] = useState(true); // Update this based on your logic
 
   // Add item to cart
   const addItemToCart = (item) => {
@@ -43,10 +44,13 @@ const App = () => {
     );
   };
 
+  // Calculate total number of items in cart
+  const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <Router>
       <div className="app">
-        <Navbar /> {/* Add the Navbar component here */}
+        <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} /> {/* Pass cartItemsCount and isArtist to Navbar */}
         <main>
           <Routes>
             <Route path="/" element={<ArtworkPage addItemToCart={addItemToCart} />} />
@@ -55,7 +59,7 @@ const App = () => {
               path="/cart"
               element={<CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} />}
             />
-            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
+            <Route path="/add-art" element={<AddArtPage />} /> {/* Add this route */}
           </Routes>
         </main>
       </div>
