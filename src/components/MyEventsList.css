@@ -1,0 +1,47 @@
+.my-events-list {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+  
+  h1 {
+    color: #6a1b9a; 
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 4em; 
+    font-weight: 900; 
+    text-align: center; 
+    margin: 20px 0; 
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); 
+    letter-spacing: 1px; 
+        padding: 20px 0; 
+    border-bottom: 4px solid #6a1b9a; 
+    transition: color 0.3s ease, text-shadow 0.3s ease; 
+    
+  }
+
+ 
+  
+  button {
+    background-color: #800080; /* purple */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ff69b4; /* pink */
+  }
+  
+  .events-list {
+    margin-top: 20px;
+  }
+  
+  .event-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  

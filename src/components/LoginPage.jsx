@@ -1,3 +1,14 @@
+
+// to perfection by Cindy
+import React from 'react';
+
+const LoginPage = () => (
+  <div>
+    <h1>Login Page</h1>
+    {/* Cindy */}
+  </div>
+);
+
 import React, { useState } from 'react';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
@@ -72,5 +83,6 @@ const LoginPage = () => {
     </div>
   );
 };
+
 
 export default LoginPage;
