@@ -22,7 +22,19 @@ import UserProfile from './components/UserProfile';
 // Main App Component
 const App = () => {
   const [events, setEvents] = useState([
-    // Event data here (same as provided in the question)
+    // Sample Event Data
+    {  
+      id: 1,
+      name: 'Art Expo',
+      details: 'An amazing art expo showcasing contemporary artworks from renowned artists.',
+      image: 'https://i.pinimg.com/564x/4d/7c/46/4d7c4673fdc622d124962b5ee7a146b5.jpg',
+      location: 'City Ground',
+      eventWebsite: 'https://www.eventbrite.com/',
+      startTime: '2024-08-01T10:00',
+      endTime: '2024-08-01T18:00',
+      ticketPrice: 500 
+    },
+    // Add other event objects as needed
   ]);
 
   const [cartItems, setCartItems] = useState([]);
@@ -73,7 +85,6 @@ const App = () => {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LoginPage onLogin={handleLogin} />} />
-        <Route path="/signup" element={<SignupPage />} />
 
         {/* Protected Routes */}
         <Route path="/home" element={isLoggedIn ? <HomePage /> : <Navigate to="/" />} />
