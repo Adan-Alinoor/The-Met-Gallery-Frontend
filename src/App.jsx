@@ -6,6 +6,7 @@ import CreateEventPage from './components/CreateEventPage';
 import TicketBookingPage from './components/TicketBookingPage';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
+import MyEventsList from './components/MyEventsList';
 
 const App = () => {
   const [events, setEvents] = useState([
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/events/:eventId/book" element={<TicketBookingPage events={events} />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/my-events" element={<MyEventsList events={events} />} />
       </Routes>
     </Router>
   );

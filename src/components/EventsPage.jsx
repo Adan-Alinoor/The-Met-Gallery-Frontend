@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './EventsPage.css';
 
@@ -11,20 +12,23 @@ const EventsPage = ({ events }) => {
           <Link to="/signup" className="auth-button">Sign Up</Link>
         </div>
       </div>
-      <div className=''>
-      <ul className="">
-        {events.map(event => (
-          <li key={event.id} className="event-item">
-            <img src={event.image} alt={event.name} className="event-image" />
-            <h3>{event.name}</h3>
-            <p>{event.details}</p>
-            <Link to={'/events/${event.id}'} className="details-link">View Details</Link>
-            <Link to={'/events/${event.id}/book'} className="booking-button">Book Now</Link>
-          </li>
-        ))}
-      </ul>
+      <div className="event-controls">
+        <Link to="/create-event" className="create-event-button">Create Event</Link>
+        <Link to="/my-events" className="my-events-button">My Events List</Link>
       </div>
-      <Link to="/create-event" className="create-event-button">Create an Event</Link>
+      <div className="events-list">
+        <ul className="event-list">
+          {events.map(event => (
+            <li key={event.id} className="event-item">
+              <img src={event.image} alt={event.name} className="event-image" />
+              <h3>{event.name}</h3>
+              <p>{event.details}</p>
+              <Link to={`/events/${event.id}`} className="details-link">View Details</Link>
+              <Link to={`/events/${event.id}/book`} className="booking-button">Book Now</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

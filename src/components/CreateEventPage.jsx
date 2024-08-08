@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CreateEventPage.css';
 
 const CreateEventPage = ({ addEvent }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,6 +34,7 @@ const CreateEventPage = ({ addEvent }) => {
       ticketPrice: parseFloat(formData.ticketPrice),
     };
     addEvent(newEvent);
+    navigate('/my-events');
   };
 
   return (
