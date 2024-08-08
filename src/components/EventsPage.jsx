@@ -17,17 +17,19 @@ const EventsPage = ({ events }) => {
         <Link to="/my-events" className="my-events-button">My Events List</Link>
       </div>
       <div className="events-list">
-        <ul className="event-list">
-          {events.map(event => (
-            <li key={event.id} className="event-item">
-              <img src={event.image} alt={event.name} className="event-image" />
-              <h3>{event.name}</h3>
-              <p>{event.details}</p>
-              <Link to={`/events/${event.id}`} className="details-link">View Details</Link>
-              <Link to={`/events/${event.id}/book`} className="booking-button">Book Now</Link>
-            </li>
-          ))}
-        </ul>
+        {events.map(event => (
+          <div key={event.id} className="event-card">
+            <img src={event.image} alt={event.name} className="event-image" />
+            <div className="event-details">
+              <h3 className="event-title">{event.name}</h3>
+              <p className="event-description">{event.details}</p>
+              <div className="event-actions">
+                <Link to={`/events/${event.id}`} className="details-link">View Details</Link>
+                <Link to={`/events/${event.id}/book`} className="booking-button">Book Now</Link>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

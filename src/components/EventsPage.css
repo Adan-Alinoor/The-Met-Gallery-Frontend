@@ -1,17 +1,22 @@
+/* General page styles */
 .events-page {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
 }
 
+/* Header styles */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
 }
 
+/* Authentication buttons */
 .auth-buttons {
   display: flex;
   gap: 10px;
@@ -30,6 +35,7 @@
   background-color: #4a0072; /* Darker Purple */
 }
 
+/* Search bar styles */
 .search-bar {
   padding: 10px;
   font-size: 16px;
@@ -38,40 +44,59 @@
   width: 300px;
 }
 
+/* Event list styles */
 .events-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   list-style: none;
   padding: 0;
 }
 
-.event-item {
-  padding: 10px;
+.event-card {
+  background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  width: calc(33% - 1rem); /* Adjust width as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .event-image {
   width: 100%;
-  max-width: 200px;
   height: auto;
   border-radius: 4px;
-  margin-bottom: 10px;
 }
 
-.details-link,
-.booking-button {
+.event-details {
+  padding: 1rem;
+}
+
+.event-title {
+  margin: 0 0 0.5rem;
+}
+
+.event-description {
+  margin: 0 0 1rem;
+}
+
+.event-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Details link and booking button styles */
+.details-link, .booking-button {
   display: inline-block;
   margin-top: 10px;
   padding: 10px 20px;
   font-size: 16px;
-  color: white;
   text-decoration: none;
   border-radius: 4px;
-  margin-right: 10px;
 }
 
 .details-link {
+  color: white;
   background-color: #d81b60; /* Pink */
 }
 
@@ -80,6 +105,7 @@
 }
 
 .booking-button {
+  color: white;
   background-color: #6a1b9a; /* Purple */
 }
 
@@ -87,6 +113,7 @@
   background-color: #4a0072; /* Darker Purple */
 }
 
+/* Create event button styles */
 .create-event-button {
   display: block;
   width: 100%;
@@ -101,5 +128,24 @@
 }
 
 .create-event-button:hover {
+  background-color: #c2185b; /* Darker Pink */
+}
+
+/* Event controls */
+.event-controls {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.create-event-button, .my-events-button {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: #d81b60; /* Pink */
+  border-radius: 4px;
+}
+
+.create-event-button:hover, .my-events-button:hover {
   background-color: #c2185b; /* Darker Pink */
 }
