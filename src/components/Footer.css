@@ -5,49 +5,47 @@
     color: #fff;
     padding: 20px;
     border-top: 1px solid #fff; /* Optional: Border color */
-    position: relative;
-    bottom: 0;
     width: 100%;
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .footer-content {
+}
+
+.footer-content {
     display: flex;
     justify-content: space-between; /* Space between info and actions */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-  }
-  
-  .footer-info {
+}
+
+.footer-info {
     text-align: center; /* Center text within this section */
-  }
-  
-  .footer-text {
+}
+
+.footer-text {
     margin: 5px 0;
     font-size: 16px;
-  }
-  
-  .footer-email {
+}
+
+.footer-email {
     color: #00f; /* Blue color for the email link */
     text-decoration: none;
-  }
-  
-  .footer-email:hover {
+}
+
+.footer-email:hover {
     text-decoration: underline;
     color: #00aaff; /* Slightly different blue for hover effect */
-  }
-  
-  .footer-actions {
+}
+
+.footer-actions {
     display: flex;
     align-items: center;
-  }
-  
-  .footer-link {
+}
+
+.footer-link {
     text-decoration: none;
-  }
-  
-  .chat-container {
+}
+
+.chat-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,28 +53,26 @@
     border-radius: 8px; /* Square corners */
     padding: 10px; /* Space around the icon */
     transition: transform 0.3s ease, background-color 0.3s ease;
-    position: relative; /* Needed for absolute positioning of label */
-  }
-  
-  .chat-icon {
+}
+
+.chat-icon {
     font-size: 24px; /* Adjust size as needed */
     color: #fff; /* Color of the icon */
-  }
-  
-  .chat-label {
+}
+
+.chat-label {
     color: #fff; /* Color of the label text */
     margin-left: 8px; /* Space between the icon and label */
     opacity: 0; /* Hide label initially */
     transition: opacity 0.3s ease; /* Smooth transition */
     font-size: 14px; /* Slightly smaller font size */
-  }
-  
-  .chat-container:hover {
+}
+
+.chat-container:hover {
     background-color: #555; /* Darker background on hover */
     transform: scale(1.2); /* Enlarge the icon on hover */
-  }
-  
-  .chat-container:hover .chat-label {
+}
+
+.chat-container:hover .chat-label {
     opacity: 1; /* Show label on hover */
-  }
-  
+}

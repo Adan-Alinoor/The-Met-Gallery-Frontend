@@ -272,3 +272,78 @@ button:hover {
 }
 
 }
+
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Common Form Styles */
+.login-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px;
+  color: #E0115F;
+  font-size: 18px;
+}
+
+.form-control {
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #E0115F;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 45px;
+  background-color: #E0115F;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #d10f5b;
+  transform: scale(1.05);
+}
+
+.btn-link {
+  color: #E0115F;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.btn-link:hover {
+  color: #C8102E;
+}
+
+.alert {
+  padding: 10px;
+  border: 1px solid #E0115F;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #E0115F;
+}
