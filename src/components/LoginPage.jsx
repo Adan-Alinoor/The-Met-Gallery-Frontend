@@ -1,3 +1,4 @@
+
 // src/components/LoginPage.jsx
 
 import React, { useState } from 'react';
@@ -90,4 +91,4 @@ const LoginPage = ({ onLogin }) => {
   );
 };
 
-export default LoginPage;
+
