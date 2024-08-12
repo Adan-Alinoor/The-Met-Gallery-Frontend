@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ArtworkPage from './components/ArtworkPage';
 import ArtworkDetailsPage from './components/ArtworkDetailsPage';
@@ -86,8 +86,7 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="app">
+     <div className="app">
         <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} />
         <main>
           <Routes>
@@ -115,7 +114,6 @@ const App = () => {
         </main>
         <Footer />
       </div>
-    </Router>
   );
 };
 
@@ -245,4 +243,3 @@ export default App;
 // };
 
 // export default App;
-
