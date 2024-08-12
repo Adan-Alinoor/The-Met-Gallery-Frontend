@@ -106,7 +106,7 @@ const App = () => {
             <Route path="/events" element={<ProtectedRoute element={<EventsPage events={events} />} />} />
             <Route path="/events/:eventId" element={<ProtectedRoute element={<EventDetailPage events={events} />} />} />
             <Route path="/create-event" element={<ProtectedRoute element={<CreateEventPage addEvent={addEvent} />} />} />
-            <Route path="/events/:eventId/book" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
+            <Route path="/events/:eventName/:eventId/book/:ticketPrice" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
             <Route path="/my-events" element={<ProtectedRoute element={<MyEventsList events={events} />} />} />
 
             {/* Fallback Route */}

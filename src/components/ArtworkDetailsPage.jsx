@@ -1,35 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './ArtworkDetailsPage.css'; // Import component-specific CSS
 
-// Sample data for artwork
-const artworks = [
-  { id: 1, title: 'Starry Night', price: 'Ksh 15,000', artist: 'Vincent van Gogh', image: 'https://www.researchgate.net/publication/236767323/figure/fig1/AS:299512636690434@1448420785738/Vincent-van-Gogh-The-Starry-Night-1889.png' },
-  { id: 2, title: 'Mona Lisa', price: 'Ksh 20,000', artist: 'Leonardo da Vinci', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3S07h-WnsTnD7eCppKFBSWVqmTeKuliXa0g&s' },
-  { id: 3, title: 'The Persistence of Memory', price: 'Ksh 18,000', artist: 'Salvador Dalí', image: 'https://blenderartists.org/uploads/default/original/4X/0/2/6/026f0a590c5b5e1c64fa4b17157491a728eff836.jpeg' },
-  { id: 4, title: 'The Scream', price: 'Ksh 22,000', artist: 'Edvard Munch', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVeSU7rKy6x_oagbLH59Shyx1LKXHXWqfQfw&s' },
-  { id: 5, title: 'Girl with a Pearl Earring', price: 'Ksh 25,000', artist: 'Johannes Vermeer', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ69BsgernFy4pI-3D_zF_dyYmD1rEMcJuJ-A&s' },
-  { id: 6, title: 'The Birth of Venus', price: 'Ksh 30,000', artist: 'Sandro Botticelli', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkuiECqvyaMNucAz3m-fHjs-4PcCmfDQ86Ow&s' },
-  { id: 7, title: 'The Kiss', price: 'Ksh 28,000', artist: 'Gustav Klimt', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn8ASe1zX_8tpZKeFJd5lv7Rm6L0dhBtmiAw&s' },
-  { id: 8, title: 'American Gothic', price: 'Ksh 17,000', artist: 'Grant Wood', image: 'https://ichef.bbci.co.uk/images/ic/480xn/p04s63zn.jpg.webp' },
-  { id: 9, title: 'Greek Gods', price: 'Ksh 10,000', artist: 'Nicolo Leonardo', image: 'https://learnodo-newtonic.com/wp-content/uploads/2019/03/Zeus-Myths-Featured.jpg' }
-];
-
 const ArtworkDetailsPage = ({ addItemToCart }) => {
   const { id } = useParams();
-  const artwork = artworks.find(artwork => artwork.id === parseInt(id));
+  const [artwork, setArtwork] = useState(null);
+  const [relatedArtworks, setRelatedArtworks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!artwork) {
-    return <p>Artwork not found.</p>;
-  }
+  useEffect(() => {
+    // Fetch artwork data from the backend
+    const fetchArtwork = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`http://localhost:5555/artworks/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch artwork data');
+        }
+        const data = await response.json();
+        setArtwork(data);
 
-  // Get related artworks excluding the current artwork
-  const relatedArtworks = artworks.filter(a => a.id !== artwork.id);
+        // Fetch related artworks
+        const relatedResponse = await fetch('http://localhost:5000/artworks');
+        if (!relatedResponse.ok) {
+          throw new Error('Failed to fetch related artworks');
+        }
+        const relatedData = await relatedResponse.json();
+        // Filter out the current artwork from the related artworks
+        setRelatedArtworks(relatedData.filter((art) => art.id !== data.id));
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArtwork();
+  }, [id]);
 
   const handleAddToCart = () => {
     console.log('Adding item to cart:', artwork); // Debugging log
     addItemToCart({ ...artwork, quantity: 1 });
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (!artwork) {
+    return <p>Artwork not found.</p>;
+  }
 
   return (
     <div className="details-container">
@@ -39,8 +64,7 @@ const ArtworkDetailsPage = ({ addItemToCart }) => {
         </div>
         <div className="info-card">
           <h1>{artwork.title}</h1>
-          <p><strong>Description:</strong> A famous piece by {artwork.artist}.</p>
-          <p><strong>Size:</strong> Not available</p>
+          <p><strong>Description:</strong>{artwork.description}.</p>
           <p><strong>Price:</strong> {artwork.price}</p>
           <button className="add-to-cart" onClick={handleAddToCart}>Add to Cart</button>
         </div>
@@ -69,3 +93,4 @@ const ArtworkDetailsPage = ({ addItemToCart }) => {
 };
 
 export default ArtworkDetailsPage;
+
