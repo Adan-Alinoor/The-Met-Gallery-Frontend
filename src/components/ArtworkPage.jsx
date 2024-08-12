@@ -10,7 +10,8 @@ const ArtworkPage = () => {
   const navigate = useNavigate(); // Hook to programmatically navigate
 
   const fetchArtworks = async () => {
-    const token = localStorage.getItem('authToken');
+    const session = JSON.parse(localStorage.getItem('session'));
+    const token=session && session.accessToken
     console.log('Retrieved token:', token); // Debugging: check the retrieved token
   
     if (!token) {

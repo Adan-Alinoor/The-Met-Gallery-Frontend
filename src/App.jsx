@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ArtworkPage from './components/ArtworkPage';
@@ -38,6 +38,12 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isArtist, setIsArtist] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('session'));
+
+  useEffect(() =>{
+    setIsLoggedIn(!!localStorage.getItem('session'));
+    console.log(!!localStorage.getItem('session'));
+  },[])
+
 
   const addEvent = (newEvent) => {
     setEvents([...events, { ...newEvent, id: events.length + 1 }]);
