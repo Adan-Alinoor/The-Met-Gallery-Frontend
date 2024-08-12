@@ -38,6 +38,7 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isArtist, setIsArtist] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('session'));
+  // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('session'));
 
   useEffect(() =>{
     setIsLoggedIn(!!localStorage.getItem('session'));
