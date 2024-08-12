@@ -1,76 +1,94 @@
-import React, { useState } from 'react';
-import LogIn from './LogIn';
-import SignUp from './SignUp';
-import HomePage from './HomePage';
+// // src/components/LoginPage.jsx
 
-const LoginPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSigningUp, setIsSigningUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+// import React, { useState } from 'react';
+// import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate and Link from react-router-dom
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Send request to server to login
-    console.log(`Login: ${email} ${password}`);
-    setIsLoggedIn(true);
-  };
+// const LoginPage = ({ onLogin }) => {
+//   const [username, setUsername] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [error, setError] = useState('');
+//   const navigate = useNavigate(); // Create a navigate function for programmatic navigation
 
-  const handleSignup = (e) => {
-    e.preventDefault();
-    // Send request to server to signup
-    console.log(`Signup: ${email} ${password}`);
-    setIsLoggedIn(true);
-  };
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+    
+//     // Simulate API call for login
+//     try {
+//       // Replace with real API call to authenticate the user
+//       const response = await simulateLogin(username, email, password);
+      
+//       if (response.success) {
+//         onLogin(); // Call the onLogin function passed as prop to handle post-login actions
+//         navigate('/home'); // Navigate to the home page after successful login
+//       } else {
+//         setError(response.message || 'Login failed. Please try again.');
+//       }
+//     } catch (error) {
+//       setError('An error occurred. Please try again.');
+//     }
+//   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
+//   // Simulated login function to replace with real API call
+//   const simulateLogin = (username, email, password) => {
+//     return new Promise((resolve) => {
+//       setTimeout(() => {
+//         if (email === 'user@example.com' && password === 'password' && username === 'user') {
+//           resolve({ success: true });
+//         } else {
+//           resolve({ success: false, message: 'Invalid username, email, or password' });
+//         }
+//       }, 1000);
+//     });
+//   };
 
-  const handleShowSignupForm = () => {
-    setIsSigningUp(true);
-  };
+//   return (
+//     <div className="login-container">
+//       <h2>Login</h2>
+//       <form onSubmit={handleLogin} className="login-form">
+//         <div className="form-group">
+//           <label htmlFor="username">Username</label>
+//           <input
+//             type="text"
+//             id="username"
+//             className="form-control"
+//             value={username}
+//             onChange={(e) => setUsername(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="email">Email</label>
+//           <input
+//             type="email"
+//             id="email"
+//             className="form-control"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="password">Password</label>
+//           <input
+//             type="password"
+//             id="password"
+//             className="form-control"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//             required
+//           />
+//         </div>
+//         {error && <div className="alert alert-danger">{error}</div>}
+//         <button type="submit" className="btn btn-primary">Login</button>
+//         <div className="mt-2">
+//           <span>Don't have an account? </span>
+//           <Link to="/signup" className="btn btn-link">Sign Up</Link>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };
 
-  const handleHideSignupForm = () => {
-    setIsSigningUp(false);
-  };
+// export default LoginPage;
 
-  return (
-    <div className="container">
-      {isLoggedIn? (
-        <HomePage email={email} onLogout={handleLogout} />
-      ) : (
-        <div>
-          <div className="profile-icon">
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Icon" />
-          </div>
-          {!isSigningUp && (
-            <LogIn
-              setEmail={setEmail}
-              setPassword={setPassword}
-              handleLogin={handleLogin}
-              handleShowSignupForm={handleShowSignupForm}
-            />
-          )}
-          {isSigningUp && (
-            <SignUp
-              setEmail={setEmail}
-              setPassword={setPassword}
-              handleSignup={handleSignup}
-              handleHideSignupForm={handleHideSignupForm}
-            />
-          )}
-          {isSigningUp && (
-            <p>
-              <button onClick={handleHideSignupForm}>
-                Back to login
-              </button>
-            </p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default LoginPage;
