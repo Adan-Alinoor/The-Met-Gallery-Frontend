@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDetails } from '../redux/dashboard/dashboard';
 import './Dashboard.css';
-import Loading from './Loading';
+// import Loading from './Loading';
 
 const Dashboard = () => {
   const dispatch = useDispatch();

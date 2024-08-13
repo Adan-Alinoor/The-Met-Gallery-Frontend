@@ -70,27 +70,15 @@ const ArtworkDetailsPage = ({ addItemToCart }) => {
         </div>
       </div>
 
-      {/* Related Artworks Section */}
-      <div className="related-artworks">
-        <h2>Related Artworks</h2>
-        <div className="card-gallery">
-          {relatedArtworks.map((art) => (
-            <Link to={`/artwork/${art.id}`} key={art.id} className="card-link">
-              <div className="card">
-                <img src={art.image} alt={art.title} className="card-image" />
-                <div className="card-overlay">
-                  <h2>{art.title}</h2>
-                  <p>{art.artist}</p>
-                  <p>{art.price}</p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+     
     </div>
   );
 };
 
 export default ArtworkDetailsPage;
+
+
+
+
+
 
