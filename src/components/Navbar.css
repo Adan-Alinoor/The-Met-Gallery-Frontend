@@ -1,70 +1,18 @@
+/* Navbar.css */
 .navbar {
-  background-color: #333;
-  color: #fff;
-  padding: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100vw;
-}
-
-.nav-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.nav-links {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-.nav-links li {
-  margin-right: 1rem;
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
-
-/* Cart link and icon styles */
-.cart-link {
-  display: flex;
-  align-items: center;
-  position: relative;
+  padding: 0.5rem 1rem;
 }
 
 .cart-icon {
-  font-size: 1.2rem; /* Adjust size as needed */
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  color: #333;
 }
 
-.cart-count {
-  background-color: #f00; /* Red background */
-  color: #fff; /* White text */
-  border-radius: 50%;
-  padding: 0.2rem 0.5rem;
-  font-size: 0.8rem;
+.cart-badge {
   position: absolute;
-  top: -0.5rem; /* Adjust position as needed */
-  right: -0.5rem; /* Adjust position as needed */
-}
-
-/* Optional: Add styling for the "Add Art" link */
-.nav-links li:last-child a {
-  background-color: #5C2F91; /* Purple color */
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-}
-
-.nav-links li:last-child a:hover {
-  background-color: #4A1D6A; /* Darker purple for hover */
+  top: -10px;
+  right: -10px;
+  background-color: #007bff;
+  color: #fff;
 }

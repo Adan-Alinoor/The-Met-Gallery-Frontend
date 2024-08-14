@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css';
 
 const CheckoutPage = () => {
-  const [shippingDetails, setShippingDetails] = useState({ address: '', phoneNumber: '' });
+  const [shippingDetails, setShippingDetails] = useState({
+    country: '',
+    city: '',
+    address: '',
+    phoneNumber: ''
+  });
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -14,6 +19,8 @@ const CheckoutPage = () => {
   const handlePayment = () => {
     // Handle payment logic here
     alert('Payment processing...');
+    // Navigate or redirect after successful payment
+    // navigate('/confirmation'); // Example navigation
   };
 
   return (
@@ -22,7 +29,7 @@ const CheckoutPage = () => {
 
       <div className="order-summary">
         <h2>Order Summary</h2>
-        {/* Replace the following with actual order items */}
+        {/* Replace with actual order items */}
         <div className="order-item">
           <div className="order-item-image">
             <img src="https://via.placeholder.com/100" alt="Artwork" />
@@ -40,12 +47,33 @@ const CheckoutPage = () => {
       <div className="shipping-details">
         <h3>Shipping Details</h3>
         <label>
+          Country:
+          <input
+            type="text"
+            name="country"
+            value={shippingDetails.country}
+            onChange={handleInputChange}
+            placeholder="Enter your country"
+          />
+        </label>
+        <label>
+          City:
+          <input
+            type="text"
+            name="city"
+            value={shippingDetails.city}
+            onChange={handleInputChange}
+            placeholder="Enter your city"
+          />
+        </label>
+        <label>
           Address:
           <textarea
             name="address"
             value={shippingDetails.address}
             onChange={handleInputChange}
             rows="4"
+            placeholder="Enter your address"
           />
         </label>
         <label>
@@ -61,7 +89,7 @@ const CheckoutPage = () => {
       </div>
 
       <button className="payment-button" onClick={handlePayment}>
-        Make Payment
+        Pay With Mpesa
       </button>
     </div>
   );

@@ -1,141 +1,123 @@
-/* Container for the entire cart page */
-.cart-container {
+/* CartPage.css */
+.cart-page {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #f9f9f9; /* Light background color for contrast */
+  font-family: Arial, sans-serif;
 }
 
-/* Title styling */
-.cart-container h1 {
+.page-title {
+  color: #6a0dad; /* Purple */
   text-align: center;
-  color: #4a148c; /* Deep purple color */
   margin-bottom: 20px;
 }
 
-/* Cart items container */
-.cart-items {
+.empty-cart-message {
+  text-align: center;
+  font-size: 18px;
+  color: #e91e63; /* Pink */
+}
+
+.cart-items-container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Space between each cart item */
+  gap: 20px;
 }
 
-/* Cart item wrapper */
-.cart-item {
+.cart-item-card {
   display: flex;
-  align-items: stretch; /* Stretch items to match height */
-  gap: 20px; /* Space between image and details */
-}
-
-/* Image card styling */
-.cart-item-image-card {
-  flex: 1;
-  max-width: 200px; /* Set max width for image card */
-  background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
+  background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .cart-item-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensure image covers the entire card */
-}
-
-/* Details card styling */
-.cart-item-details-card {
-  flex: 2; /* Adjusted flex to match image card */
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Distribute space evenly */
 }
 
-/* Text alignment in details card */
-.cart-item-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Space between text elements */
+.cart-item-image img {
+  max-width: 150px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-.cart-item-info h2 {
-  margin: 0;
-  font-size: 18px;
-  color: #4a148c; /* Deep purple color */
+.cart-item-details {
+  flex: 2;
+  padding: 20px;
 }
 
-.cart-item-info p {
-  margin: 0;
-  color: #6a1b9a; /* Slightly lighter purple */
+.item-title {
+  font-size: 20px;
+  color: #6a0dad; /* Purple */
 }
 
-.cart-item-info input {
-  width: 60px;
-  text-align: center;
+.item-description {
   margin: 10px 0;
 }
 
-/* Button styling */
-.cart-item-buttons {
-  display: flex;
-  gap: 10px; /* Space between buttons */
+.item-price {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-button {
-  background-color: #d81b60; /* Pink color for remove button */
+.quantity-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.quantity-container label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.remove-item-button {
+  background-color: #f44336; /* Red */
+  color: #fff;
   border: none;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s;
 }
 
-button:hover {
-  background-color: #c2185b; /* Darker pink for hover effect */
+.remove-item-button:hover {
+  background-color: #c62828;
 }
 
-/* Summary and checkout styling */
 .cart-summary {
-  display: flex;
-  flex-direction: column;
   margin-top: 20px;
+  text-align: right;
 }
 
-.cart-total {
-  text-align: right;
-  color: #4a148c; /* Deep purple for total price */
-  margin-bottom: 10px;
+.cart-summary h2 {
+  color: #6a0dad; /* Purple */
+  font-size: 22px;
 }
 
 .checkout-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #ab47bc; /* Purple color for checkout button */
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
+  background-color: #4caf50; /* Green */
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.2s;
-  text-align: center;
 }
 
 .checkout-button:hover {
-  background-color: #9c27b0; /* Darker purple for hover effect */
-}
-
-/* Empty cart message styling */
-.cart-container p {
-  text-align: center;
-  color: #6a1b9a; /* Slightly lighter purple */
+  background-color: #388e3c;
 }
