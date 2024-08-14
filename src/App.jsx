@@ -18,6 +18,7 @@ import Registration from './components/Registration';
 import UserProfile from './components/UserProfile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import CheckoutPageModal from './components/CheckoutPageModal';
 
 const App = () => {
   const [events, setEvents] = useState([
@@ -96,6 +97,7 @@ const App = () => {
             
             {/* Protected Routes */}
             <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
+            <Route path="/checkout" element={<CheckoutPageModal />} />
             <Route path="/profile" element={<ProtectedRoute element={<UserProfile />} />} />
             <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
             <Route path="/artworks" element={<ProtectedRoute element={<ArtworkPage addItemToCart={addItemToCart} />} />} />
