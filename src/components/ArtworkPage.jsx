@@ -23,7 +23,8 @@ const ArtworkPage = () => {
     try {
       const response = await fetch('http://127.0.0.1:5555/artworks', {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'METHOD': 'GET',
         }
       });
   
@@ -69,7 +70,6 @@ const ArtworkPage = () => {
               <div className="card-overlay">
                 <h2>{artwork.title}</h2>
                 <p>{artwork.price}</p>
-                <p>{artwork.artist}</p>
                 <Link to={`/artworks/${artwork.id}`} className="view-more">View More</Link>
               </div>
             </Link>
