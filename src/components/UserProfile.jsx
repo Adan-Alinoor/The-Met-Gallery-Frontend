@@ -10,9 +10,10 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem('access_token'); // Assuming you store token in local storage
+        const session = JSON.parse(localStorage.getItem('session'));
+        const token = session && session.accessToken;
         console.log("Token:", token); 
-        const response = await axios.get('http://127.0.0.1:5555/userprofile', {
+        const response = await axios.get('http://127.0.0.1:5555/user', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -29,9 +30,8 @@ const UserProfile = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('access_token'); // Clear the token on logout
+    localStorage.removeItem('session');
     console.log("User logged out");
-    // Redirect to login or another page if needed
   };
 
   if (loading) return <p>Loading...</p>;
@@ -42,9 +42,9 @@ const UserProfile = () => {
   return (
     <div className="user-profile">
       <img src={user.profilePicture} alt="Profile" className="profile-picture" />
-      <h1>{user.name}</h1>
+      <h1>{user.username}</h1>
       <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Bio:</strong> {user.bio || 'No bio available'}</p>
+      <p><strong>Role:</strong> {user.role}</p>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
