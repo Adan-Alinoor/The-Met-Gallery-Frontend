@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AddArtPage.css'; // Import CSS for this component
+import './AddArtPage.css';
 
 const AddArtPage = ({ onNewArtwork }) => {
   const [title, setTitle] = useState('');

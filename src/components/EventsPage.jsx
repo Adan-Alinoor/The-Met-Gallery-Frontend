@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './EventsPage.css';
@@ -57,7 +56,6 @@ const EventsPage = () => {
   const filteredevents = events.filter(event =>
     event.name && event.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  // console.log(filtered);
 
   return (
     <div className="events-page">

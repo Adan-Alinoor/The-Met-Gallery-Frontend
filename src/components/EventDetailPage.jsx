@@ -11,15 +11,15 @@ const EventDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const fetchEvent = async () => {
-    const session = JSON.parse(localStorage.getItem('session'));
-    const token=session && session.accessToken
-    console.log('Retrieved token:', token);
-    
+  const session = JSON.parse(localStorage.getItem('session'));
+  const token=session && session.accessToken
+  console.log('Retrieved token:', token);
+  
 
-    if (!token) {
-      navigate('/');
-      return;
-    }
+  if (!token) {
+    navigate('/');
+    return;
+  }
 
     try {
       const response = await fetch(`http://127.0.0.1:5555/events/${eventId}`, {
@@ -62,11 +62,14 @@ const EventDetailPage = () => {
       <img src={event.image_url} alt={event.name} />
       <p>{event.details}</p>
       <p><strong>Location:</strong> {event.location}</p>
-      <p><strong>Website:</strong> <a href={event.eventWebsite}>{event.eventWebsite}</a></p>
-      <p><strong>Start Time:</strong> {event.startTime}</p>
-      <p><strong>End Time:</strong> {event.endTime}</p>
-      <p><strong>Ticket Info:</strong> {event.ticketInfo}</p>
-      <Link to={`/events/${event.title}/${event.id}/book/${event.price}`}>
+      <p><strong>Description:</strong>{event.description}</p>
+      <p><strong>Start Time:</strong> {event.start_date}</p>
+      <p><strong>End Time:</strong> {event.end_date}</p>
+      <p><strong>Ticket Info:</strong></p>
+      {event.tickets.map((ticket) => (
+        <p key={ticket.id}>{ticket.type_name} @ KSh.{ticket.price}</p>
+      ))}
+      <Link to={`/events/${event.title}/${event.id}/book`}>
         <button>Book Now</button>
       </Link>
       <button className="back-to-events-button" onClick={() => navigate('/')}>
