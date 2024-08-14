@@ -3,19 +3,20 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './TicketBookingPage.css';
 import './BackToEventsButton.css';
 import axios from 'axios';
+import Loading from './Loading'
 
 const TicketBookingPage = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
-  const [items, setItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState('');
-  // const event = events.find(event => event.id.toString() === eventId);
+  const [items, setItems] = useState(null);
+  const [selectedItem, setSelectedItem] = useState({});
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [ticketQuantity, setTicketQuantity] = useState(1);
-  const { ticketPrice } = useParams();
   const { eventName } = useParams();
-  const totalAmount = ticketPrice * ticketQuantity;
+  const [eventPrice, setEventPrice] = useState(0)
+  const totalAmount = Number(eventPrice) * Number(ticketQuantity);
+  console.log(totalAmount)
 
   const handlePhoneNumberChange = (e) => setPhoneNumber(e.target.value);
   const handleTicketQuantityChange = (e) => setTicketQuantity(Number(e.target.value));
@@ -24,43 +25,78 @@ const TicketBookingPage = () => {
     alert(`Payment of KES ${totalAmount} initiated for ${ticketQuantity} ticket(s).`);
   };
 
-  const handleBooking = () => {
-    alert(`Booking confirmed for ${ticketQuantity} ticket(s) for ${eventName}. Total: KES ${totalAmount}`);
-  };
-
   const session = JSON.parse(localStorage.getItem('session'));
   const token=session && session.accessToken
   console.log('Retrieved token:', token);
+
+  const handleBooking = async (event) => {
+      event.preventDefault();
+
+      const formData = {
+          event_id: eventId,
+          ticket_id: selectedItem,
+          total_amount: parseInt(totalAmount, 10),
+          quantity: parseInt(quantity, 10)
+      };
+
+      try {
+        const response = await axios.post('http://127.0.0.1:5555/bookings', formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              "Authorization": `Bearer ${token}`,
+              "METHOD":"GET",
+            }
+        });
+
+        console.log('Response:', response.data);
+        alert('Booking successful!');
+      } catch (error) {
+          console.error('Error posting data:', error);
+          alert('Error submitting booking.');
+      }
+    };
+
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5555/tickets',{
+            const response = await axios.get(`http://127.0.0.1:5555/events/${eventId}`,{
               headers: {
                 "Authorization": `Bearer ${token}`,
                 "METHOD":"GET",
               },
             });
             setItems(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    };
+      };
 
-    fetchData();
-}, []);
+      fetchData();
+  }, []);
 
-const handleChange = (event) => {
-    setSelectedItem(event.target.value);
-};
+  const handleChange = (event) => {
+      const selectedValue = event.target.value;
+      if (selectedValue) {
+          try {
+              const item = JSON.parse(selectedValue);
+              setSelectedItem(item);
+              setEventPrice(item.price);
+          } catch (error) {
+              console.error('Error parsing selected item:', error);
+          }
+      } else {
+          setSelectedItem(null);
+      }
+  };
 
-  // if (!event) {
-  //   return <p>Event not found</p>;
-  // }
+  if (items == null) {
+    return <Loading />
+  }
 
   return (
     <div className="ticket-booking-page">
       <h1>Book Tickets for {eventName}</h1>
-      <p><strong>Price per ticket:</strong> KES {ticketPrice}</p>
       <form>
         <label>
           Phone Number:
@@ -71,18 +107,15 @@ const handleChange = (event) => {
           <input type="number" value={ticketQuantity} onChange={handleTicketQuantityChange} min="1" required />
         </label>
         <div>
-            <label htmlFor="dropdown">Select an item:</label>
-            <select id="dropdown" value={selectedItem} onChange={handleChange}>
-                <option value="" disabled>Select an option</option>
-                {items.map((item) => (
-                    <option key={item.id} value={item.id}>
-                        {item.name}
-                    </option>
-                ))}
+            <label htmlFor="dropdown">Select a Ticket:</label>
+            <select id="dropdown" value={selectedItem ? JSON.stringify(selectedItem) : ''} onChange={handleChange}>
+              <option value="" disabled>Select an option</option>
+              {items.tickets.map((item) => (
+                  <option key={item.id} value={JSON.stringify(item)}>
+                      {item.type_name} @ KSh.{item.price}
+                  </option>
+              ))}
             </select>
-            <div>
-                Selected Item ID: {selectedItem}
-            </div>
         </div>
         <p><strong>Total Amount:</strong> KES {totalAmount}</p>
         <button type="button" onClick={handlePayment}>Pay with Mpesa</button>

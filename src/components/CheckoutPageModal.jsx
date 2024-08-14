@@ -123,7 +123,7 @@
 // export default CheckoutPageModal;
 
 import React, { useState, useEffect } from 'react';
-import './CheckoutPageModal.css'; // Import the CSS file
+import './CheckoutPageModal.css';
 
 const generateOrderId = () => `ORD-${Math.floor(Math.random() * 1000000)}`; // Simple unique ID generator
 

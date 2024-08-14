@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import './Messaging.css';
+import Loading from './Loading';
 
 const socket = io.connect('http://localhost:5555');
 
@@ -11,9 +12,18 @@ const Messaging = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentChat, setCurrentChat] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [sendingMessage, setSendingMessage] = useState(false)
+
+  const session = JSON.parse(localStorage.getItem('session'));
+  const token=session && session.accessToken
+  console.log('Retrieved token:', token);
 
   useEffect(() => {
-    axios.get('/users')
+    axios.get('http://localhost:5555/users', {
+      headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+    })
       .then(response => {
         setUsers(response.data);
       })
@@ -21,7 +31,11 @@ const Messaging = () => {
         console.error('Error fetching users:', error);
       });
 
-    axios.get('/messages')
+    axios.get('http://localhost:5555/messages', {
+       headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+    })
       .then(response => {
         setMessages(response.data);
       })
@@ -29,8 +43,15 @@ const Messaging = () => {
         console.error('Error fetching messages:', error);
       });
 
+    return () => {
+      socket.off('new_message');
+    };
+  }, []);
+
+  useEffect(() => {
     socket.on('new_message', (message) => {
-      setMessages(prevMessages => [...prevMessages, message]);
+      setMessages(messages => [...messages, message]);
+      setCurrentChat(currentChat => [...currentChat, message]);
     });
 
     return () => {
@@ -38,32 +59,56 @@ const Messaging = () => {
     };
   }, []);
 
+
   const handleUserClick = (user) => {
     setCurrentUser(user);
     const chat = messages.filter(msg =>
-      (msg.sender === user.id && msg.recipient === 1) ||
-      (msg.sender === 1 && msg.recipient === user.id)
+      (msg.sender_id === user.id && msg.recipient_id === session.user.id) ||
+      (msg.sender_id === session.user.id && msg.recipient_id === user.id)
     );
     setCurrentChat(chat);
   };
 
   const handleSendMessage = () => {
+    setSendingMessage(true);
     const messageData = {
       recipient_id: currentUser.id,
       message: newMessage,
     };
 
-    axios.post('/messages', messageData)
+    axios.post('http://localhost:5555/messages', messageData, {
+       headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+    })
       .then(response => {
         setNewMessage('');
       })
       .catch(error => {
         console.error('Error sending message:', error);
       });
+    setSendingMessage(false);
+  };
+
+  const dateFormatter = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+
+    const formattedDate = date.toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true
+    });
+
+    return formattedDate;
   };
 
   return (
-    <div className="chat-container">
+    <div className="message-container">
       <div className="user-list">
         {users.map(user => (
           <div
@@ -71,7 +116,7 @@ const Messaging = () => {
             onClick={() => handleUserClick(user)}
             className={user.id === currentUser?.id ? 'active' : ''}
           >
-            {user.name}
+            {user.username}
           </div>
         ))}
       </div>
@@ -81,9 +126,10 @@ const Messaging = () => {
           {currentChat.map((msg, index) => (
             <div
               key={index}
-              className={`message ${msg.sender === 1 ? 'sent' : 'received'}`}
+              className={`message ${msg.sender_id === session.user.id ? 'sent' : 'received'}`}
             >
-              {msg.message}
+              {msg.content}
+              <p className="message-time">{dateFormatter(msg.sent_at)}</p>
             </div>
           ))}
         </div>
@@ -95,7 +141,12 @@ const Messaging = () => {
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
           />
-          <button onClick={handleSendMessage}>Send</button>
+          <button
+            disabled={sendingMessage}
+            onClick={handleSendMessage}
+          >
+            {sendingMessage ? <Loading/> : 'Send'}
+          </button>
         </div>
       </div>
     </div>

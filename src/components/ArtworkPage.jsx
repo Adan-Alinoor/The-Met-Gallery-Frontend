@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for redirecting if needed
-import './ArtworkPage.css'; // Import component-specific CSS
-import config from '../config'; // Assuming the base URL is defined in a config file
+import { Link, useNavigate } from 'react-router-dom';
+import './ArtworkPage.css';
+import config from '../config';
 
 const ArtworkPage = () => {
   const [artworks, setArtworks] = useState([]); // State to store artworks data

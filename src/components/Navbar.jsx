@@ -34,6 +34,9 @@ const Navbar = ({ cartItemsCount, isArtist }) => {
           <li className="nav-item">
             <Link className="nav-link" to="/profile">User Profile</Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/messages">Messages</Link>
+          </li>
         </ul>
       </div>
     </nav>

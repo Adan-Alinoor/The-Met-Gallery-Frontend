@@ -1,11 +1,12 @@
-/* src/components/Navbar.css */
 .navbar {
   background-color: #333;
   color: #fff;
   padding: 1rem;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100vw;
 }
 
 .nav-logo {
