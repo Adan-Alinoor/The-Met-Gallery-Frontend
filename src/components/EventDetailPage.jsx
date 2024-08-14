@@ -72,7 +72,7 @@ const EventDetailPage = () => {
       <Link to={`/events/${event.title}/${event.id}/book`}>
         <button>Book Now</button>
       </Link>
-      <button className="back-to-events-button" onClick={() => navigate('/')}>
+      <button className="back-to-events-button" onClick={() => navigate('/events')}>
         Back to Events
       </button>
     </div>
