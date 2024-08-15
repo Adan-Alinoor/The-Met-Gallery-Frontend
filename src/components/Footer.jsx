@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
-import { FaCommentDots } from 'react-icons/fa'; 
-import MessageModal from './MessageModal'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Footer.css';
 
 const Footer = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
-
   return (
     <>
       <footer className="footer bg-dark text-light py-4">
@@ -22,18 +15,9 @@ const Footer = () => {
               <p className="footer-text">Phone: (254) 456-7890</p>
               <p className="footer-text">Address: P.O.BOX 13505-0400</p>
             </div>
-            <div className="col-md-6 text-center">
-              <a href="#messages" className="footer-link" onClick={openModal}>
-                <div className="chat-container">
-                  <FaCommentDots className="chat-icon" />
-                </div>
-              </a>
-            </div>
           </div>
         </div>
       </footer>
-
-      <MessageModal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 };

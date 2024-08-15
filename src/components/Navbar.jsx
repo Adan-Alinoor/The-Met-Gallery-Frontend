@@ -1,14 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
-import { FaShoppingCart } from 'react-icons/fa'; // Import the cart icon
+import { FaShoppingCart, FaUserCircle, FaUserAlt, FaMale, FaFemale } from 'react-icons/fa'; // Import the icons
 import './Navbar.css';
 
-const Navbar = ({ cartItemsCount, isArtist }) => {
+const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
+  // Function to get the appropriate profile icon based on gender
+  const getProfileIcon = () => {
+    if (userGender === 'male') return <FaMale />;
+    if (userGender === 'female') return <FaFemale />;
+    return <FaUserAlt />;
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/">Art Gallery</Link>
-      <div className="collapse navbar-collapse">
+      <Link className="navbar-brand" to="/">The Met Art Gallery</Link>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link className="nav-link" to="/home">Home</Link>
@@ -34,7 +44,9 @@ const Navbar = ({ cartItemsCount, isArtist }) => {
             <Link className="nav-link" to="/dashboard">Dashboard</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/profile">User Profile</Link>
+            <Link className="nav-link" to="/profile">
+              {getProfileIcon()}
+            </Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/messages">Messages</Link>

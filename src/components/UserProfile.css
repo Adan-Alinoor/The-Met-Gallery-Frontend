@@ -1,43 +1,34 @@
-.user-profile {
-  max-width: 600px;
-  margin: 0 auto;
+/* UserProfile.css */
+.profile-icon {
+  background-color: #f8f9fa;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #da1fd0bb;
-  text-align: center;
-}
-
-.profile-picture {
-  width: 150px;
-  height: 150px;
   border-radius: 50%;
-  margin-bottom: 20px;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.user-profile h1 {
-  margin-bottom: 20px;
+.card {
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.user-profile p {
-  font-size: 16px;
-  margin-bottom: 10px;
+.card-title {
+  color: #6a0dad;
 }
 
-.user-profile p strong {
-  margin-right: 10px;
+.card-text {
+  color: #333;
 }
 
-.user-profile button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #a74caf;
-  color: rgb(248, 245, 248);
+.btn-primary {
+  background-color: #6a0dad;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
-.user-profile button:hover {
-  background-color: #8345a0;
+.btn-primary:hover {
+  background-color: #4b0082;
 }
