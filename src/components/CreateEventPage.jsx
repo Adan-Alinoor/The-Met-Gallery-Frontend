@@ -1,63 +1,119 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './BackToEventsButton.css';
-import './CreateEventPage.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./BackToEventsButton.css";
+import "./CreateEventPage.css";
+import EventsNavbar from "./EventsNavbar";
 
-const CreateEventPage = ({ addEvent }) => {
+const CreateEventPage = () => {
   const navigate = useNavigate();
   const [event, setEvent] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    eventName: '',
-    eventDescription: '',
-    location: '',
-    eventWebsite: '',
-    startTime: '',
-    endTime: '',
-    image: null,
-    ticketInfo: ''
+    title: "",
+    image_url: "",
+    description: "",
+    start_date: "",
+    end_date: "",
+    time: "",
+    location: "",
   });
-  const [error, setError] = useState('');
+  const [tickets, setTickets] = useState([{ type_name: "", price: "", quantity: "" }]);
+  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEvent({
-      ...event,
-      [name]: value
+    setEvent((prevEvent) => ({
+      ...prevEvent,
+      [name]: value,
+    }));
+  };
+
+  const handleTicketChange = (index, e) => {
+    const { name, value } = e.target;
+    setTickets((prevTickets) => {
+      const newTickets = [...prevTickets];
+      newTickets[index][name] = value;
+      return newTickets;
     });
   };
 
-  const handleFileChange = (e) => {
-    setEvent({
-      ...event,
-      image: e.target.files[0]
-    });
+  const handleAddTicket = () => {
+    setTickets((prevTickets) => [
+      ...prevTickets,
+      { type_name: "", price: "", quantity: "" },
+    ]);
+  };
+
+  const handleRemoveTicket = (index) => {
+    setTickets((prevTickets) => prevTickets.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (new Date(event.endTime) <= new Date(event.startTime)) {
-      setError('End time must be after start time.');
+    // Validate dates
+    if (new Date(event.end_date) <= new Date(event.start_date)) {
+      setError("End date must be after start date.");
       return;
     }
 
-    const formData = new FormData();
-    for (const key in event) {
-      formData.append(key, event[key]);
+    setIsSubmitting(true);
+    setError("");
+
+    // Retrieve session information
+    const session = JSON.parse(localStorage.getItem("session"));
+    const token = session?.accessToken;
+    const userId = session?.user?.id;
+
+    if (!token) {
+      navigate("/"); // Redirect to login if no token
+      setIsSubmitting(false);
+      return;
     }
 
-    setIsSubmitting(true);
-    setError('');
-
     try {
-     
-      await addEvent(formData);
-      navigate('/');
+      // Create the event
+      const eventResponse = await fetch("http://localhost:5555/events", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...event, user_id: userId }),
+      });
+
+      // Check if the response is okay
+      if (!eventResponse.ok) {
+        const responseData = await eventResponse.json();
+        throw new Error(responseData.message || "Unknown error during event creation");
+      }
+
+      // Extract the event_id from the response
+      const { event_id } = await eventResponse.json();
+
+      if (!event_id) {
+        throw new Error("Failed to retrieve event ID.");
+      }
+
+      // Create tickets
+      const ticketPromises = tickets.map((ticket) =>
+        fetch("http://localhost:5555/admin/tickets", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...ticket, event_id }),
+        })
+      );
+
+      await Promise.all(ticketPromises);
+
+      // Navigate to "my_events" page after successful creation
+      navigate("/my_events");
     } catch (err) {
-      setError('Failed to create event. Please try again.');
+      setError(
+        `Failed to create event or tickets. Please try again. Error: ${err.message}`
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -65,26 +121,141 @@ const CreateEventPage = ({ addEvent }) => {
 
   return (
     <div className="create-event-page">
+      <EventsNavbar />
       <h1>Create Event</h1>
-      <p>Complete the submission below. <br /> NB: “Only Met Gallery based events will be approved.”</p>
+      <p>
+        Complete the submission below. <br /> NB: “Only Met Gallery based events
+        will be approved.”
+      </p>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" value={event.name} onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" value={event.email} onChange={handleChange} required />
-        <input type="tel" name="phone" placeholder="Phone Number" value={event.phone} onChange={handleChange} required />
-        <input type="text" name="eventName" placeholder="Event Name" value={event.eventName} onChange={handleChange} required />
-        <textarea name="eventDescription" placeholder="Event Description" value={event.eventDescription} onChange={handleChange} required></textarea>
-        <input type="text" name="location" placeholder="Location (City and Ground Name)" value={event.location} onChange={handleChange} required />
-        <input type="url" name="eventWebsite" placeholder="Event Website" value={event.eventWebsite} onChange={handleChange} required />
-        <input type="datetime-local" name="startTime" placeholder="Start Time" value={event.startTime} onChange={handleChange} required />
-        <input type="datetime-local" name="endTime" placeholder="End Time" value={event.endTime} onChange={handleChange} required />
-        <input type="file" name="image" onChange={handleFileChange} required />
-        <input type="text" name="ticketInfo" placeholder="Where clients can get the ticket" value={event.ticketInfo} onChange={handleChange} required />
+        <label>
+          Title:
+          <input
+            type="text"
+            name="title"
+            value={event.title}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Image URL:
+          <input
+            type="text"
+            name="image_url"
+            value={event.image_url}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          Description:
+          <textarea
+            name="description"
+            value={event.description}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Start Date:
+          <input
+            type="date"
+            name="start_date"
+            value={event.start_date}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          End Date:
+          <input
+            type="date"
+            name="end_date"
+            value={event.end_date}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Time:
+          <input
+            type="time"
+            name="time"
+            value={event.time}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Location:
+          <input
+            type="text"
+            name="location"
+            value={event.location}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <h3>Tickets</h3>
+        {tickets.map((ticket, index) => (
+          <div key={index}>
+            <label>
+              Ticket Type:
+              <input
+                type="text"
+                name="type_name"
+                value={ticket.type_name}
+                onChange={(e) => handleTicketChange(index, e)}
+                required
+              />
+            </label>
+
+            <label>
+              Price:
+              <input
+                type="number"
+                name="price"
+                value={ticket.price}
+                onChange={(e) => handleTicketChange(index, e)}
+                required
+              />
+            </label>
+
+            <label>
+              Quantity:
+              <input
+                type="number"
+                name="quantity"
+                value={ticket.quantity}
+                onChange={(e) => handleTicketChange(index, e)}
+                required
+              />
+            </label>
+
+            <button type="button" onClick={() => handleRemoveTicket(index)}>
+              Remove Ticket
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={handleAddTicket}>
+          Add Another Ticket
+        </button>
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Submit Event'}
+          {isSubmitting ? "Submitting..." : "Submit Event"}
         </button>
         {error && <p className="error">{error}</p>}
       </form>
-      <button className="back-to-events-button" onClick={() => navigate('/')}>
+      <button
+        className="back-to-events-button"
+        onClick={() => navigate("/events")}
+      >
         Back to Events
       </button>
     </div>

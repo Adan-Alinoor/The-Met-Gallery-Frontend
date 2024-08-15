@@ -21,6 +21,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import CheckoutPageModal from './components/CheckoutPageModal';
 import PaymentCallback from './components/PaymentCallback';
+import MyBookings from './components/MyBookings';
+
 
 const App = () => {
   const [events, setEvents] = useState([
@@ -111,6 +113,8 @@ const App = () => {
             <Route path="/create-event" element={<ProtectedRoute element={<CreateEventPage addEvent={addEvent} />} />} />
             <Route path="/events/:eventName/:eventId/book" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
             <Route path="/my-events" element={<ProtectedRoute element={<MyEventsList events={events} />} />} />
+            <Route path="/my-bookings" element={<ProtectedRoute element={<MyBookings  />} />} />
+
 
             {/* Fallback Route */}
             <Route path="*" element={<Navigate to="/login" />} />
