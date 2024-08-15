@@ -123,9 +123,10 @@ const AddArtPage = ({ onNewArtwork }) => {
     const newArtwork = {
       title,
       description,
-      price,
+      price: parseInt(price, 10),
       image
     };
+    console.log("Submitting Artwork:", newArtwork);
 
     try {
       const response = await fetch('http://localhost:5555/artworks', {
