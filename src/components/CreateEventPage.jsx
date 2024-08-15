@@ -1,70 +1,340 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CheckoutPage.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./BackToEventsButton.css";
+import "./CreateEventPage.css";
+import EventsNavbar from "./EventsNavbar";
 
-const CheckoutPage = () => {
-  const [shippingDetails, setShippingDetails] = useState({ address: '', phoneNumber: '' });
+const CreateEventPage = () => {
   const navigate = useNavigate();
+  const [event, setEvent] = useState({
+    title: "",
+    image_url: "",
+    description: "",
+    start_date: "",
+    end_date: "",
+    time: "",
+    location: "",
+  });
+  const [tickets, setTickets] = useState([{ type_name: "", price: "", quantity: "" }]);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setShippingDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEvent((prevEvent) => ({
+      ...prevEvent,
+      [name]: value,
+    }));
   };
 
-  const handlePayment = () => {
-    // Handle payment logic here
-    alert('Payment processing...');
+  const handleTicketChange = (index, e) => {
+    const { name, value } = e.target;
+    setTickets((prevTickets) => {
+      const newTickets = [...prevTickets];
+      newTickets[index][name] = value;
+      return newTickets;
+    });
+  };
+
+  const handleAddTicket = () => {
+    setTickets((prevTickets) => [
+      ...prevTickets,
+      { type_name: "", price: "", quantity: "" },
+    ]);
+  };
+
+  const handleRemoveTicket = (index) => {
+    setTickets((prevTickets) => prevTickets.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate dates
+    if (new Date(event.end_date) <= new Date(event.start_date)) {
+      setError("End date must be after start date.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError("");
+
+    // Retrieve session information
+    const session = JSON.parse(localStorage.getItem("session"));
+    const token = session?.accessToken;
+    const userId = session?.user?.id;
+
+    if (!token) {
+      navigate("/"); // Redirect to login if no token
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Create the event
+      const eventResponse = await fetch("http://localhost:5555/events", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...event, user_id: userId }),
+      });
+
+      // Check if the response is okay
+      if (!eventResponse.ok) {
+        const responseData = await eventResponse.json();
+        throw new Error(responseData.message || "Unknown error during event creation");
+      }
+
+      // Extract the event_id from the response
+      const { event_id } = await eventResponse.json();
+
+      if (!event_id) {
+        throw new Error("Failed to retrieve event ID.");
+      }
+
+      // Create tickets
+      const ticketPromises = tickets.map((ticket) =>
+        fetch("http://localhost:5555/admin/tickets", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...ticket, event_id }),
+        })
+      );
+
+      await Promise.all(ticketPromises);
+
+      // Navigate to "my_events" page after successful creation
+      navigate("/my_events");
+    } catch (err) {
+      setError(
+        `Failed to create event or tickets. Please try again. Error: ${err.message}`
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="checkout-container">
-      <h1>Checkout</h1>
-
-      <div className="order-summary">
-        <h2>Order Summary</h2>
-        {/* Replace the following with actual order items */}
-        <div className="order-item">
-          <div className="order-item-image">
-            <img src="https://via.placeholder.com/100" alt="Artwork" />
-          </div>
-          <div className="order-item-info">
-            <h3>Artwork Title</h3>
-            <p>Description of the artwork</p>
-            <p>Price: Ksh 2000</p>
-            <p>Quantity: 1</p>
-          </div>
-        </div>
-        {/* Add more order items here */}
-      </div>
-
-      <div className="shipping-details">
-        <h3>Shipping Details</h3>
+    <div className="create-event-page">
+      <EventsNavbar />
+      <h1>Create Event</h1>
+      <p>
+        Complete the submission below. <br /> NB: “Only Met Gallery based events
+        will be approved.”
+      </p>
+      <form onSubmit={handleSubmit}>
         <label>
-          Address:
-          <textarea
-            name="address"
-            value={shippingDetails.address}
-            onChange={handleInputChange}
-            rows="4"
-          />
-        </label>
-        <label>
-          Phone Number:
+          Title:
           <input
-            type="tel"
-            name="phoneNumber"
-            value={shippingDetails.phoneNumber}
-            onChange={handleInputChange}
-            placeholder="Enter your phone number"
+            type="text"
+            name="title"
+            value={event.title}
+            onChange={handleChange}
+            required
           />
         </label>
-      </div>
 
-      <button className="payment-button" onClick={handlePayment}>
-        Make Payment
-      </button>
+        <label>
+          Image URL:
+          <input
+            type="text"
+            name="image_url"
+            value={event.image_url}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          Description:
+          <textarea
+            name="description"
+            value={event.description}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Start Date:
+          <input
+            type="date"
+            name="start_date"
+            value={event.start_date}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          End Date:
+          <input
+            type="date"
+            name="end_date"
+            value={event.end_date}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Time:
+          <input
+            type="time"
+            name="time"
+            value={event.time}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Location:
+          <input
+            type="text"
+            name="location"
+            value={event.location}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <h3>Tickets</h3>
+        {tickets.map((ticket, index) => (
+          <div key={index}>
+            <label>
+              Ticket Type:
+              <input
+                type="text"
+                name="type_name"
+                value={ticket.type_name}
+                onChange={(e) => handleTicketChange(index, e)}
+                required
+              />
+            </label>
+
+            <label>
+              Price:
+              <input
+                type="number"
+                name="price"
+                value={ticket.price}
+                onChange={(e) => handleTicketChange(index, e)}
+                required
+              />
+            </label>
+
+            <label>
+              Quantity:
+              <input
+                type="number"
+                name="quantity"
+                value={ticket.quantity}
+                onChange={(e) => handleTicketChange(index, e)}
+                required
+              />
+            </label>
+
+            <button type="button" onClick={() => handleRemoveTicket(index)}>
+              Remove Ticket
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={handleAddTicket}>
+          Add Another Ticket
+        </button>
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit Event"}
+        </button>
+        {error && <p className="error">{error}</p>}
+      </form>
+      <button
+        className="back-to-events-button"
+        onClick={() => navigate("/events")}
+      >
+        Back to Events
+        </button>
     </div>
   );
 };
 
-export default CheckoutPage;
+export default CreateEventPage;
+        
+        
+// =======
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import './CheckoutPage.css';
+
+// const CheckoutPage = () => {
+//   const [shippingDetails, setShippingDetails] = useState({ address: '', phoneNumber: '' });
+//   const navigate = useNavigate();
+
+//   const handleInputChange = (event) => {
+//     const { name, value } = event.target;
+//     setShippingDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+//   };
+
+//   const handlePayment = () => {
+//     // Handle payment logic here
+//     alert('Payment processing...');
+//   };
+
+//   return (
+//     <div className="checkout-container">
+//       <h1>Checkout</h1>
+
+//       <div className="order-summary">
+//         <h2>Order Summary</h2>
+//         {/* Replace the following with actual order items */}
+//         <div className="order-item">
+//           <div className="order-item-image">
+//             <img src="https://via.placeholder.com/100" alt="Artwork" />
+//           </div>
+//           <div className="order-item-info">
+//             <h3>Artwork Title</h3>
+//             <p>Description of the artwork</p>
+//             <p>Price: Ksh 2000</p>
+//             <p>Quantity: 1</p>
+//           </div>
+//         </div>
+//         {/* Add more order items here */}
+//       </div>
+
+//       <div className="shipping-details">
+//         <h3>Shipping Details</h3>
+//         <label>
+//           Address:
+//           <textarea
+//             name="address"
+//             value={shippingDetails.address}
+//             onChange={handleInputChange}
+//             rows="4"
+//           />
+//         </label>
+//         <label>
+//           Phone Number:
+//           <input
+//             type="tel"
+//             name="phoneNumber"
+//             value={shippingDetails.phoneNumber}
+//             onChange={handleInputChange}
+//             placeholder="Enter your phone number"
+//           />
+//         </label>
+//       </div>
+
+//       <button className="payment-button" onClick={handlePayment}>
+//         Make Payment
+// >>>>>>> main
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default CheckoutPage;
+

@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import './UserProfile.css';
 import axios from 'axios';
+import PersonIcon from '@mui/icons-material/Person';
+import {useNavigate} from 'react-router-dom';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // For redirection after logging out
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -28,12 +32,15 @@ const UserProfile = () => {
   }, []);
 
   const handleLogout = () => {
+    const username = user ? user.username : 'User'; // Get username for notification
     localStorage.removeItem('session');
-    window.location.reload(); // Reload page to reflect logout
+    alert(`${username} logged out`); // Show alert message
+    navigate('/login'); // Redirect to login page
   };
 
-  if (loading) return <div className="text-center">Loading...</div>;
-  if (error) return <div className="text-center text-danger">Error loading profile: {error.message}</div>;
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading profile: {error.message}</p>;
 
   if (!user) return <div className="text-center">No user data available</div>;
 
@@ -49,26 +56,12 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card text-center shadow-lg">
-            <div className="card-body">
-              <div className="profile-icon mb-3">
-                <i className={getProfileIcon()} style={{ fontSize: '5rem', color: '#6a0dad' }}></i>
-              </div>
-              <h1 className="card-title mb-2">{user.username}</h1>
-              <p className="card-text">
-                <strong>Email:</strong> {user.email}
-              </p>
-              <p className="card-text">
-                <strong>Role:</strong> {user.role}
-              </p>
-              <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="user-profile">
+      <PersonIcon fontSize="large" color="action" style={{ fontSize: 50, color: '#a74caf' }}/>
+      <h1>{user.username}</h1>
+      <p><strong>Email:</strong> {user.email}</p>
+      <p><strong>Role:</strong> {user.role}</p>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

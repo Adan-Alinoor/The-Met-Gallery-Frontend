@@ -33,3 +33,20 @@
   .event-detail-page a:hover {
     text-decoration: underline;
   }
+
+  .ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .ticket-table th, .ticket-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .ticket-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }

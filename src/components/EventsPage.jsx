@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './EventsPage.css';
+import EventsNavbar from './EventsNavbar';
+
 
 const EventsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -59,6 +61,9 @@ const EventsPage = () => {
 
   return (
     <div className="events-page">
+      <div>
+        <EventsNavbar/>
+      </div>
       <div className="header">
         <input
           type="text"
@@ -67,15 +72,15 @@ const EventsPage = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <div className="auth-buttons">
+        {/* <div className="auth-buttons">
           <Link to="/login" className="auth-button">Login</Link>
           <Link to="/signup" className="auth-button">Sign Up</Link>
-        </div>
+        </div> */}
       </div>
-      <div className="event-controls">
+      {/* <div className="event-controls">
         <Link to="/create-event" className="create-event-button">Create Event</Link>
         <Link to="/my-events" className="my-events-button">My Events List</Link>
-      </div>
+      </div> */}
       <div className="events-list">
         {loading && <p>Loading events...</p>}
         {error && <p>{error}</p>}
