@@ -20,18 +20,18 @@ const MyEventsList = () => {
         const session = JSON.parse(localStorage.getItem('session'));
         const token = session?.accessToken;
         const userId = session?.user?.id;
-
-        if (!token) {
+  
+        if (!token || !userId) {
           navigate('/login');
           return;
         }
-
-        const response = await axios.get('http://127.0.0.1:5555/events?user_specific=true', {
+  
+        const response = await axios.get(`http://127.0.0.1:5555/events?userId=${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
+  
         if (Array.isArray(response.data)) {
           setEvents(response.data);
         } else {
@@ -45,10 +45,10 @@ const MyEventsList = () => {
         setLoading(false);
       }
     };
-
+  
     fetchEvents();
   }, [navigate]);
-
+  
   const handleDelete = async (eventId) => {
     try {
       const session = JSON.parse(localStorage.getItem('session'));
