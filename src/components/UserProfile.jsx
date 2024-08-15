@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import './UserProfile.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
-import {useNavigate} from 'react-router-dom';
+import { Button, Card, Container, Row, Col } from 'react-bootstrap';
+import './UserProfile.css';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -32,37 +33,37 @@ const UserProfile = () => {
   }, []);
 
   const handleLogout = () => {
-    const username = user ? user.username : 'User'; // Get username for notification
+    const username = user ? user.username : 'User';
     localStorage.removeItem('session');
-    alert(`${username} logged out`); // Show alert message
-    navigate('/login'); // Redirect to login page
+    alert(`${username} logged out`);
+    navigate('/login');
   };
-
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading profile: {error.message}</p>;
 
   if (!user) return <div className="text-center">No user data available</div>;
 
-  const getProfileIcon = () => {
-    switch (user.gender) {
-      case 'male':
-        return 'fas fa-male'; // Font Awesome male icon
-      case 'female':
-        return 'fas fa-female'; // Font Awesome female icon
-      default:
-        return 'fas fa-user'; // Default user icon
-    }
-  };
-
   return (
-    <div className="user-profile">
-      <PersonIcon fontSize="large" color="action" style={{ fontSize: 50, color: '#a74caf' }}/>
-      <h1>{user.username}</h1>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Role:</strong> {user.role}</p>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <Container className="my-5">
+      <Row className="justify-content-center">
+        <Col md={6} lg={4}>
+          <Card className="text-center p-4 shadow-sm user-profile-card">
+            <Card.Body>
+              <PersonIcon fontSize="large" style={{ fontSize: 100, color: '#a74caf' }} />
+              <Card.Title className="my-3">{user.username}</Card.Title>
+              <Card.Text>
+                <strong>Email:</strong> {user.email}
+              </Card.Text>
+              <Card.Text>
+                <strong>Role:</strong> {user.role}
+              </Card.Text>
+              <Button className="btn-custom" onClick={handleLogout}>Logout</Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
