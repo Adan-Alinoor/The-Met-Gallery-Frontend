@@ -123,7 +123,7 @@ const AddArtPage = ({ onNewArtwork }) => {
     const newArtwork = {
       title,
       description,
-      price: parseInt(price, 10),
+      price: parseFloat(price), // Ensure price is a number
       image
     };
     console.log("Submitting Artwork:", newArtwork);
@@ -133,7 +133,7 @@ const AddArtPage = ({ onNewArtwork }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('authToken')}`
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Ensure correct token retrieval
         },
         body: JSON.stringify(newArtwork)
       });
@@ -208,4 +208,3 @@ const AddArtPage = ({ onNewArtwork }) => {
 };
 
 export default AddArtPage;
-

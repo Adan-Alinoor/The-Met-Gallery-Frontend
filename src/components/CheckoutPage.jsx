@@ -98,19 +98,201 @@
 
 // export default CheckoutPage;
 
+// import React, { useEffect, useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import './CheckoutPage.css';
+
+// const CheckoutPage = () => {
+//   const [shippingDetails, setShippingDetails] = useState({
+//     country: '',
+//     city: '',
+//     address: '',
+//     fullName: '',
+//     email: '',
+//     phoneNumber: ''
+//   });
+//   const [orderSummary, setOrderSummary] = useState([]);
+//   const [totalAmount, setTotalAmount] = useState(0);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const session = JSON.parse(localStorage.getItem('session'));
+//     const token = session?.accessToken;
+//     const userId = session?.user?.id
+    
+
+//     if (!token || !userId) {
+//       navigate('/login');
+//       return;
+//     }
+
+
+
+//     fetch(`http://127.0.0.1:5555/view_cart/${userId}`, {
+//       headers: {
+//         'Authorization': `Bearer ${token}`
+//       }
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         if (data.items) {
+//           setOrderSummary(data.items);
+//           setTotalAmount(data.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+//         } else {
+//           setOrderSummary([]);
+//           setTotalAmount(0);
+//         }
+//       })
+//       .catch((error) => {
+//         console.error('Error fetching cart:', error);
+//         // navigate('/login');
+//       });
+//   }, [navigate]);
+
+//   const handleInputChange = (event) => {
+//     const { name, value } = event.target;
+//     setShippingDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+//   };
+
+//   const handlePayment = () => {
+//     if (
+//       !shippingDetails.country ||
+//       !shippingDetails.city ||
+//       !shippingDetails.address ||
+//       !shippingDetails.fullName ||
+//       !shippingDetails.email ||
+//       !shippingDetails.phoneNumber
+//     ) {
+//       alert('Please fill in all fields');
+//       return;
+//     }
+
+//     const session = JSON.parse(localStorage.getItem('session'));
+//     const token = session?.accessToken;
+//     const userId = session?.user?.id
+
+//     if (!token || !userId) {
+//       navigate('/login');
+//       return;
+//     }
+
+//     fetch('http://127.0.0.1:5555/artworkcheckout', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${token}`
+//       },
+//       body: JSON.stringify({
+//         userId,
+//         shippingDetails,
+//         phone_number:shippingDetails.phoneNumber,
+//         orderSummary,
+//         totalAmount
+//       })
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         if (data.success) {
+//           alert('Order placed successfully');
+//           navigate('/');
+//         } else {
+//           alert('Failed to place order');
+//         }
+//       })
+//       .catch((error) => {
+//         console.error('Error placing order:', error);
+//         navigate('/login');
+//       });
+//   };
+
+//   return (
+//     <div className="checkout-page">
+//       <h1 className="page-title">Checkout</h1>
+//       <div className="order-summary">
+//         <h2>Order Summary</h2>
+//         <ul>
+//           {orderSummary.map((item) => (
+//             <li key={item.artwork_id}>
+//               {item.title} - Ksh {item.price} x {item.quantity}
+//             </li>
+//           ))}
+//         </ul>
+//         <h2>Total Amount: Ksh {totalAmount}</h2>
+//       </div>
+//       <div className="shipping-details">
+//         <h2>Shipping Details</h2>
+//         <form>
+//           <label>
+//             Full Name:
+//             <input
+//               type="text"
+//               name="fullName"
+//               value={shippingDetails.fullName}
+//               onChange={handleInputChange}
+//             />
+//           </label>
+//           <label>
+//             Email:
+//             <input
+//               type="email"
+//               name="email"
+//               value={shippingDetails.email}
+//               onChange={handleInputChange}
+//             />
+//           </label>
+//           <label>
+//             Phone Number:
+//             <input
+//               type="text"
+//               name="phoneNumber"
+//               value={shippingDetails.phoneNumber}
+//               onChange={handleInputChange}
+//             />
+//           </label>
+//           <label>
+//             Address:
+//             <input
+//               type="text"
+//               name="address"
+//               value={shippingDetails.address}
+//               onChange={handleInputChange}
+//             />
+//           </label>
+//           <label>
+//             City:
+//             <input
+//               type="text"
+//               name="city"
+//               value={shippingDetails.city}
+//               onChange={handleInputChange}
+//             />
+//           </label>
+//           <label>
+//             Country:
+//             <input
+//               type="text"
+//               name="country"
+//               value={shippingDetails.country}
+//               onChange={handleInputChange}
+//             />
+//           </label>
+//           <button type="button" onClick={handlePayment}>Confirm Payment</button>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CheckoutPage;
+
+
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css';
 
 const CheckoutPage = () => {
-  const [shippingDetails, setShippingDetails] = useState({
-    country: '',
-    city: '',
-    address: '',
-    fullName: '',
-    email: '',
-    phoneNumber: ''
-  });
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [orderSummary, setOrderSummary] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const navigate = useNavigate();
@@ -118,7 +300,7 @@ const CheckoutPage = () => {
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
-    const userId = session?.userId;
+    const userId = session?.user?.id;
 
     if (!token || !userId) {
       navigate('/login');
@@ -142,65 +324,65 @@ const CheckoutPage = () => {
       })
       .catch((error) => {
         console.error('Error fetching cart:', error);
-        navigate('/login');
       });
   }, [navigate]);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setShippingDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+    setPhoneNumber(event.target.value);
   };
 
   const handlePayment = () => {
-    if (
-      !shippingDetails.country ||
-      !shippingDetails.city ||
-      !shippingDetails.address ||
-      !shippingDetails.fullName ||
-      !shippingDetails.email ||
-      !shippingDetails.phoneNumber
-    ) {
-      alert('Please fill in all fields');
+    if (!phoneNumber) {
+      alert('Please enter your phone number for M-Pesa payment');
       return;
     }
-
+  
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
-    const userId = session?.userId;
-
+    const userId = session?.user?.id;
+  
     if (!token || !userId) {
       navigate('/login');
       return;
     }
-
-    fetch('http://127.0.0.1:5555/checkout', {
+  
+    if (orderSummary.length === 0) {
+      alert('No items in your cart');
+      return;
+    }
+  
+    const items = orderSummary.map(item => ({
+      artwork_id: item.artwork_id,
+      quantity: item.quantity
+    }));
+  
+    fetch('http://127.0.0.1:5555/artworkcheckout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
-        userId,
-        shippingDetails,
-        orderSummary,
-        totalAmount
+        user_id: userId,
+        phone_number: phoneNumber,
+        items: items
       })
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert('Order placed successfully');
-          navigate('/order-summary');
-        } else {
-          alert('Failed to place order');
-        }
-      })
-      .catch((error) => {
-        console.error('Error placing order:', error);
-        navigate('/login');
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message) {
+        alert('Order placed successfully');
+        navigate('/');
+      } else {
+        alert('Failed to place order');
+      }
+    })
+    .catch((error) => {
+      console.error('Error placing order:', error);
+      navigate('/login');
+    });
   };
-
+  
   return (
     <div className="checkout-page">
       <h1 className="page-title">Checkout</h1>
@@ -215,68 +397,23 @@ const CheckoutPage = () => {
         </ul>
         <h2>Total Amount: Ksh {totalAmount}</h2>
       </div>
-      <div className="shipping-details">
-        <h2>Shipping Details</h2>
-        <form>
-          <label>
-            Full Name:
-            <input
-              type="text"
-              name="fullName"
-              value={shippingDetails.fullName}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={shippingDetails.email}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Phone Number:
-            <input
-              type="text"
-              name="phoneNumber"
-              value={shippingDetails.phoneNumber}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Address:
-            <input
-              type="text"
-              name="address"
-              value={shippingDetails.address}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            City:
-            <input
-              type="text"
-              name="city"
-              value={shippingDetails.city}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Country:
-            <input
-              type="text"
-              name="country"
-              value={shippingDetails.country}
-              onChange={handleInputChange}
-            />
-          </label>
-          <button type="button" onClick={handlePayment}>Confirm Payment</button>
-        </form>
+      <div className="mpesa-payment">
+        <h2>M-Pesa Payment</h2>
+        <label>
+          Phone Number:
+          <input
+            type="text"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={handleInputChange}
+            placeholder="Enter M-Pesa phone number"
+          />
+        </label>
+        <button type="button" onClick={handlePayment}>Confirm Payment</button>
       </div>
     </div>
   );
 };
 
 export default CheckoutPage;
+

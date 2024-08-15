@@ -189,7 +189,7 @@ const CartPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setCartItems(data.items);
+          setCartItems(Array.isArray(data.items) ? data.items : []);
         } else {
           const errorData = await response.json();
           console.error('Failed to fetch cart items:', errorData.error);
@@ -260,6 +260,7 @@ const CartPage = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Failed to update item quantity:', errorData.error);
+        // Revert the quantity change if the update fails
         setCartItems(prevItems =>
           prevItems.map(item =>
             item.artwork_id === artworkId ? { ...item, quantity: item.quantity } : item
@@ -268,6 +269,7 @@ const CartPage = () => {
       }
     } catch (error) {
       console.error('Error updating item quantity:', error);
+      // Revert the quantity change if there's an error
       setCartItems(prevItems =>
         prevItems.map(item =>
           item.artwork_id === artworkId ? { ...item, quantity: item.quantity } : item
@@ -286,7 +288,7 @@ const CartPage = () => {
   };
 
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.quantity * parseFloat(item.price), 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + item.quantity * parseFloat(item.price || 0), 0).toFixed(2);
   };
 
   const handleProceedToCheckout = () => {
