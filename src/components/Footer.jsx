@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FaCommentDots } from 'react-icons/fa'; 
-import MessageModal from './MessageModal'; 
+import { FaCommentDots } from 'react-icons/fa';
+import MessageModal from './MessageModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Footer.css';
 

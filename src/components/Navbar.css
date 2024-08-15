@@ -1,12 +1,70 @@
-/* Navbar.css */
 .navbar {
-  padding: 0.5rem 1rem;
+  width: 100vw; /* Full viewport width to ensure no gaps on the sides */
+  background-color: rgba(255, 255, 255, 0.8); /* Light background with some transparency */
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px; /* Padding for content inside the navbar */
+  height: 100px; /* Set the height of the navbar */
+  z-index: 1;
+  backdrop-filter: blur(10px);  /* Apply blur effect */
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)); /* Gradient background */
+  margin: 0; /* Remove any margins */
+  border-bottom: 1px solid #E0115F; /* Bottom border */
+  box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
+
+body, html {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  margin-right: 15px;
+}
+
+.navbar-title {
+  font-family: 'Dancing Script', 'Playfair Display', cursive;
+  font-weight: bold;
+  font-size: 2.5rem; /* Larger font size */
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Larger gap between links */
+}
+
+.nav-link {
+  font-family: 'Dancing Script', 'Playfair Display', cursive;
+  font-weight: bold;
+  font-size: 1.75rem; /* Larger font size */
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #007bff; /* Hover color */
 }
 
 .cart-icon {
-  font-size: 1.5rem;
+  font-size: 1.75rem; /* Larger icon size */
   margin-right: 0.5rem;
-  color: #333;
 }
 
 .cart-badge {
@@ -15,4 +73,7 @@
   right: -10px;
   background-color: #007bff;
   color: #fff;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 0.9rem; /* Slightly larger badge text */
 }

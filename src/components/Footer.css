@@ -1,52 +1,50 @@
+
 .footer {
-    background-color: #343a40; /* Dark background for footer */
-    color: #f8f9fa; /* Light text color */
+  background: #491549; 
+  text-align: center;
+  padding: 1.5rem;
+  color: white; 
+}
+
+
+.footer-text {
+  margin-bottom: 1rem; 
+}
+
+
+.footer-email {
+  color: white; 
+  text-decoration: none; 
+}
+
+.footer-email:hover {
+  text-decoration: underline; 
+}
+
+
+.footer-link {
+  color: white; 
+  text-decoration: none; 
+}
+
+.footer-link:hover {
+  text-decoration: underline; 
+}
+
+
+.chat-container {
+  display: inline-block; 
+}
+
+.chat-icon {
+  font-size: 1.5rem; 
+  color: white; 
+}
+
+
+@media (min-width: 768px) {
+  .team-col {
+    flex-basis: 48%;
+    margin-right: 2%;
   }
-  
-  .footer-text {
-    margin: 0.5rem 0;
-  }
-  
-  .footer-email {
-    color: #f8f9fa;
-    text-decoration: none;
-  }
-  
-  .footer-email:hover {
-    text-decoration: underline;
-  }
-  
-  .footer-link {
-    color: #f8f9fa;
-    text-decoration: none;
-  }
-  
-  .footer-link:hover {
-    color: #d4af37; /* Gold color on hover for better visibility */
-  }
-  
-  .chat-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 2px solid #f8f9fa;
-    border-radius: 50%;
-    padding: 0.5rem;
-    background-color: #495057; /* Slightly lighter dark color for the chat button */
-  }
-  
-  .chat-icon {
-    font-size: 1.5rem;
-    color: #f8f9fa; /* Light color for the icon */
-  }
-  
-  @media (max-width: 768px) {
-    .footer-text {
-      font-size: 0.9rem;
-    }
-    .chat-icon {
-      font-size: 1.2rem;
-    }
-  }
-  
+}
