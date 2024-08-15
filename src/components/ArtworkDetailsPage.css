@@ -1,5 +1,5 @@
 .details-container {
-  background: linear-gradient(to right, #e0aaff, #dcb0e2, #cba0d9, #ffffff);
+  background: linear-gradient(to right, #322e35, #a8a2a8, #a6a4a7, #383737);
   padding: 20px;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .add-to-cart {
-  background-color: #fa2727b6;
+  background-color: #3c1fe4b6;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -71,7 +71,7 @@
 }
 
 .add-to-cart:hover {
-  background-color: #8e22d6e1;
+  background-color: #d694ebe1;
 }
 
 .related-artworks {

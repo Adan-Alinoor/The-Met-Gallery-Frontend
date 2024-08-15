@@ -1,13 +1,15 @@
 import { useState } from 'react';
-// import backgroundImage from './sigmaimage.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
+    role: 'user' // Default role
   });
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,8 +39,14 @@ const Registration = () => {
         setFormData({
           username: '',
           email: '',
-          password: ''
+          password: '',
+          role: 'user'
         });
+        
+        // Redirect to the login page after a short delay
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000); // Adjust the delay as needed (2 seconds here)
       } else {
         console.error('Registration failed:', data);
         setSuccessMessage(`Registration failed: ${data.error}`);
@@ -56,10 +64,8 @@ const Registration = () => {
       alignItems: 'center',
       justifyContent: 'center',
       height: '100vh',
-      // backgroundImage: `url(${backgroundImage})`,
       backgroundSize: 'cover',
-      backgroundPosition: 'block',
-      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
       margin: 0
     }}>
       <div style={{
@@ -131,6 +137,23 @@ const Registration = () => {
               width: '100%'
             }}
           />
+          <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="role">Role:</label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            style={{
+              padding: 10,
+              marginBottom: 20,
+              border: '1px solid #ccc',
+              borderRadius: 5,
+              width: '100%'
+            }}
+          >
+            <option value="user">User</option>
+            <option value="artist">Artist</option>
+          </select>
           <button type="submit" style={{
             padding: 10,
             backgroundColor: '#4CAF50',
@@ -146,3 +169,5 @@ const Registration = () => {
 };
 
 export default Registration;
+
+

@@ -1,42 +1,27 @@
-import React, { useState } from 'react';
-
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; 
-
-// Import components
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import HomePage from './components/HomePage';
-import UserProfile from './components/UserProfile';
-import Dashboard from './components/Dashboard';
-
 import ArtworkPage from './components/ArtworkPage';
 import ArtworkDetailsPage from './components/ArtworkDetailsPage';
 import CartPage from './components/CartPage';
 import AddArtPage from './components/AddArtPage';
-
 import Footer from './components/Footer';
-
-import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
-
 import EventsPage from './components/EventsPage';
 import EventDetailPage from './components/EventDetailPage';
 import CreateEventPage from './components/CreateEventPage';
 import TicketBookingPage from './components/TicketBookingPage';
 import MyEventsList from './components/MyEventsList';
-
 import Dashboard from './components/Dashboard';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import UserProfile from './components/UserProfile';
+import Messaging from './components/Messaging';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import CheckoutPage from './components/CheckoutPage';
+import PaymentCallback from './components/PaymentCallback';
+import MyBookings from './components/MyBookings';
 
 
 const App = () => {
@@ -58,6 +43,12 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isArtist, setIsArtist] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('session'));
+
+  useEffect(() =>{
+    setIsLoggedIn(!!localStorage.getItem('session'));
+    console.log(!!localStorage.getItem('session'));
+  },[])
+
 
   const addEvent = (newEvent) => {
     setEvents([...events, { ...newEvent, id: events.length + 1 }]);
@@ -94,28 +85,23 @@ const App = () => {
     setIsLoggedIn(true);
   };
 
-
   const ProtectedRoute = ({ element }) => {
     return isLoggedIn ? element : <Navigate to="/login" />;
-
-  const handleSignup = () => {
-    setIsLoggedIn(true);
-
   };
 
   return (
-    <Router>
-
-      <div className="app">
-        <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} />
+     <div className="app">
         <main>
+          <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} />
           <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<Registration />} />
-            
+
             {/* Protected Routes */}
             <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/messages" element={<ProtectedRoute element={<Messaging />} />} />
             <Route path="/profile" element={<ProtectedRoute element={<UserProfile />} />} />
             <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
             <Route path="/artworks" element={<ProtectedRoute element={<ArtworkPage addItemToCart={addItemToCart} />} />} />
@@ -125,8 +111,10 @@ const App = () => {
             <Route path="/events" element={<ProtectedRoute element={<EventsPage events={events} />} />} />
             <Route path="/events/:eventId" element={<ProtectedRoute element={<EventDetailPage events={events} />} />} />
             <Route path="/create-event" element={<ProtectedRoute element={<CreateEventPage addEvent={addEvent} />} />} />
-            <Route path="/events/:eventId/book" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
+            <Route path="/events/:eventName/:eventId/book" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
             <Route path="/my-events" element={<ProtectedRoute element={<MyEventsList events={events} />} />} />
+            <Route path="/my-bookings" element={<ProtectedRoute element={<MyBookings  />} />} />
+
 
             {/* Fallback Route */}
             <Route path="*" element={<Navigate to="/login" />} />
@@ -134,37 +122,6 @@ const App = () => {
         </main>
         <Footer />
       </div>
-
-      <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<LoginPage onLogin={handleLogin} />} />
-        <Route path="/signup" element={<SignupPage onSignup={handleSignup} />} />
-        
-        {/* Protected Routes */}
-        <Route path="/home" element={isLoggedIn ? <HomePage /> : <Navigate to="/" />} />
-        <Route path="/profile" element={isLoggedIn ? <UserProfile /> : <Navigate to="/" />} />
-        <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />} />
-        
-        {/* Event Management Routes */}
-        <Route path="/events" element={isLoggedIn ? <EventsPage events={events} /> : <Navigate to="/" />} />
-        <Route path="/events/:eventId" element={isLoggedIn ? <EventDetailPage events={events} /> : <Navigate to="/" />} />
-        <Route path="/create-event" element={isLoggedIn ? <CreateEventPage addEvent={addEvent} /> : <Navigate to="/" />} />
-        <Route path="/events/:eventId/book" element={isLoggedIn ? <TicketBookingPage events={events} /> : <Navigate to="/" />} />
-        <Route path="/my-events" element={isLoggedIn ? <MyEventsList events={events} /> : <Navigate to="/" />} />
-        
-        {/* Art Management Routes */}
-        <Route path="/artworks" element={isLoggedIn ? <ArtworkPage addItemToCart={addItemToCart} /> : <Navigate to="/" />} />
-        <Route path="/artworks/:id" element={isLoggedIn ? <ArtworkDetailsPage addItemToCart={addItemToCart} /> : <Navigate to="/" />} />
-        <Route path="/cart" element={isLoggedIn ? <CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} /> : <Navigate to="/" />} />
-        <Route path="/add-art" element={isLoggedIn && isArtist ? <AddArtPage /> : <Navigate to="/" />} />
-        
-        {/* Redirect all other paths to the login page */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-      <Footer />
-
-    </Router>
   );
 };
 

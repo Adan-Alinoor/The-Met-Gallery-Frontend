@@ -1,11 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import './EventDetailPage.css'; 
 
-const EventDetailPage = ({ events }) => {
+const EventDetailPage = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
-  const event = events.find(e => e.id === parseInt(eventId));
+
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchEvent = async () => {
+    const session = JSON.parse(localStorage.getItem('session'));
+    const token = session?.accessToken;
+
+    if (!token) {
+      navigate('/');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5555/events/${eventId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.log('Response status:', response.status);
+        if (response.status === 401) {
+          navigate('/');
+        } else {
+          throw new Error('Failed to fetch event');
+        }
+      }
+
+      const data = await response.json();
+      setEvent(data);
+    } catch (error) {
+      setError(error.message);
+      console.error('Error fetching event:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEvent();
+  }, [eventId, navigate]); // Ensure `eventId` is included in dependencies
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   if (!event) {
     return <p>Event not found</p>;
@@ -13,20 +63,43 @@ const EventDetailPage = ({ events }) => {
 
   return (
     <div className="event-detail-page">
-      <h1>{event.name}</h1>
-      <img src={event.image} alt={event.name} />
-      <p>{event.details}</p>
-      <p><strong>Location:</strong> {event.location}</p>
-      <p><strong>Website:</strong> <a href={event.eventWebsite}>{event.eventWebsite}</a></p>
-      <p><strong>Start Time:</strong> {event.startTime}</p>
-      <p><strong>End Time:</strong> {event.endTime}</p>
-      <p><strong>Ticket Info:</strong> {event.ticketInfo}</p>
-      <Link to={`/events/${event.id}/book`}>
-        <button>Book Now</button>
-      </Link>
-      <button className="back-to-events-button" onClick={() => navigate('/')}>
-        Back to Events
-      </button>
+      <h1>{event.title}</h1>
+      <img src={event.image_url } alt={event.title } />
+      <p><strong>Location:</strong> {event.location || 'No location provided'}</p>
+      <p><strong>Description:</strong> {event.description || 'No description available'}</p>
+      <p><strong>Start Time:</strong> {event.start_date || 'No start date provided'}</p>
+      <p><strong>End Time:</strong> {event.end_date || 'No end date provided'}</p>
+      <p><strong>Ticket Info:</strong></p>
+      {event.tickets && event.tickets.length > 0 ? (
+        <table className="ticket-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {event.tickets.map((ticket) => (
+              <tr key={ticket.id}>
+                <td>{ticket.type_name || 'Unknown'}</td>
+                <td>KSh {ticket.price || 'N/A'}</td>
+                <td>{ticket.quantity || 'N/A'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No tickets available</p>
+      )}
+      <div className="button-container">
+        <Link to={`/events/${event.title}/${event.id}/book`}>
+          <button className="back-to-events-button">Book Now</button>
+        </Link>
+        <button className="back-to-events-button" onClick={() => navigate('/events')}>
+          Back to Events
+        </button>
+      </div>
     </div>
   );
 };
