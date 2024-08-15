@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
+import { FaShoppingCart } from 'react-icons/fa'; // Import the cart icon
 import './Navbar.css';
 
 const Navbar = ({ cartItemsCount, isArtist }) => {
@@ -25,7 +26,8 @@ const Navbar = ({ cartItemsCount, isArtist }) => {
           )}
           <li className="nav-item">
             <Link className="nav-link" to="/cart">
-              Cart <Badge pill variant="info">{cartItemsCount}</Badge>
+              <FaShoppingCart className="cart-icon" />
+              {cartItemsCount > 0 && <Badge pill variant="info" className="cart-badge">{cartItemsCount}</Badge>}
             </Link>
           </li>
           <li className="nav-item">
@@ -44,7 +46,3 @@ const Navbar = ({ cartItemsCount, isArtist }) => {
 };
 
 export default Navbar;
-
-
-
-

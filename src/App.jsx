@@ -19,7 +19,7 @@ import UserProfile from './components/UserProfile';
 import Messaging from './components/Messaging';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import CheckoutPageModal from './components/CheckoutPageModal';
+import CheckoutPage from './components/CheckoutPage';
 import PaymentCallback from './components/PaymentCallback';
 import MyBookings from './components/MyBookings';
 
@@ -100,7 +100,7 @@ const App = () => {
 
             {/* Protected Routes */}
             <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
-            <Route path="/checkout" element={<CheckoutPageModal />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/messages" element={<ProtectedRoute element={<Messaging />} />} />
             <Route path="/profile" element={<ProtectedRoute element={<UserProfile />} />} />
             <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
