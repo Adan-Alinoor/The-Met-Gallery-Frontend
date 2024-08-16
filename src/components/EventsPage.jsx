@@ -11,6 +11,8 @@ const EventsPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  console.log(events.length);
+
   
     const fetchEvents = async () => {
       const session = JSON.parse(localStorage.getItem('session'));
