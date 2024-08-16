@@ -24,33 +24,35 @@ const MyEventsList = () => {
   };
 
   const fetchEvents = async () => {
-    const { token, userId } = getTokenAndUserId();
-  
-    if (!token || !userId) {
-      navigate('/login');
-      return;
+  const { token, userId } = getTokenAndUserId();
+
+  if (!token || !userId) {
+    navigate('/login');
+    return;
+  }
+
+  try {
+    const response = await axios.get('http://127.0.0.1:5555/events', {
+      params: { user_specific: true }, // Add user_specific query parameter
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (Array.isArray(response.data)) {
+      setEvents(response.data);
+    } else {
+      console.error('Unexpected response format:', response.data);
+      setEvents([]);
     }
-  
-    try {
-      const response = await axios.get(`http://127.0.0.1:5555/events?userId=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      if (Array.isArray(response.data)) {
-        setEvents(response.data);
-      } else {
-        console.error('Unexpected response format:', response.data);
-        setEvents([]);
-      }
-    } catch (error) {
-      toast.error('Error fetching events.'); // Show error toast
-      console.error('Error fetching events:', error.response ? error.response.data : error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (error) {
+    toast.error('Error fetching events.'); // Show error toast
+    console.error('Error fetching events:', error.response ? error.response.data : error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchEvents();
