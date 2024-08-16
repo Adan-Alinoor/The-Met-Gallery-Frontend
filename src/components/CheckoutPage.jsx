@@ -303,7 +303,7 @@ const CheckoutPage = () => {
     const userId = session?.user?.id;
 
     if (!token || !userId) {
-      navigate('/login');
+      navigate('/checkout');
       return;
     }
 
@@ -342,7 +342,7 @@ const CheckoutPage = () => {
     const userId = session?.user?.id;
   
     if (!token || !userId) {
-      navigate('/login');
+      navigate('/checkout');
       return;
     }
   
@@ -372,14 +372,14 @@ const CheckoutPage = () => {
     .then((data) => {
       if (data.message) {
         alert('Order placed successfully');
-        navigate('/');
+        navigate('/checkout');
       } else {
         alert('Failed to place order');
       }
     })
     .catch((error) => {
       console.error('Error placing order:', error);
-      navigate('/login');
+      navigate('/checkout');
     });
   };
   

@@ -161,8 +161,8 @@ const AddArtPage = ({ onNewArtwork = () => {} }) => {
         setNotification('Artwork added successfully!');
 
         setTimeout(() => {
-          console.log('Redirecting to:', `/artwork/${data.artwork.id}`);
-          navigate(`/artwork/${data.artwork.id}`);
+          console.log('Redirecting to:', `/artworks/${data.artwork.id}`);
+          navigate(`/artworks/${data.artwork.id}`);
         }, 1000);
       } else {
         const errorData = await response.json();
