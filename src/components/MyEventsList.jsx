@@ -123,7 +123,7 @@ const MyEventsList = () => {
           ))}
         </div>
       )}
-      <button className="back-to-events-button" onClick={() => navigate("/")}>
+      <button className="back-to-events-button" onClick={() => navigate("/events")}>
         Back to Events
       </button>
 
