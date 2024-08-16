@@ -1,3 +1,4 @@
+/* Global Reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -22,6 +23,11 @@ body {
 }
 
 .navbar {
+  position: fixed; /* Use fixed positioning */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's on top of other elements */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -184,8 +190,6 @@ body {
   padding: 25px;
   border-top: 3px solid #E0115F;
   text-align: center;
-  position: relative;
-  bottom: 0;
   width: 100%;
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
 }
