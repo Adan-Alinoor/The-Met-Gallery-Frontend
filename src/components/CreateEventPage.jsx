@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./BackToEventsButton.css";
 import "./CreateEventPage.css";
 import EventsNavbar from "./EventsNavbar";
@@ -16,7 +18,6 @@ const CreateEventPage = () => {
     location: "",
   });
   const [tickets, setTickets] = useState([{ type_name: "", price: "", quantity: "" }]);
-  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -52,12 +53,11 @@ const CreateEventPage = () => {
 
     // Validate dates
     if (new Date(event.end_date) <= new Date(event.start_date)) {
-      setError("End date must be after start date.");
+      toast.error("End date must be after start date.");
       return;
     }
 
     setIsSubmitting(true);
-    setError("");
 
     // Retrieve session information
     const session = JSON.parse(localStorage.getItem("session"));
@@ -108,12 +108,13 @@ const CreateEventPage = () => {
 
       await Promise.all(ticketPromises);
 
+      // Show success message
+      toast.success("Event and tickets successfully created!");
+
       // Navigate to "my_events" page after successful creation
-      navigate("/my_events");
+      navigate("/my-events");
     } catch (err) {
-      setError(
-        `Failed to create event or tickets. Please try again. Error: ${err.message}`
-      );
+      toast.error(`Failed to create event or tickets. Please try again. Error: ${err.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -250,91 +251,17 @@ const CreateEventPage = () => {
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit Event"}
         </button>
-        {error && <p className="error">{error}</p>}
+        {/* Remove the error paragraph */}
       </form>
       <button
         className="back-to-events-button"
         onClick={() => navigate("/events")}
       >
         Back to Events
-        </button>
+      </button>
+      <ToastContainer />
     </div>
   );
 };
 
 export default CreateEventPage;
-        
-        
-// =======
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import './CheckoutPage.css';
-
-// const CheckoutPage = () => {
-//   const [shippingDetails, setShippingDetails] = useState({ address: '', phoneNumber: '' });
-//   const navigate = useNavigate();
-
-//   const handleInputChange = (event) => {
-//     const { name, value } = event.target;
-//     setShippingDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
-//   };
-
-//   const handlePayment = () => {
-//     // Handle payment logic here
-//     alert('Payment processing...');
-//   };
-
-//   return (
-//     <div className="checkout-container">
-//       <h1>Checkout</h1>
-
-//       <div className="order-summary">
-//         <h2>Order Summary</h2>
-//         {/* Replace the following with actual order items */}
-//         <div className="order-item">
-//           <div className="order-item-image">
-//             <img src="https://via.placeholder.com/100" alt="Artwork" />
-//           </div>
-//           <div className="order-item-info">
-//             <h3>Artwork Title</h3>
-//             <p>Description of the artwork</p>
-//             <p>Price: Ksh 2000</p>
-//             <p>Quantity: 1</p>
-//           </div>
-//         </div>
-//         {/* Add more order items here */}
-//       </div>
-
-//       <div className="shipping-details">
-//         <h3>Shipping Details</h3>
-//         <label>
-//           Address:
-//           <textarea
-//             name="address"
-//             value={shippingDetails.address}
-//             onChange={handleInputChange}
-//             rows="4"
-//           />
-//         </label>
-//         <label>
-//           Phone Number:
-//           <input
-//             type="tel"
-//             name="phoneNumber"
-//             value={shippingDetails.phoneNumber}
-//             onChange={handleInputChange}
-//             placeholder="Enter your phone number"
-//           />
-//         </label>
-//       </div>
-
-//       <button className="payment-button" onClick={handlePayment}>
-//         Make Payment
-// >>>>>>> main
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default CheckoutPage;
-

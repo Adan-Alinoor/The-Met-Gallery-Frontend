@@ -1,25 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import axios from "axios";
 
 const EventEditModal = ({ show, onHide, eventId, onUpdate }) => {
   const [event, setEvent] = useState({
-    title: '',
-    image_url: '',
-    description: '',
-    start_date: '',
-    end_date: '',
-    time: '',
-    location: '',
+    title: "",
+    image_url: "",
+    description: "",
+    start_date: "",
+    end_date: "",
+    time: "",
+    location: ""
   });
   const [error, setError] = useState(null);
+
+  const getToken = () => {
+    const session = JSON.parse(localStorage.getItem("session"));
+    return session?.accessToken;
+  };
 
   useEffect(() => {
     if (eventId) {
       const fetchEvent = async () => {
         try {
-          const session = JSON.parse(localStorage.getItem('session'));
-          const token = session && session.accessToken;
+          const token = getToken();
+
+          if (!token) {
+            setError("Unauthorized access.");
+            return;
+          }
 
           const response = await axios.get(`http://127.0.0.1:5555/events/${eventId}`, {
             headers: {
@@ -29,7 +38,7 @@ const EventEditModal = ({ show, onHide, eventId, onUpdate }) => {
 
           setEvent(response.data);
         } catch (error) {
-          setError('Error fetching event details.');
+          setError("Error fetching event details.");
         }
       };
 
@@ -43,8 +52,12 @@ const EventEditModal = ({ show, onHide, eventId, onUpdate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const session = JSON.parse(localStorage.getItem('session'));
-    const token = session && session.accessToken;
+    const token = getToken();
+
+    if (!token) {
+      setError("Unauthorized access.");
+      return;
+    }
 
     try {
       await axios.put(`http://127.0.0.1:5555/events/${eventId}`, event, {
@@ -55,7 +68,7 @@ const EventEditModal = ({ show, onHide, eventId, onUpdate }) => {
       onUpdate();
       onHide();
     } catch (error) {
-      setError('Error updating event.');
+      setError("Error updating event.");
     }
   };
 
@@ -137,19 +150,7 @@ const EventEditModal = ({ show, onHide, eventId, onUpdate }) => {
               required
             />
           </Form.Group>
-          <Button
-            style={{
-              backgroundColor: '#ff69b4',
-              border: 'none',
-              borderRadius: '5px',
-              padding: '10px 20px',
-              fontSize: '16px',
-              fontWeight: 'bold',
-              color: '#fff',
-              cursor: 'pointer',
-            }}
-            type="submit"
-          >
+          <Button variant="primary" type="submit" style={{ backgroundColor: '#ff69b4' }}>
             Save Changes
           </Button>
         </Form>
