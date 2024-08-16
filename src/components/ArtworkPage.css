@@ -1,6 +1,7 @@
 .gallery-background {
   min-height: 100vh;
   background: linear-gradient(to bottom, #494848, #ffffff, #747272);
+  width: 100%;
 }
 
 .artwork-card-wrapper {

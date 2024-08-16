@@ -1,10 +1,10 @@
 /* General page styles */
 .events-page {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 30px;
   background-color: rgba(0, 0, 0, 0.5);
   font-family: Arial, sans-serif;
+  width: 90%;
 }
 
 /* Header styles */
