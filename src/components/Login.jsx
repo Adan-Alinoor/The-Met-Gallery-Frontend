@@ -106,7 +106,7 @@ const Login = ({ onLogin }) => {
             width: '100%'
           }}
         />
-        <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="role">Role:</label>
+        {/* <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="role">Role:</label>
         <select
           id="role"
           name="role"
@@ -122,7 +122,7 @@ const Login = ({ onLogin }) => {
         >
           <option value="user">User</option>
           <option value="artist">Artist</option>
-        </select>
+        </select> */}
         <button type="submit" style={{
           padding: 10,
           backgroundColor: '#4CAF50',

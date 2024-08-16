@@ -81,7 +81,6 @@ const MyBookings = () => {
                     alt={booking.event.title || "No title"}
                   />
                   <h4>Event Name: {booking.event.title || "No title"}</h4>
-                  <p>Status: {booking.status || "No status"}</p>
                   <p>
                     Event Location: {booking.event.location || "No location"}
                   </p>
