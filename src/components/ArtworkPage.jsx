@@ -28,6 +28,7 @@ const ArtworkPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [searchArt,setSearchArt] = useState('')
 
   const fetchArtworks = async () => {
     const session = JSON.parse(localStorage.getItem('session'));
@@ -80,7 +81,7 @@ const ArtworkPage = () => {
       <div className="container my-4">
         <h1 className="text-center mb-4 text-light">Artwork Gallery</h1>
         <div className="row">
-          <SearchArt/>
+          <SearchArt setSearchArt={setSearchArt} searchArt={searchArt}/>
           {artworks.map(artwork => (
             <ArtworkCard key={artwork.id} artwork={artwork} />
           ))}
