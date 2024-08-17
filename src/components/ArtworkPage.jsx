@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ArtworkPage.css';
+import SearchArt from './SearchArt';
 
 const ArtworkCard = ({ artwork }) => (
   <div key={artwork.id} className="col-md-3 col-sm-4 mb-4 artwork-card-wrapper">
@@ -79,6 +80,7 @@ const ArtworkPage = () => {
       <div className="container my-4">
         <h1 className="text-center mb-4 text-light">Artwork Gallery</h1>
         <div className="row">
+          <SearchArt/>
           {artworks.map(artwork => (
             <ArtworkCard key={artwork.id} artwork={artwork} />
           ))}
