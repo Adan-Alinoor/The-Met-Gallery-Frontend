@@ -23,6 +23,11 @@ import CheckoutPage from './components/CheckoutPage';
 import PaymentCallback from './components/PaymentCallback';
 import MyBookings from './components/MyBookings';
 import DashboardOverview from './components/Admin Dashboard/DashboardOverview';
+import EventManagement from './components/Admin Dashboard/EventManagement';
+import ArtworkManagement from './components/Admin Dashboard/ArtworkManagement';
+import OrdersTickets from './components/Admin Dashboard/OrdersTickets';
+import UserPage from './components/Admin Dashboard/UserPage';
+import SideNavbar from './components/Admin Dashboard/SideNavbar';
 
 const App = () => {
   const [events, setEvents] = useState([
@@ -89,13 +94,15 @@ const App = () => {
   };
 
   const location = useLocation();
-  const showNavbar = !location.pathname.startsWith('/dashboard/overview');
-  const showFooter = !location.pathname.startsWith('/dashboard/overview');
+  const showNavbar = !location.pathname.startsWith('/dashboard');
+  const showFooter = !location.pathname.startsWith('/dashboard');
+  const showSidebar = location.pathname.startsWith('/dashboard');
 
   return (
     <div className="app">
       {showNavbar && <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} />}
-      <main>
+      {showSidebar && <SideNavbar />}
+      <main style={{ marginLeft: showSidebar ? '250px' : '0', padding: '20px' }}>
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
@@ -103,6 +110,10 @@ const App = () => {
 
           {/* Protected Routes */}
           <Route path="/dashboard/overview" element={<ProtectedRoute element={<DashboardOverview />} />} />
+          <Route path="/dashboard/EventManagement" element={<ProtectedRoute element={<EventManagement />} />} />
+          <Route path="/dashboard/ArtworkManagement" element={<ProtectedRoute element={<ArtworkManagement />} />} />
+          <Route path="/dashboard/Ordertickets" element={<ProtectedRoute element={<OrdersTickets />} />} />
+          <Route path="/dashboard/users" element={<ProtectedRoute element={<UserPage />} />} />
           <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/messages" element={<ProtectedRoute element={<Messaging />} />} />
