@@ -57,9 +57,9 @@ const EventsPage = () => {
       fetchEvents();
     }, [navigate]); 
 
-  const filteredevents = events.filter(event =>
-    event.name && event.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // const filteredevents = events.filter(event =>
+  //   event.name && event.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
 
   return (
     <div className="events-page">
@@ -67,13 +67,13 @@ const EventsPage = () => {
         <EventsNavbar/>
       </div>
       <div className="header">
-        <input
+        {/* <input
           type="text"
           className="search-bar"
           placeholder="Search events..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        /> */}
         {/* <div className="auth-buttons">
           <Link to="/login" className="auth-button">Login</Link>
           <Link to="/signup" className="auth-button">Sign Up</Link>

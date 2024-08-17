@@ -40,7 +40,7 @@ const Dashboard = () => {
         )}
       </section>
 
-      <section className="dashboard-section">
+      {/* <section className="dashboard-section">
         <h2>Notifications</h2>
         {details.notifications && details.notifications.length > 0 ? (
           <ul>
@@ -68,7 +68,7 @@ const Dashboard = () => {
         ) : (
           <p>No user activities available.</p>
         )}
-      </section>
+      </section> */}
 
       <section className="dashboard-section">
         <h2>Events</h2>
