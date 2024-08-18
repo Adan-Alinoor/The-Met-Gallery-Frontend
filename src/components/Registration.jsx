@@ -92,11 +92,6 @@ const RegistrationForm = () => {
             {message}
           </p>
         )}
-        {errorMessage && (
-          <p style={{ color: 'red', fontWeight: 'bold' }}>
-            {errorMessage}
-          </p>
-        )}
         <form onSubmit={handleSubmit} style={{
           display: 'flex',
           flexDirection: 'column',
