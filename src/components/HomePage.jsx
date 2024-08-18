@@ -3,18 +3,21 @@ import "./HomePage.css";
 
 const images = {
   artImages: [
-    { src: "https://i.pinimg.com/236x/a7/10/3d/a7103dd2484581fe5107d398ef852b78.jpg", alt: "Art 1" },
-    { src: "https://i.pinimg.com/236x/1b/84/b2/1b84b2c6d61ea2a05eb7bd1d06200905.jpg", alt: "Art 2" },
-    { src: "https://i.pinimg.com/236x/c8/dd/b0/c8ddb09c7801fc79d670792d68fa576f.jpg", alt: "Art 3" },
-    { src: "https://i.pinimg.com/236x/c4/15/61/c41561ffe6f7231d513704f443eabc05.jpg", alt: "Art 4" },
-    { src: "https://i.pinimg.com/236x/a0/ec/61/a0ec61afc97224d09b7110433f6f645c.jpg", alt: "Art 5" },
-    { src: "https://i.pinimg.com/236x/20/db/7d/20db7db22f0f38c130dffbf7514e3009.jpg", alt: "Art 6" },
-    { src: "https://i.pinimg.com/236x/9d/84/2b/9d842b8fb720803d1a144ccc04f077bd.jpg", alt: "Art 7" },
-    { src: "https://i.pinimg.com/236x/d2/fa/e3/d2fae3a0282998bac66559b037e919a6.jpg", alt: "Art 8" }
+    { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMiZxCrm-ESjn-qei3jYFtox2v0kyFQcHHAA&s", alt: "Art 1" },
+    { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7_18gsawsOxSokFiC6Ob2tNfYCPNRlJzupg&s", alt: "Art 2" },
+    { src: "https://i.pinimg.com/236x/72/76/d5/7276d53b2d673aa383281825b29cc11d.jpg", alt: "Art 3" },
+    { src: "https://i.pinimg.com/236x/c5/fc/97/c5fc970ba7f88430b885f658df2e1404.jpg", alt: "Art 4" },
+    { src: "https://i.pinimg.com/236x/79/5c/a4/795ca44b5ff3b71f63514f10baa6d9f7.jpg", alt: "Art 5" },
+    { src: "https://i.pinimg.com/474x/1c/57/0d/1c570df6805c6c37c0bcaea3de9eefda.jpg", alt: "Art 6" },
+    { src: "https://i.pinimg.com/236x/4f/f2/05/4ff20570381155807588dfa86e2a8a42.jpg", alt: "Art 7" },
+    { src: "https://i.pinimg.com/236x/fe/8f/65/fe8f65fbbfdcee5f2e115c859ed24391.jpg", alt: "Art 8" }
   ],
   otherImages: {
-    paintbrush: "https://i.pinimg.com/236x/b5/1c/da/b51cda70acde2409357ba6501768c356.jpg",
-    palette: "https://i.pinimg.com/236x/ac/9f/d4/ac9fd447baa95e62d33fa92a1ed681bf.jpg"
+    paintbrush: "https://i.pinimg.com/236x/97/f8/14/97f8149d33dbeb544477aef0ac14791a.jpg",
+    palette: "https://i.pinimg.com/474x/1e/e3/06/1ee3065f0ab80af7f472281db7c33588.jpg",
+    easel: "https://i.pinimg.com/236x/63/e5/80/63e580c6df7430d72d57c2dba1828ec3.jpg",
+    canvas: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrQcwmaZQPriZXlJrmVm6E0zATGGEPWZi1rw&s",
+    paintSet: "https://i.pinimg.com/236x/08/2a/2b/082a2bc4deb7d20d0fe08081593fa5e9.jpg"
   }
 };
 
@@ -34,13 +37,20 @@ const HomePage = () => {
       <div className="bottom-row">
         <div className="left-column">
           <p className="description">
-            Capturing Moments, One Brushstroke at a Time <br />
-            Be the First to See Our Latest Creations <br />
-            Join Us in Celebrating Art <br />
-            Explore a World of Artistic Wonders
+            <span className="highlight">Art is not just a visual experience, but a soulful journey.</span><br />
+            Each stroke of the brush tells a story, a narrative woven with passion and creativity.<br />
+            <span className="highlight">Immerse yourself in the realm where imagination meets reality,</span><br />
+            and every creation becomes a timeless treasure.<br />
+            <span className="highlight">Let the colors speak to you,</span><br />
+            and discover the beauty that lies in each moment captured.<br />
+            <span className="highlight">Join our celebration of artistic excellence,</span><br />
+            where the ordinary becomes extraordinary and each artwork is a gateway to wonder.
           </p>
           <img src={images.otherImages.paintbrush} alt="Paintbrush" className="small-image"/>
           <img src={images.otherImages.palette} alt="Palette" className="small-image"/>
+          <img src={images.otherImages.easel} alt="Easel" className="small-image"/>
+          <img src={images.otherImages.canvas} alt="Canvas" className="small-image"/>
+          <img src={images.otherImages.paintSet} alt="Paint Set" className="small-image"/>
         </div>
 
         <div className="right-column">

@@ -197,12 +197,3 @@ const ArtworkDetailsPage = () => {
 };
 
 export default ArtworkDetailsPage;
-
-
-
-
-
-
-
-
-

@@ -32,9 +32,7 @@
 //       const data = await response.json();
 //       console.log(data);
 
-//       if (data.message === "Please verify your email before logging in.") {
-//         setMessage(data.message);
-//       } else if (data.error) {
+//       if (data.error) {
 //         setMessage(data.error);
 //       } else {
 //         const { user, access_token } = data;
@@ -108,6 +106,23 @@
 //             width: '100%'
 //           }}
 //         />
+//         {/* <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="role">Role:</label>
+//         <select
+//           id="role"
+//           name="role"
+//           value={formData.role}
+//           onChange={handleChange}
+//           style={{
+//             padding: 10,
+//             marginBottom: 20,
+//             border: '1px solid #ccc',
+//             borderRadius: 5,
+//             width: '100%'
+//           }}
+//         >
+//           <option value="user">User</option>
+//           <option value="artist">Artist</option>
+//         </select> */}
 //         <button type="submit" style={{
 //           padding: 10,
 //           backgroundColor: '#4CAF50',
@@ -130,12 +145,12 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './Login.css'; // Import the CSS file
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    role: 'user'  // Default role
+    password: ''
   });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -172,12 +187,22 @@ const Login = ({ onLogin }) => {
 
           // Store the user data and access token in localStorage
           localStorage.setItem('session', JSON.stringify({ user, accessToken: access_token }));
-
+          
           setMessage('Logged in successfully');
           onLogin(); // Update login state
+
+          // Redirect based on user role
           setTimeout(() => {
-            navigate('/home'); // Redirect to the HomePage after showing the message
+            if (user.role === 'admin') {
+              navigate('/dashboard/overview');
+            // Uncomment the following line when artist role is implemented
+            // } else if (user.role === 'artist') {
+            //   navigate('/artist/home');
+            } else {
+              navigate('/home'); // Default route
+            }
           }, 1500); // Delay redirect by 1.5 seconds to show the message
+
         }
       }
     } catch (err) {
@@ -187,29 +212,10 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      padding: 20,
-      border: '1px solid #ddd',
-      borderRadius: 10,
-      boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
-    }}>
-      <h2 style={{ marginTop: 0, fontWeight: 'bold', color: 'blue' }}>Login</h2>
-      <form onSubmit={handleSubmit} style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        borderRadius: 10
-      }}>
-        <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="email">Email:</label>
+    <div className="login-container">
+      <h2 className="login-title">Login</h2>
+      <form onSubmit={handleSubmit} className="login-form">
+        <label className="login-label" htmlFor="email">Email:</label>
         <input
           type="email"
           id="email"
@@ -217,15 +223,9 @@ const Login = ({ onLogin }) => {
           value={formData.email}
           onChange={handleChange}
           required
-          style={{
-            padding: 10,
-            marginBottom: 20,
-            border: '1px solid #ccc',
-            borderRadius: 5,
-            width: '100%'
-          }}
+          className="login-input"
         />
-        <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="password">Password:</label>
+        <label className="login-label" htmlFor="password">Password:</label>
         <input
           type="password"
           id="password"
@@ -233,13 +233,7 @@ const Login = ({ onLogin }) => {
           value={formData.password}
           onChange={handleChange}
           required
-          style={{
-            padding: 10,
-            marginBottom: 20,
-            border: '1px solid #ccc',
-            borderRadius: 5,
-            width: '100%'
-          }}
+          className="login-input"
         />
         <button type="submit" style={{
           padding: 10,
@@ -250,13 +244,12 @@ const Login = ({ onLogin }) => {
           cursor: 'pointer'
         }}>Login</button>
       </form>
-      <p style={{ marginTop: 20 }}>
-        Don't have an account? <Link to="/Signup" style={{ color: 'blue', textDecoration: 'underline' }}>Register here</Link>
+      <p>
+        Don't have an account? <Link to="/Signup" className="login-link">Register here</Link>
       </p>
-      {message && <p style={{ color: message === 'Logged in successfully' ? 'green' : 'red', fontWeight: 'bold' }}>{message}</p>}
+      {message && <p className={`login-message ${message === 'Logged in successfully' ? 'login-success' : 'login-error'}`}>{message}</p>}
     </div>
   );
 };
 
 export default Login;
-
