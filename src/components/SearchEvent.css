@@ -1,0 +1,53 @@
+/* Container for the search event component */
+.search-event-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 40px;
+   
+  }
+  
+  /* Styling for the heading */
+  .search-event-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fcfcfc;
+    font-style: italic;
+    font: bolder;
+  }
+  
+  /* Container for the search input */
+  .search-input-container {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    color: rgb(228, 217, 217);
+    font-size: x-large;
+    font-size: 40px;
+  }
+  
+  /* Styling for the search input */
+  .search-input-container input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 20px;
+    border: none;
+    border-bottom: 2px solid rgb(92, 87, 87);
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    background-color: transparent;
+  }
+  
+  /* Focus effect on the input */
+  .search-input-container input:focus {
+    border-bottom: 3px solid rgb(236, 228, 229);
+  }
+  
+  /* Placeholder styling */
+  .search-input-container input::placeholder {
+    color: #bdb6b6;
+    font-size: 18px;
+  }
+  
