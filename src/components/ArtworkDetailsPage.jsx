@@ -97,7 +97,9 @@ const ArtworkDetailsPage = ({ addItemToCart }) => {
           <h1>{artwork.title}</h1>
           <p><strong>Description:</strong> {artwork.description}.</p>
           <p><strong>Price:</strong> {artwork.price}</p>
-          <button className="add-to-cart" onClick={handleAddToCart}>Add to Cart</button>
+          <button className="add-to-cart" onClick={handleAddToCart}>
+          <Link to={`/cart`} >Add to Cart</Link>
+            </button>
         </div>
       </div>
     </div>

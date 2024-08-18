@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify'; // Import toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify styles
 import './MyEventsList.css';
 import './BackToEventsButton.css';
 import EventsNavbar from './EventsNavbar';
@@ -10,106 +12,88 @@ const MyEventsList = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const session = JSON.parse(localStorage.getItem('session'));
-        const token = session?.accessToken;
-        const userId = session?.user?.id;
-
-        if (!token) {
-          navigate('/login');
-          return;
-        }
-
-        const response = await axios.get('http://127.0.0.1:5555/events?user_specific=true', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (Array.isArray(response.data)) {
-          setEvents(response.data);
-        } else {
-          console.error('Unexpected response format:', response.data);
-          setEvents([]);
-        }
-      } catch (error) {
-        setError('Error fetching events.');
-        console.error('Error fetching events:', error);
-      } finally {
-        setLoading(false);
-      }
+  const getTokenAndUserId = () => {
+    const session = JSON.parse(localStorage.getItem('session'));
+    return {
+      token: session?.accessToken,
+      userId: session?.user?.id,
     };
-
-    fetchEvents();
-  }, [navigate]);
-
-  const handleDelete = async (eventId) => {
-    try {
-      const session = JSON.parse(localStorage.getItem('session'));
-      const token = session?.accessToken;
-
-      if (!token) {
-        navigate('/login');
-        return;
-      }
-
-      await axios.delete(`http://127.0.0.1:5555/events/${eventId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setEvents((prevEvents) => prevEvents.filter((event) => event.id !== eventId));
-    } catch (error) {
-      setError('Error deleting event.');
-      console.error('Error deleting event:', error);
-    }
   };
+
+  const fetchEvents = async () => {
+  const { token, userId } = getTokenAndUserId();
+
+  if (!token || !userId) {
+    navigate('/login');
+    return;
+  }
+
+  try {
+    const response = await axios.get('http://127.0.0.1:5555/events', {
+      params: { user_specific: true }, // Add user_specific query parameter
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (Array.isArray(response.data)) {
+      setEvents(response.data);
+    } else {
+      console.error('Unexpected response format:', response.data);
+      setEvents([]);
+    }
+  } catch (error) {
+    toast.error('Error fetching events.'); // Show error toast
+    console.error('Error fetching events:', error.response ? error.response.data : error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   const handleEdit = (eventId) => {
     setSelectedEventId(eventId);
     setShowModal(true);
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    setSelectedEventId(null);
-  };
-
-  const handleUpdate = async () => {
+  const handleDelete = async (eventId) => {
+    const { token, userId } = getTokenAndUserId();
+  
+    if (!token || !userId) {
+      navigate('/login');
+      return;
+    }
+  
     try {
-      const session = JSON.parse(localStorage.getItem('session'));
-      const token = session?.accessToken;
-
-      const response = await axios.get('http://127.0.0.1:5555/events?user_specific=true', {
+      await axios.delete(`http://127.0.0.1:5555/events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (Array.isArray(response.data)) {
-        setEvents(response.data);
-      } else {
-        console.error('Unexpected response format:', response.data);
-        setEvents([]);
-      }
+      // Optionally update the UI to reflect the deletion
+      setEvents(events.filter(event => event.id !== eventId));
+      toast.success('Event deleted successfully.'); // Show success toast
     } catch (error) {
-      setError('Error fetching events.');
-      console.error('Error fetching events:', error);
+      const errorMsg = error.response?.data?.error || 'Error deleting event.';
+      toast.error(errorMsg); // Show error toast
+      console.error('Error deleting event:', errorMsg);
     }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    fetchEvents(); // Refresh the event list after closing the modal
   };
 
   if (loading) {
     return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
   }
 
   return (
@@ -139,7 +123,7 @@ const MyEventsList = () => {
           ))}
         </div>
       )}
-      <button className="back-to-events-button" onClick={() => navigate("/")}>
+      <button className="back-to-events-button" onClick={() => navigate("/events")}>
         Back to Events
       </button>
 
@@ -147,8 +131,11 @@ const MyEventsList = () => {
         show={showModal}
         onHide={handleModalClose}
         eventId={selectedEventId}
-        onUpdate={handleUpdate}
+        onUpdate={fetchEvents} // Fetch events again to refresh the list
       />
+      
+      {/* Toast Container for Notifications */}
+      <ToastContainer />
     </div>
   );
 };

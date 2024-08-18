@@ -1,6 +1,7 @@
 .gallery-background {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #161516, #ffffff, #000000);
+  background: linear-gradient(to bottom, #494848, #ffffff, #747272);
+  width: 100%;
 }
 
 .artwork-card-wrapper {
@@ -15,8 +16,8 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 6cm; /* Fixed width */
-  height: 4cm; /* Fixed height */
+  width: 8cm; /* Fixed width */
+  height: 6cm; /* Fixed height */
 }
 
 .artwork-card:hover {

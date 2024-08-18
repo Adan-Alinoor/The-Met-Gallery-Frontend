@@ -1,7 +1,7 @@
 // import React, { useState } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 
-// const Login = () => {
+// const Login = ({ onLogin }) => {
 //   const [formData, setFormData] = useState({
 //     email: '',
 //     password: '',
@@ -32,7 +32,9 @@
 //       const data = await response.json();
 //       console.log(data);
 
-//       if (data.error) {
+//       if (data.message === "Please verify your email before logging in.") {
+//         setMessage(data.message);
+//       } else if (data.error) {
 //         setMessage(data.error);
 //       } else {
 //         const { user, access_token } = data;
@@ -40,7 +42,10 @@
 //         localStorage.setItem('session', JSON.stringify({ user, accessToken: access_token }));
 
 //         setMessage('Logged in successfully');
-//         navigate('/home'); // Redirect to the HomePage
+//         onLogin(); // Update login state
+//         setTimeout(() => {
+//           navigate('/home'); // Redirect to the HomePage after showing the message
+//         }, 1500); // Delay redirect by 1.5 seconds to show the message
 //       }
 //     } catch (err) {
 //       console.log(err);
@@ -103,23 +108,6 @@
 //             width: '100%'
 //           }}
 //         />
-//         <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="role">Role:</label>
-//         <select
-//           id="role"
-//           name="role"
-//           value={formData.role}
-//           onChange={handleChange}
-//           style={{
-//             padding: 10,
-//             marginBottom: 20,
-//             border: '1px solid #ccc',
-//             borderRadius: 5,
-//             width: '100%'
-//           }}
-//         >
-//           <option value="user">User</option>
-//           <option value="artist">Artist</option>
-//         </select>
 //         <button type="submit" style={{
 //           padding: 10,
 //           backgroundColor: '#4CAF50',
@@ -132,12 +120,13 @@
 //       <p style={{ marginTop: 20 }}>
 //         Don't have an account? <Link to="/Signup" style={{ color: 'blue', textDecoration: 'underline' }}>Register here</Link>
 //       </p>
-//       {message && <p style={{ color: 'red', fontWeight: 'bold' }}>{message}</p>}
+//       {message && <p style={{ color: message === 'Logged in successfully' ? 'green' : 'red', fontWeight: 'bold' }}>{message}</p>}
 //     </div>
 //   );
 // };
 
 // export default Login;
+
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -173,18 +162,23 @@ const Login = ({ onLogin }) => {
       const data = await response.json();
       console.log(data);
 
-      if (data.error) {
-        setMessage(data.error);
+      if (!response.ok) {
+        setMessage(data.message || 'An error occurred. Please try again.');
       } else {
-        const { user, access_token } = data;
+        if (data.message === "Please verify your email before logging in.") {
+          setMessage(data.message);
+        } else {
+          const { user, access_token } = data;
 
-        localStorage.setItem('session', JSON.stringify({ user, accessToken: access_token }));
+          // Store the user data and access token in localStorage
+          localStorage.setItem('session', JSON.stringify({ user, accessToken: access_token }));
 
-        setMessage('Logged in successfully');
-        onLogin(); // Update login state
-        setTimeout(() => {
-          navigate('/home'); // Redirect to the HomePage after showing the message
-        }, 1500); // Delay redirect by 1.5 seconds to show the message
+          setMessage('Logged in successfully');
+          onLogin(); // Update login state
+          setTimeout(() => {
+            navigate('/home'); // Redirect to the HomePage after showing the message
+          }, 1500); // Delay redirect by 1.5 seconds to show the message
+        }
       }
     } catch (err) {
       console.log(err);
@@ -247,23 +241,6 @@ const Login = ({ onLogin }) => {
             width: '100%'
           }}
         />
-        <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="role">Role:</label>
-        <select
-          id="role"
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          style={{
-            padding: 10,
-            marginBottom: 20,
-            border: '1px solid #ccc',
-            borderRadius: 5,
-            width: '100%'
-          }}
-        >
-          <option value="user">User</option>
-          <option value="artist">Artist</option>
-        </select>
         <button type="submit" style={{
           padding: 10,
           backgroundColor: '#4CAF50',

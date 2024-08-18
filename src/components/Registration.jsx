@@ -1,27 +1,28 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Registration = () => {
+const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    role: 'user' // Default role
+    role: 'user', // Default role
   });
-  const [successMessage, setSuccessMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setLoading(true); // Start loading
 
     try {
       const response = await fetch('http://localhost:5555/signup', {
@@ -34,26 +35,25 @@ const Registration = () => {
 
       const data = await response.json();
       if (response.ok) {
-        console.log('Registration successful:', data);
-        setSuccessMessage(`Registration successful! Welcome, ${formData.username}!`);
+        setMessage(`Registration successful! Please check your email to verify your account.`);
         setFormData({
           username: '',
           email: '',
           password: '',
-          role: 'user'
+          role: 'user',
         });
-        
+
         // Redirect to the login page after a short delay
         setTimeout(() => {
           navigate('/login');
-        }, 2000); // Adjust the delay as needed (2 seconds here)
+        }, 2000);
       } else {
-        console.error('Registration failed:', data);
-        setSuccessMessage(`Registration failed: ${data.error}`);
+        setMessage(`Registration failed: ${data.message}`);
       }
     } catch (error) {
-      console.error('Error during registration:', error);
-      setSuccessMessage('Error during registration. Please try again later.');
+      setMessage('Error during registration. Please try again later.');
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -78,9 +78,18 @@ const Registration = () => {
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
       }}>
         <h2 style={{ marginTop: 0, fontWeight: 'bold', color: '#333' }}>Register</h2>
-        {successMessage && (
-          <p style={{ color: successMessage.startsWith('Registration successful') ? 'green' : 'red', fontWeight: 'bold' }}>
-            {successMessage}
+        {loading && (
+          <div style={{
+            marginBottom: 20,
+            fontWeight: 'bold',
+            color: '#666'
+          }}>
+            <span>Loading...</span>
+          </div>
+        )}
+        {message && (
+          <p style={{ color: message.startsWith('Registration successful') ? 'green' : 'red', fontWeight: 'bold' }}>
+            {message}
           </p>
         )}
         <form onSubmit={handleSubmit} style={{
@@ -168,6 +177,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
-
-
+export default RegistrationForm;

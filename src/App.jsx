@@ -22,6 +22,7 @@ import './App.css';
 import CheckoutPage from './components/CheckoutPage';
 import PaymentCallback from './components/PaymentCallback';
 import MyBookings from './components/MyBookings';
+import VerifyEmail from './components/VerifyEmail';
 
 
 const App = () => {
@@ -114,6 +115,7 @@ const App = () => {
             <Route path="/events/:eventName/:eventId/book" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
             <Route path="/my-events" element={<ProtectedRoute element={<MyEventsList events={events} />} />} />
             <Route path="/my-bookings" element={<ProtectedRoute element={<MyBookings  />} />} />
+            <Route path="/verify/:token" component={VerifyEmail} />
 
 
             {/* Fallback Route */}

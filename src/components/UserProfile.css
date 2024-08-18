@@ -1,43 +1,28 @@
 .user-profile {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #da1fd0bb;
-  text-align: center;
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.profile-picture {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-bottom: 20px;
+.card {
+  border-radius: 12px;
 }
 
-.user-profile h1 {
-  margin-bottom: 20px;
+.card-title {
+  font-size: 1.5rem;
 }
 
-.user-profile p {
-  font-size: 16px;
-  margin-bottom: 10px;
+.card-text {
+  font-size: 1rem;
 }
 
-.user-profile p strong {
-  margin-right: 10px;
+.btn-primary {
+  background-color: #a74caf; /* Match icon color */
+  border-color: #a74caf; /* Match border color */
 }
 
-.user-profile button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #a74caf;
-  color: rgb(248, 245, 248);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.user-profile button:hover {
-  background-color: #8345a0;
+.btn-primary:hover {
+  background-color: #8e5a9b; /* Slightly darker shade for hover */
+  border-color: #8e5a9b; /* Match border color */
 }
