@@ -1,0 +1,96 @@
+.event-management-container {
+    padding: 20px;
+  }
+  
+  .controls-card {
+    margin-bottom: 20px;
+    border-color: #E2C044;
+  }
+  
+  .add-button {
+    background-color: #4586f0;
+    border: none;
+  }
+  
+  .add-button:hover {
+    background-color: #366ccf;
+  }
+  
+  .view-toggle-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .view-toggle-button {
+    background-color: #E2C044;
+    border: none;
+  }
+  
+  .view-toggle-button.active {
+    background-color: #ccaa33;
+  }
+  
+  .search-input {
+    border-color: #E2C044;
+  }
+  
+  .table-container {
+    margin-top: 20px;
+  }
+  
+  .table {
+    border-color: #E2C044;
+  }
+  
+  .table th {
+    background-color: #4586f0;
+    color: white;
+  }
+  
+  .action-button {
+    background-color: #E2C044;
+    border: none;
+  }
+  
+  .action-button:hover {
+    background-color: #ccaa33;
+  }
+  
+  .grid-view {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .grid-item {
+    background-color: #f9f9f9;
+    border: 1px solid #E2C044;
+    padding: 15px;
+    width: calc(33.33% - 20px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .grid-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-button {
+    margin: 0 5px;
+    background-color: #4586f0;
+    border: none;
+    color: white;
+  }
+  
+  .pagination-button.active-page {
+    background-color: #366ccf;
+  }
+  

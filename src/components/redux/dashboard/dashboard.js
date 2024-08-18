@@ -7,17 +7,18 @@ const initialState = {
   details: null,
 };
 
-const session = JSON.parse(localStorage.getItem("session"));
-const token = session && session.accessToken;
-console.log("Retrieved token:", token);
-
 const fetchDetails = createAsyncThunk(GET_DETAILS, async () => {
+  const session = JSON.parse(localStorage.getItem("session"));
+  const token = session?.accessToken;
   const DETAILS_API = "http://127.0.0.1:5555/dashboard";
   const response = await fetch(DETAILS_API, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
   const data = await response.json();
   return data;
 });
@@ -27,20 +28,18 @@ const detailsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchDetails.fulfilled, (state, action) => ({
-      loading: false,
-      details: { ...action.payload },
-    }));
-
-    builder.addCase(fetchDetails.pending, (state, action) => ({
-      loading: true,
-      details: { ...action.payload },
-    }));
-
-    builder.addCase(fetchDetails.rejected, (state, action) => ({
-      loading: false,
-      details: null,
-    }));
+    builder
+      .addCase(fetchDetails.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.details = action.payload;
+      })
+      .addCase(fetchDetails.rejected, (state) => {
+        state.loading = false;
+        state.details = null;
+      });
   },
 });
 

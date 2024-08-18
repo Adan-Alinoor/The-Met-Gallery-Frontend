@@ -134,6 +134,7 @@ const MyEventsList = () => {
         onUpdate={fetchEvents} // Fetch events again to refresh the list
       />
       
+      
       {/* Toast Container for Notifications */}
       <ToastContainer />
     </div>

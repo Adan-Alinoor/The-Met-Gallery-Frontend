@@ -1,58 +1,89 @@
+/* DashboardOverview.css */
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Container Styles */
 .dashboard-overview {
-    padding: 20px;
-    background-color: #f5f5f5; /* Light background for the page */
-    min-height: 100vh; /* Ensure full viewport height */
-  }
-  
-  .widget {
-    background-color: #ffffff; /* White background for widgets */
-    border: 1px solid #dcdcdc; /* Subtle border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  .widget-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #7b61d7; /* Title color */
-  }
-  
-  .widget-stat {
-    font-size: 24px;
-    color: #8e7cc3; /* Statistic color */
-  }
-  
-  .transaction-item {
-    border-left: 4px solid #7b61d7; /* Left border for transaction items */
-    padding-left: 10px;
-    color: #333333; /* Dark text for readability */
-  }
-  
-  .transaction-item:not(:last-child) {
-    border-bottom: 1px solid #e0e0e0; /* Subtle divider between transactions */
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .row.g-4 {
-    gap: 1.5rem; /* Spacing between columns */
-  }
-  
-  .recent-activity {
-    background-color: #ffffff; /* White background for recent activity card */
-    border: 1px solid #dcdcdc; /* Subtle border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  .table thead th {
-    background-color: #7b61d7; /* Header background color */
-    color: #ffffff; /* Header text color */
-  }
-  
-  .table tbody tr:hover {
-    background-color: #f1f1f1; /* Highlight row on hover */
-  }
-  
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+/* Card Styles */
+.widget {
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.widget-title {
+  color: #4586F0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.widget-stat {
+  font-size: 24px;
+  color: #333333;
+}
+
+/* Table Styles */
+.table thead th {
+  background-color: #4586F0;
+  color: #ffffff;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/* Pagination Styles */
+.pagination .page-item.active .page-link {
+  background-color: #4586F0;
+  border-color: #4586F0;
+}
+
+.pagination .page-link {
+  color: #4586F0;
+}
+
+.pagination .page-link:hover {
+  background-color: #d5b649;
+  color: #ffffff;
+}
+
+/* Section Styles */
+.dashboard-section {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.dashboard-section h2 {
+  color: #4586F0;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.dashboard-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dashboard-section li {
+  border-bottom: 1px solid #dcdcdc;
+  padding: 10px 0;
+}
+
+.dashboard-section p {
+  color: #888888;
+}

@@ -1,85 +1,179 @@
-import React from 'react';
-import { Container, Row, Col, Card, ListGroup, Table } from 'react-bootstrap';
-import './DashboardOverview.css';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Card, Table, Pagination } from "react-bootstrap";
+import axios from "axios";
+import "./DashboardOverview.css"; // Import the CSS file
 
 function DashboardOverview() {
-    return (
-        <Container fluid className="dashboard-overview">
-          <Row className="g-4">
-            <Col md={3}>
-              <Card className="widget">
-                <Card.Body>
-                  <Card.Title className="widget-title">Artworks</Card.Title>
-                  <Card.Text className="widget-stat">120</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={3}>
-              <Card className="widget">
-                <Card.Body>
-                  <Card.Title className="widget-title">Events</Card.Title>
-                  <Card.Text className="widget-stat">15</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={3}>
-              <Card className="widget">
-                <Card.Body>
-                  <Card.Title className="widget-title">Users</Card.Title>
-                  <Card.Text className="widget-stat">980</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={3}>
-              <Card className="widget">
-                <Card.Body>
-                  <Card.Title className="widget-title">Recent Transactions</Card.Title>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item className="transaction-item">Order #123 - $200</ListGroup.Item>
-                    <ListGroup.Item className="transaction-item">Order #124 - $150</ListGroup.Item>
-                    <ListGroup.Item className="transaction-item">Order #125 - $300</ListGroup.Item>
-                  </ListGroup>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <Row className="g-4 mt-4">
-            <Col>
-              <Card className="recent-activity">
-                <Card.Body>
-                  <Card.Title className="widget-title">Recent Activity</Card.Title>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Activity</th>
-                        <th>Date</th>
-                        <th>User</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Added new artwork</td>
-                        <td>2024-08-15</td>
-                        <td>Admin</td>
-                      </tr>
-                      <tr>
-                        <td>Updated event details</td>
-                        <td>2024-08-16</td>
-                        <td>Admin</td>
-                      </tr>
-                      <tr>
-                        <td>Processed order #126</td>
-                        <td>2024-08-17</td>
-                        <td>Admin</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-    );
-};
+  const [dashboardData, setDashboardData] = useState({
+    artworks_count: 0,
+    events_count: 0,
+    users_count: 0,
+    recent_transactions: [],
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [transactionsPerPage] = useState(4); // Number of transactions per page
+
+  useEffect(() => {
+    const session = JSON.parse(localStorage.getItem("session"));
+    const token = session?.accessToken;
+
+    const fetchDashboardData = async () => {
+      try {
+        const dashboardResponse = await axios.get(
+          "http://localhost:5555/dashboard",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setDashboardData({
+          ...dashboardResponse.data,
+        });
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  // Pagination logic for transactions
+  const indexOfLastTransaction = currentPage * transactionsPerPage;
+  const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
+  const currentTransactions = dashboardData.recent_transactions.slice(
+    indexOfFirstTransaction,
+    indexOfLastTransaction
+  );
+  const totalPages = Math.ceil(
+    dashboardData.recent_transactions.length / transactionsPerPage
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  return (
+    <Container fluid className="dashboard-overview">
+      <Row className="g-4">
+        <Col md={3}>
+          <Card className="widget">
+            <Card.Body>
+              <Card.Title className="widget-title">Artworks</Card.Title>
+              <Card.Text className="widget-stat">
+                {dashboardData.artworks_count}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card className="widget">
+            <Card.Body>
+              <Card.Title className="widget-title">Events</Card.Title>
+              <Card.Text className="widget-stat">
+                {dashboardData.events_count}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card className="widget">
+            <Card.Body>
+              <Card.Title className="widget-title">Users</Card.Title>
+              <Card.Text className="widget-stat">
+                {dashboardData.users_count}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+       <br />
+      <Col md={3}>
+          <Card className="widget">
+            <Card.Body>
+              <Card.Title className="widget-title">
+                Recent Transactions
+              </Card.Title>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentTransactions.map((transaction) => (
+                    <tr key={transaction.id}>
+                      <td>Order {transaction.id}</td>
+                      <td>{transaction.amount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Pagination>
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <Pagination.Item
+                    key={index + 1}
+                    active={index + 1 === currentPage}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </Pagination.Item>
+                ))}
+              </Pagination>
+            </Card.Body>
+          </Card>
+        </Col>
+
+      <section className="dashboard-section">
+        <h2>Bookings</h2>
+        {dashboardData.bookings && dashboardData.bookings.length > 0 ? (
+          <ul>
+            {dashboardData.bookings.map(booking => (
+              <li key={booking.id}>
+                Booking ID: {booking.id}, Event ID: {booking.event_id}, Date: {new Date(booking.booking_date).toLocaleDateString()}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No bookings available.</p>
+        )}
+      </section>
+
+      {/* <section className="dashboard-section">
+        <h2>User Activities</h2>
+        {dashboardData.user_activities && dashboardData.user_activities.length > 0 ? (
+          <ul>
+            {dashboardData.user_activities.map(activity => (
+              <li key={activity.id}>
+                {activity.activity_type} - {new Date(activity.timestamp).toLocaleString()}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No user activities available.</p>
+        )}
+      </section>  */}
+
+      <section className="dashboard-section">
+        <h2>Events</h2>
+        {dashboardData.events && dashboardData.events.length > 0 ? (
+          <ul>
+            {dashboardData.events.map(event => (
+              <li key={event.id}>
+                {event.title} - {new Date(event.start_date).toLocaleDateString()} to {new Date(event.end_date).toLocaleDateString()}
+                <br />
+                {event.description}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No events available.</p>
+        )}
+      </section>
+    </Container>
+  );
+}
 
 export default DashboardOverview;

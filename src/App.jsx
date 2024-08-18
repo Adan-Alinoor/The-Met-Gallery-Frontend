@@ -11,7 +11,6 @@ import EventDetailPage from './components/EventDetailPage';
 import CreateEventPage from './components/CreateEventPage';
 import TicketBookingPage from './components/TicketBookingPage';
 import MyEventsList from './components/MyEventsList';
-import Dashboard from './components/Dashboard';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
 import Registration from './components/Registration';
@@ -28,6 +27,7 @@ import ArtworkManagement from './components/Admin Dashboard/ArtworkManagement';
 import OrdersTickets from './components/Admin Dashboard/OrdersTickets';
 import UserPage from './components/Admin Dashboard/UserPage';
 import SideNavbar from './components/Admin Dashboard/SideNavbar';
+import { AuthProvider } from './components/AuthContext';
 
 const App = () => {
   const [events, setEvents] = useState([
@@ -103,6 +103,7 @@ const App = () => {
       {showNavbar && <Navbar cartItemsCount={cartItemsCount} isArtist={isArtist} />}
       {showSidebar && <SideNavbar />}
       <main style={{ marginLeft: showSidebar ? '250px' : '0', padding: '20px' }}>
+      <AuthProvider>
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
@@ -118,7 +119,6 @@ const App = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/messages" element={<ProtectedRoute element={<Messaging />} />} />
           <Route path="/profile" element={<ProtectedRoute element={<UserProfile />} />} />
-          <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
           <Route path="/artworks" element={<ProtectedRoute element={<ArtworkPage addItemToCart={addItemToCart} />} />} />
           <Route path="/artworks/:id" element={<ProtectedRoute element={<ArtworkDetailsPage addItemToCart={addItemToCart} />} />} />
           <Route path="/cart" element={<ProtectedRoute element={<CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} />} />} />
@@ -133,6 +133,7 @@ const App = () => {
           {/* Fallback Route */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
+      </AuthProvider>
       </main>
       {showFooter && <Footer />}
     </div>
