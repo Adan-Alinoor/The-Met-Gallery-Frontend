@@ -107,12 +107,3 @@ const ArtworkDetailsPage = ({ addItemToCart }) => {
 };
 
 export default ArtworkDetailsPage;
-
-
-
-
-
-
-
-
-

@@ -372,7 +372,7 @@ const CheckoutPage = () => {
     .then((data) => {
       if (data.message) {
         alert('Order placed successfully');
-        navigate('/checkout');
+        navigate('/artworks');
       } else {
         alert('Failed to place order');
       }
@@ -382,7 +382,7 @@ const CheckoutPage = () => {
       navigate('/checkout');
     });
   };
-  
+
   return (
     <div className="checkout-page">
       <h1 className="page-title">Checkout</h1>

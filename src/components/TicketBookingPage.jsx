@@ -86,6 +86,7 @@ const TicketBookingPage = () => {
 
       console.log('Payment response:', response.data);
       alert(`Payment of KES ${totalAmount} initiated for ${ticketQuantity} ticket(s).`);
+      navigate('/my-bookings');
     } catch (error) {
       console.error('Error making payment:', error.response?.data || error);
       alert(`Error processing payment: ${error.response?.data.error || 'Unknown error'}`);
@@ -110,19 +111,19 @@ const TicketBookingPage = () => {
       quantity: ticketQuantity,
     };
 
-    try {
-      const response = await axios.post('http://127.0.0.1:5555/bookings', formData, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+    // try {
+    //   const response = await axios.post('http://127.0.0.1:5555/bookings', formData, {
+    //     headers: {
+    //       'Authorization': `Bearer ${token}`,
+    //     },
+    //   });
 
-      console.log('Booking response:', response.data);
-      alert('Booking successful!');
-    } catch (error) {
-      console.error('Error posting data:', error);
-      alert('Error submitting booking.');
-    }
+    //   console.log('Booking response:', response.data);
+    //   alert('Booking successful!');
+    // } catch (error) {
+    //   console.error('Error posting data:', error);
+    //   alert('Error submitting booking.');
+    // }
   };
 
   if (items === null) {
@@ -154,7 +155,7 @@ const TicketBookingPage = () => {
         </div>
         <p><strong>Total Amount:</strong> KES {totalAmount}</p>
         <button type="button" onClick={handlePayment}>Pay with Mpesa</button>
-        <button type="submit">Confirm Booking</button>
+        {/* <button type="submit">Confirm Booking</button> */}
       </form>
       <button className="back-to-events-button" onClick={() => navigate('/events')}>
         Back to Events

@@ -59,6 +59,7 @@ const EventsPage = () => {
     event.title && event.title.toLowerCase().includes(searchEvent.toLowerCase())
   );
 
+
   return (
     <div className="events-page">
       <div>
@@ -66,6 +67,7 @@ const EventsPage = () => {
       </div>
       <div>
       <SearchEvent searchEvent={searchEvent} setSearchEvent={setSearchEvent}/>
+
       </div>
       <div className="events-list">
         {loading && <p>Loading events...</p>}
