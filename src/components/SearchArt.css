@@ -1,0 +1,26 @@
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 3px solid grey;
+    background-color: transparent;
+    font-size: 16px;
+    color: #f2dfdf;
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-bottom: 40px;
+  }
+  
+  .search-input::placeholder {
+    color: rgb(231, 217, 217);
+    font-style: italic;
+  }
+  
+  .search-input:focus {
+    border-bottom: 3px solid rgb(138, 64, 138);
+  }
+  
+  .search-art-title {
+    color: beige;
+    font-style: italic;
+  }

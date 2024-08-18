@@ -1,27 +1,29 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Registration.css'; // Import the CSS file
 
-const Registration = () => {
+const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    role: 'user' // Default role
+    role: 'user', // Default role
   });
-  const [successMessage, setSuccessMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setLoading(true); // Start loading
 
     try {
       const response = await fetch('http://localhost:5555/signup', {
@@ -34,140 +36,87 @@ const Registration = () => {
 
       const data = await response.json();
       if (response.ok) {
-        console.log('Registration successful:', data);
-        setSuccessMessage(`Registration successful! Welcome, ${formData.username}!`);
+        setMessage(`Registration successful! Please check your email to verify your account.`);
         setFormData({
           username: '',
           email: '',
           password: '',
-          role: 'user'
+          role: 'user',
         });
-        
+
         // Redirect to the login page after a short delay
         setTimeout(() => {
           navigate('/login');
-        }, 2000); // Adjust the delay as needed (2 seconds here)
+        }, 2000);
       } else {
-        console.error('Registration failed:', data);
-        setSuccessMessage(`Registration failed: ${data.error}`);
+        setMessage(`Registration failed: ${data.message}`);
       }
     } catch (error) {
-      console.error('Error during registration:', error);
-      setSuccessMessage('Error during registration. Please try again later.');
+      setMessage('Error during registration. Please try again later.');
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      margin: 0
-    }}>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        borderRadius: 10,
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
-      }}>
-        <h2 style={{ marginTop: 0, fontWeight: 'bold', color: '#333' }}>Register</h2>
-        {successMessage && (
-          <p style={{ color: successMessage.startsWith('Registration successful') ? 'green' : 'red', fontWeight: 'bold' }}>
-            {successMessage}
-          </p>
-        )}
-        <form onSubmit={handleSubmit} style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '100%',
-        }}>
-          <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-            style={{
-              padding: 10,
-              marginBottom: 20,
-              border: '1px solid #ccc',
-              borderRadius: 5,
-              width: '100%'
-            }}
-          />
-          <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            style={{
-              padding: 10,
-              marginBottom: 20,
-              border: '1px solid #ccc',
-              borderRadius: 5,
-              width: '100%'
-            }}
-          />
-          <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            style={{
-              padding: 10,
-              marginBottom: 20,
-              border: '1px solid #ccc',
-              borderRadius: 5,
-              width: '100%'
-            }}
-          />
-          <label style={{ marginBottom: 10, fontWeight: 'bold', color: '#666' }} htmlFor="role">Role:</label>
-          <select
-            id="role"
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            style={{
-              padding: 10,
-              marginBottom: 20,
-              border: '1px solid #ccc',
-              borderRadius: 5,
-              width: '100%'
-            }}
-          >
-            <option value="user">User</option>
-            <option value="artist">Artist</option>
-          </select>
-          <button type="submit" style={{
-            padding: 10,
-            backgroundColor: '#4CAF50',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 5,
-            cursor: 'pointer'
-          }}>Register</button>
-        </form>
-      </div>
+    <div className="register-container">
+      <h2 className="register-title">Register</h2>
+      {loading && (
+        <div className="register-message">
+          <span>Loading...</span>
+        </div>
+      )}
+      {message && (
+        <p className={`register-message ${message.startsWith('Registration successful') ? 'register-success' : 'register-error'}`}>
+          {message}
+        </p>
+      )}
+      <form onSubmit={handleSubmit} className="register-form">
+        <label className="register-label" htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+          className="register-input"
+        />
+        <label className="register-label" htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="register-input"
+        />
+        <label className="register-label" htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          className="register-input"
+        />
+        <label className="register-label" htmlFor="role">Role:</label>
+        <select
+          id="role"
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="register-select"
+        >
+          <option value="user">User</option>
+          <option value="artist">Artist</option>
+        </select>
+        <button type="submit" className="register-button">Register</button>
+      </form>
     </div>
   );
 };
 
-export default Registration;
-
-
+export default RegistrationForm;

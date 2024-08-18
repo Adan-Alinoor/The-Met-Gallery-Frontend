@@ -1,24 +1,28 @@
 .footer {
-  background-color: #343a40; /* Dark background for footer */
-  color: #f8f9fa; /* Light text color */
-  text-align: center; /* Center align text */
+  background-color: rgba(0, 31, 63, 0.85); 
+  color: #d4af37; 
+  text-align: center; 
+  padding: 1rem; 
+  border-top: 3px solid #d4af37; 
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5); 
 }
 
 .footer-text {
   margin: 0.5rem 0;
+  font-size: 0.9rem; 
 }
 
 .footer-email,
 .footer-phone {
-  color: #f8f9fa; /* Default text color */
+  color: #d4af37;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .footer-email:hover,
 .footer-phone:hover {
   text-decoration: underline;
-  color: #007bff; /* Blue color for email and phone on hover */
-  font-weight: bold; /* Make text bold on hover */
+  color: #b89b33; 
 }
 
 .chat-container {
@@ -26,15 +30,16 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 2px solid #f8f9fa;
+  border: 2px solid #d4af37; 
   border-radius: 50%;
   padding: 0.5rem;
-  background-color: #495057; /* Slightly lighter dark color for the chat button */
+  background-color: rgba(0, 31, 63, 0.85); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
 }
 
 .chat-icon {
   font-size: 1.5rem;
-  color: #f8f9fa; /* Light color for the icon */
+  color: #d4af37; 
 }
 
 @media (max-width: 768px) {

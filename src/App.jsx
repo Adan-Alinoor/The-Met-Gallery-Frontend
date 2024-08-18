@@ -29,6 +29,10 @@ import UserPage from './components/Admin Dashboard/UserPage';
 import SideNavbar from './components/Admin Dashboard/SideNavbar';
 import { AuthProvider } from './components/AuthContext';
 
+import VerifyEmail from './components/VerifyEmail';
+
+
+
 const App = () => {
   const [events, setEvents] = useState([
     {  
@@ -129,6 +133,7 @@ const App = () => {
           <Route path="/events/:eventName/:eventId/book" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
           <Route path="/my-events" element={<ProtectedRoute element={<MyEventsList events={events} />} />} />
           <Route path="/my-bookings" element={<ProtectedRoute element={<MyBookings />} />} />
+          <Route path="/verify/:token" component={VerifyEmail} />
 
           {/* Fallback Route */}
           <Route path="*" element={<Navigate to="/login" />} />
