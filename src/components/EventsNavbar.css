@@ -1,39 +1,87 @@
+/* Event Navbar Styles */
 .event-navbar {
-    background-color: #6a1b9a; /* Purple background */
-    padding: 10px 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  background-color: rgba(0, 31, 63, 0.85); /* Darker navy blue */
+  border-bottom: 3px solid #d4af37; /* Deep gold */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-navbar-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.event-navbar-item {
+  margin: 0;
+}
+
+.event-navbar-link {
+  color: #d4af37; /* Deep gold */
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.event-navbar-link:hover {
+  background-color: rgba(0, 31, 63, 0.6); /* Darker navy blue */
+  color: #d4af37; /* Deep gold */
+  transform: translateY(-3px);
+}
+
+.event-navbar-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.5); /* Deep gold shadow */
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .event-navbar {
+    padding: 0.5rem;
   }
-  
-  .event-navbar-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .event-navbar-item {
-    margin: 0;
-  }
-  
+
   .event-navbar-link {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.9rem;
   }
-  
-  .event-navbar-link:hover {
-    background-color: #ff69b4; /* Pink */
-    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .event-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem;
   }
-  
-  .event-navbar-link:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.5);
+
+  .event-navbar-list {
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem 0;
   }
-  
+
+  .event-navbar-item {
+    margin: 0.5rem 0;
+  }
+
+  .event-navbar-link {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-navbar {
+    padding: 0.5rem;
+  }
+
+  .event-navbar-link {
+    font-size: 0.8rem;
+  }
+}

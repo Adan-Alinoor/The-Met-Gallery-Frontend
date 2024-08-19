@@ -1,8 +1,147 @@
-/* General page styles */
+* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('https://images.unsplash.com/photo-1506748686214e9df14b1e4f2d91b3e');
+}
+
+/* Gallery Container Styles */
+.gallery-container {
+  flex: 1;
+  padding: 40px;
+  background-color: rgba(0, 31, 63, 0.85); 
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  width: calc(100% - 40px);
+  height: calc(100% - 80px);
+  overflow: hidden;
+  margin: 20px;
+}
+
+/* Gallery Title Styles */
+.gallery-title {
+  text-align: center;
+  color: #d4af37; 
+  font-style: italic;
+  margin-bottom: 40px;
+  font-size: 3rem;
+  font-weight: bolder;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Top Row Styles */
+.top-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.image-card {
+  flex: 1;
+  max-width: calc(33.333% - 25px);
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.image-card img {
+  width: 100%;
+  border-radius: 25px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+  filter: grayscale(50%);
+}
+
+.image-card img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+  filter: grayscale(0%);
+}
+
+/* Bottom Row Styles */
+.bottom-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  padding: 25px;
+  border-radius: 25px;
+  margin: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.left-column {
+  background: linear-gradient(to bottom right, #001f3f, #000c28); 
+}
+
+.right-column {
+  background: linear-gradient(to bottom right, #000c28, #001f3f); 
+}
+
+.description {
+  text-align: center;
+  font-family: 'Island Moments', cursive;
+  font-style: italic;
+  color: #d4af37; 
+  margin-bottom: 25px;
+  font-size: 24px;
+  line-height: 1.5;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.small-image {
+  width: 200px;
+  margin: 0 15px;
+  border-radius: 12px;
+  border: 3px solid #d4af37; 
+}
+
+.image-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.art-image {
+  width: 48%;
+  border-radius: 20px;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+  filter: sepia(20%);
+}
+
+.art-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 25px 40px rgba(0, 0, 0, 0.7);
+  filter: sepia(0%);
+}
+
+/* Events Page Styles */
 .events-page {
   margin: 0 auto;
   padding: 30px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 31, 63, 0.85); /* Match the gallery container background */
   font-family: Arial, sans-serif;
   width: 90%;
 }
@@ -14,8 +153,8 @@
   align-items: center;
   padding: 1rem 2rem;
   border-bottom: 2px solid #ddd;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 31, 63, 0.9); /* Match gallery container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Authentication buttons */
@@ -28,14 +167,14 @@
   padding: 12px 25px;
   font-size: 16px;
   color: #ffffff;
-  background-color: #6a1b9a;
+  background-color: #d4af37; /* Match gallery title color */
   text-decoration: none;
   border-radius: 6px;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .auth-button:hover {
-  background-color: #4a0072;
+  background-color: #bfa72e; /* Slightly darker for hover */
   transform: translateY(-2px);
 }
 
@@ -51,7 +190,7 @@
 }
 
 .search-bar:focus {
-  border-color: #6a1b9a;
+  border-color: #d4af37; /* Match gallery title color */
   outline: none;
 }
 
@@ -67,17 +206,17 @@
 
 /* Ensure cards fill available space */
 .event-card {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 31, 63, 0.85); /* Match gallery container */
   border: 1px solid #ddd;
   border-radius: 10px;
   overflow: hidden;
   flex: 1 1 calc(25% - 1.5rem);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s, transform 0.3s;
 }
 
 .event-card:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   transform: translateY(-5px);
 }
 
@@ -100,7 +239,7 @@
 
 .event-description {
   margin: 0 0 1rem;
-  color: #666;
+  color: #d4af37; /* Match gallery title color */
   line-height: 1.5;
 }
 
@@ -122,21 +261,21 @@
 
 .details-link {
   color: #ffffff;
-  background-color: #d81b60;
+  background-color: #d4af37; /* Match gallery title color */
 }
 
 .details-link:hover {
-  background-color: #c2185b;
+  background-color: #bfa72e; /* Slightly darker for hover */
   transform: translateY(-2px);
 }
 
 .booking-button {
   color: #ffffff;
-  background-color: #6a1b9a;
+  background-color: #d4af37; /* Match gallery title color */
 }
 
 .booking-button:hover {
-  background-color: #4a0072;
+  background-color: #bfa72e; /* Slightly darker for hover */
   transform: translateY(-2px);
 }
 
@@ -146,7 +285,7 @@
   padding: 15px;
   font-size: 18px;
   color: #ffffff;
-  background-color: #d81b60;
+  background-color: #d4af37; /* Match gallery title color */
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -155,7 +294,7 @@
 }
 
 .create-event-button:hover {
-  background-color: #c2185b;
+  background-color: #bfa72e; /* Slightly darker for hover */
   transform: translateY(-2px);
 }
 
@@ -169,13 +308,13 @@
   text-decoration: none;
   padding: 12px 25px;
   color: #ffffff;
-  background-color: #d81b60;
+  background-color: #d4af37; /* Match gallery title color */
   border-radius: 6px;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .create-event-button:hover, .my-events-button:hover {
-  background-color: #c2185b;
+  background-color: #bfa72e; /* Slightly darker for hover */
   transform: translateY(-2px);
 }
 
