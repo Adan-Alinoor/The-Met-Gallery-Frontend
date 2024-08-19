@@ -1,93 +1,93 @@
-.checkout-container {
+.checkout-page {
+  padding: 20px;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
+  background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  color: #6a0dad;
+.page-title {
   text-align: center;
+  color: #4586f0;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.order-summary {
+  margin-bottom: 30px;
+}
+
+.order-summary h2 {
+  color: #4586f0;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.order-summary ul {
+  list-style-type: none;
+  padding: 0;
   margin-bottom: 20px;
 }
 
-.order-summary, .shipping-details {
-  margin-bottom: 20px;
-}
-
-.order-item {
-  display: flex;
-  align-items: center;
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
+.order-summary li {
+  background-color: #ffffff;
+  border: 1px solid #e2c044;
+  border-radius: 4px;
   padding: 10px;
   margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-.order-item-image {
-  max-width: 100px;
-  max-height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.order-item-info {
-  margin-left: 10px;
-}
-
-.order-item-info h3 {
-  margin: 0;
-  color: #6a0dad;
-}
-
-.order-item-info p {
-  margin: 5px 0;
   color: #333;
+  font-size: 1rem;
 }
 
-.shipping-details {
-  margin-top: 20px;
+.order-summary h2:last-of-type {
+  font-size: 1.5rem;
+  color: #e2c044;
+  font-weight: bold;
+  text-align: right;
 }
 
-.shipping-details h3 {
-  color: #6a0dad;
+.mpesa-payment {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #e2c044;
+  border-radius: 8px;
 }
 
-.shipping-details label {
+.mpesa-payment h2 {
+  color: #4586f0;
+  margin-bottom: 15px;
+}
+
+.mpesa-payment label {
   display: block;
   margin-bottom: 10px;
+  color: #333;
+  font-size: 1rem;
 }
 
-.shipping-details input,
-.shipping-details textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #e0e0e0;
+.mpesa-payment input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  margin-bottom: 20px;
 }
 
-.shipping-details input[type="tel"] {
-  padding-right: 50px; /* Space for M-Pesa prompt */
-}
-
-.payment-button {
-  background-color: #7f3cd6;
+.mpesa-payment button {
+  background-color: #4586f0;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border-radius: 4px;
   cursor: pointer;
-  display: block;
-  width: 100%;
-  text-align: center;
+  transition: background-color 0.3s;
 }
 
-.payment-button:hover {
-  background-color: #44da71;
+.mpesa-payment button:hover {
+  background-color: #326ad1;
 }
