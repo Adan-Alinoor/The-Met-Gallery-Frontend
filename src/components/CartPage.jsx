@@ -170,7 +170,6 @@
 
 // export default CartPage;
 
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
@@ -185,21 +184,25 @@ const CartPage = ({ onCartUpdate }) => {
         const session = JSON.parse(localStorage.getItem('session'));
         const token = session?.accessToken;
         if (!token) throw new Error('No authentication token found');
-
+    
         const response = await fetch(`http://127.0.0.1:5555/view_cart/${session.user.id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-
+    
         if (response.ok) {
           const data = await response.json();
-          setCartItems(data.items);
-          // Notify parent component about the cart update
-          onCartUpdate(data.items.length);
+          if (data.items) {
+            setCartItems(data.items);
+            // Notify parent component about the cart update
+            onCartUpdate(data.items.length);
+          } else {
+            console.error('Cart items not found in response data');
+          }
         } else {
           const errorData = await response.json();
-          console.error('Failed to fetch cart items:', errorData.error);
+          console.error('Failed to fetch cart items:', errorData.error || 'Unknown error');
         }
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -344,6 +347,3 @@ const CartPage = ({ onCartUpdate }) => {
 };
 
 export default CartPage;
-
-
-

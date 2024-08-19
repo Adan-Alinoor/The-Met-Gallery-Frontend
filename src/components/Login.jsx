@@ -173,43 +173,47 @@ const Login = ({ onLogin }) => {
           'Content-Type': 'application/json',
         },
       });
-
+  
       const data = await response.json();
-      console.log(data);
-
+      console.log('Response Status:', response.status); // Log status
+      console.log('Response Data:', data); // Log response data for debugging
+  
       if (!response.ok) {
         setMessage(data.message || 'An error occurred. Please try again.');
       } else {
+        console.log('Login successful, storing data...'); // Log successful login
+  
         if (data.message === "Please verify your email before logging in.") {
           setMessage(data.message);
         } else {
           const { user, access_token } = data;
-
+  
+          console.log('User Data:', user); // Log user data
+          console.log('Access Token:', access_token); // Log access token
+  
           // Store the user data and access token in localStorage
           localStorage.setItem('session', JSON.stringify({ user, accessToken: access_token }));
-          
+  
           setMessage('Logged in successfully');
           onLogin(); // Update login state
-
+  
           // Redirect based on user role
           setTimeout(() => {
             if (user.role === 'admin') {
               navigate('/dashboard/overview');
-            // Uncomment the following line when artist role is implemented
-            // } else if (user.role === 'artist') {
-            //   navigate('/artist/home');
             } else {
               navigate('/home'); // Default route
             }
           }, 1500); // Delay redirect by 1.5 seconds to show the message
-
         }
       }
     } catch (err) {
-      console.log(err);
+      console.log('Fetch Error:', err); // Log any fetch errors
       setMessage('An error occurred. Please try again.');
     }
   };
+  
+  
 
   return (
     <div className="login-container">
