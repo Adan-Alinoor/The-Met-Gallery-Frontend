@@ -202,12 +202,6 @@ const EventManagement = () => {
                     <td>{event.location}</td>
                     <td>
                       <Button
-                        className="action-button view-button"
-                        onClick={() => handleShowDetails(event)}
-                      >
-                        View Details
-                      </Button>
-                      <Button
                         className="action-button edit-button ml-2"
                         onClick={() => handleEditClick(event.id)}
                       >
@@ -239,12 +233,6 @@ const EventManagement = () => {
                   <p>{`${event.start_date} to ${event.end_date}`}</p>
                   <p>{event.location}</p>
                   <div>
-                    <Button
-                      className="action-button view-button"
-                      onClick={() => handleShowDetails(event)}
-                    >
-                      View Details
-                    </Button>
                     <Button
                       className="action-button edit-button ml-2"
                       onClick={() => handleEditClick(event.id)}
@@ -355,25 +343,6 @@ const EventManagement = () => {
         eventId={selectedEventId}
         fetchEvents={fetchEvents}
       />
-
-      {/* View Event Details Modal */}
-      <Modal show={showDetailsModal} onHide={handleCloseDetails}>
-        <Modal.Header closeButton>
-          <Modal.Title>{selectedEvent?.title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p><strong>Description:</strong> {selectedEvent?.description}</p>
-          <p><strong>Start Date:</strong> {selectedEvent?.start_date}</p>
-          <p><strong>End Date:</strong> {selectedEvent?.end_date}</p>
-          <p><strong>Time:</strong> {selectedEvent?.time}</p>
-          <p><strong>Location:</strong> {selectedEvent?.location}</p>
-          <img
-            src={selectedEvent?.image_url}
-            alt={selectedEvent?.title}
-            className="img-fluid"
-          />
-        </Modal.Body>
-      </Modal>
 
       {/* Toast Notifications */}
       <ToastContainer />

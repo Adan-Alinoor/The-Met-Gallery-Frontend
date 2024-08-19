@@ -126,8 +126,7 @@ const OrdersTickets = () => {
           <Modal.Title>Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {
-          selectedPayment && (
+          {selectedPayment && (
             <>
               <p>
                 <strong>Amount:</strong> ${selectedPayment.amount}

@@ -3,7 +3,6 @@ import { Table, Button, Modal, Form, Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ArtworkDetailsModal from './ArtworkDetailModel';
 import './ArtworkManagement.css';
 import { FaList, FaTh } from "react-icons/fa";
 
@@ -234,7 +233,6 @@ const ArtworkManagement = () => {
                 <td>{artwork.title}</td>
                 <td>{artwork.price}</td>
                 <td>
-                  <Button variant="info" onClick={() => handleViewClick(artwork.id)}>View</Button>
                   <Button variant="warning" className="ml-2" onClick={() => handleEditClick(artwork.id)}>Edit</Button>
                   <Button variant="danger" className="ml-2" onClick={() => handleDelete(artwork.id)}>Delete</Button>
                 </td>
@@ -252,7 +250,6 @@ const ArtworkManagement = () => {
                   <Card.Title>{artwork.title}</Card.Title>
                   <Card.Text>{artwork.description}</Card.Text>
                   <div className="d-flex justify-content-between">
-                    <Button variant="info" onClick={() => handleViewClick(artwork.id)}>View</Button>
                     <Button variant="warning" onClick={() => handleEditClick(artwork.id)}>Edit</Button>
                     <Button variant="danger" onClick={() => handleDelete(artwork.id)}>Delete</Button>
                   </div>
@@ -417,12 +414,7 @@ const ArtworkManagement = () => {
         </Modal.Body>
       </Modal>
 
-      {/* Artwork Details Modal */}
-      <ArtworkDetailsModal
-        show={detailsShow}
-        onHide={handleDetailsClose}
-        artwork={selectedArtwork}
-      />
+      
 
       <ToastContainer />
     </div>
