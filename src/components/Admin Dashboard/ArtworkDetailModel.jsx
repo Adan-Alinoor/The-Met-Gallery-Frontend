@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Spinner } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ArtworkDetailsModal = ({ show, onHide, artworkId }) => {
   const [artwork, setArtwork] = useState(null);
@@ -36,23 +37,30 @@ const ArtworkDetailsModal = ({ show, onHide, artworkId }) => {
     }
   }, [artworkId]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{artwork?.title}</Modal.Title>
+        <Modal.Title>{loading ? 'Loading...' : artwork?.title || 'Artwork Details'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <img src={artwork?.image} alt={artwork?.title} className="img-fluid" />
-        <p><strong>Description:</strong> {artwork?.description}</p>
-        <p><strong>Price:</strong> Ksh {artwork?.price}</p>
+        {loading ? (
+          <div className="text-center">
+            <Spinner animation="border" variant="primary" />
+          </div>
+        ) : error ? (
+          <p className="text-danger">Error: {error}</p>
+        ) : (
+          <>
+            <img 
+              src={artwork?.image} 
+              alt={artwork?.title} 
+              className="img-fluid mb-3" 
+              style={{ maxHeight: '300px', objectFit: 'cover' }} 
+            />
+            <p><strong>Description:</strong> {artwork?.description}</p>
+            <p><strong>Price:</strong> Ksh {artwork?.price}</p>
+          </>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
@@ -64,4 +72,3 @@ const ArtworkDetailsModal = ({ show, onHide, artworkId }) => {
 };
 
 export default ArtworkDetailsModal;
-

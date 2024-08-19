@@ -1,0 +1,39 @@
+.event-edit-modal .modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .event-edit-modal .modal-title {
+    color: #007bff;
+  }
+  
+  .event-edit-modal .form-label {
+    font-weight: bold;
+  }
+  
+  .event-edit-modal .form-control {
+    margin-bottom: 1rem;
+  }
+  
+  .event-edit-modal .save-button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .event-edit-modal .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
+
+  .form-label{
+    color: black;
+  }
