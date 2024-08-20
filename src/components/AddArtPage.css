@@ -1,49 +1,62 @@
 /* src/components/AddArtPage.css */
 .add-art-container {
-    padding: 2rem;
-    background: linear-gradient(to right, #D5A6F3, #F5B2C1, #FFFFFF);
-    border-radius: 8px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .add-art-container h1 {
-    text-align: center;
-    color: #5C2F91; /* Purple color */
-  }
-  
-  .add-art-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .add-art-form label {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .add-art-form input,
-  .add-art-form textarea {
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-  }
-  
-  .add-art-form button {
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #5C2F91; /* Purple color */
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .add-art-form button:hover {
-    background-color: #4A1D6A; /* Darker purple for hover */
-  }
-  /* Add this CSS to ArtworkPage.css */
+  padding: 2rem;
+  background: linear-gradient(
+    rgba(0, 31, 63, 0.5), /* Semi-transparent navy blue */
+    rgba(0, 31, 63, 0.5)
+  ), url('https://images.unsplash.com/photo-1506748686214e9df14b1e4f2d91b3e');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 31, 63, 0.2);
+  color: #fff; /* Text color to ensure readability */
+}
+
+.add-art-container h1 {
+  text-align: center;
+  color: #d4af37; /* Deep gold */
+}
+
+.add-art-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(0, 31, 63, 0.7); /* Semi-transparent background for the form */
+  padding: 2rem; /* Padding for form elements */
+  border-radius: 8px;
+}
+
+.add-art-form label {
+  display: flex;
+  flex-direction: column;
+  color: #d4af37; /* Deep gold text for labels */
+}
+
+.add-art-form input,
+.add-art-form textarea {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #d4af37; /* Deep gold border */
+  background-color: #fff; /* White background for input fields */
+}
+
+.add-art-form button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #d4af37; /* Deep gold */
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-art-form button:hover {
+  background-color: #b89b33; /* Slightly darker deep gold */
+}
+
+/* src/components/ArtworkPage.css */
 
 .add-art-button {
   display: block;
@@ -51,14 +64,15 @@
   padding: 10px 20px;
   font-size: 1rem;
   color: #fff;
-  background-color: #E0115F; /* Same as your primary color */
+  background-color: #d4af37; /* Deep gold */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 31, 63, 0.2); /* Shadow with navy blue tint */
 }
 
 .add-art-button:hover {
-  background-color: #C8102E; /* Slightly darker shade for hover effect */
+  background-color: #b89b33; /* Slightly darker deep gold for hover effect */
 }
