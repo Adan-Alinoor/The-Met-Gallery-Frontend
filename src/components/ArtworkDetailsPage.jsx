@@ -127,7 +127,7 @@ const ArtworkDetailsPage = () => {
       const token = session?.accessToken;
       if (!token) throw new Error('No authentication token found');
 
-      const response = await fetch('http://127.0.0.1:5555/add_to_cart', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/add_to_cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
