@@ -26,7 +26,7 @@ const RegistrationForm = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await fetch('http://localhost:5555/signup', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
