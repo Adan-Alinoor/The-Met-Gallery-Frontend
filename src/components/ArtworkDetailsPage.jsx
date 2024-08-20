@@ -10,7 +10,7 @@ const ArtworkDetailsPage = () => {
 
   const fetchArtwork = async () => {
     try {
-      const response = await fetch(`https://the-met-gallery-backend.onrender.com/artworks/${id}`);
+      const response = await fetch(`http://127.0.0.1:5555/artworks/${id}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch artwork');
@@ -34,7 +34,7 @@ const ArtworkDetailsPage = () => {
       const session = JSON.parse(localStorage.getItem('session'));
       const token = session?.accessToken;
       if (!token) throw new Error('No authentication token found');
-  
+
       const response = await fetch('https://the-met-gallery-backend.onrender.com/add_to_cart', {
         method: 'POST',
         headers: {
@@ -82,10 +82,11 @@ const ArtworkDetailsPage = () => {
           <p><strong>Description:</strong> {artwork.description}</p>
           <p><strong>Price:</strong> {artwork.price}</p>
           <button className="add-to-cart" onClick={handleAddToCart}>
-            <Link to={`/cart`}>Add to Cart</Link>
+            Add to Cart
           </button>
         </div>
       </div>
+      <Link to="/cart" className="cart-link">Go to Cart</Link>
     </div>
   );
 };
