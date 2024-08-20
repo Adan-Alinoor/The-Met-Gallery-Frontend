@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './ArtworkDetailsPage.css';
@@ -34,29 +31,34 @@ const ArtworkDetailsPage = () => {
 
   const handleAddToCart = async () => {
     try {
+      const session = JSON.parse(localStorage.getItem('session'));
+      const token = session?.accessToken;
+      if (!token) throw new Error('No authentication token found');
+  
       const response = await fetch('https://the-met-gallery-backend.onrender.com/add_to_cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          // user_id: 1, // Adjust with the appropriate user ID logic
           artwork_id: artwork.id,
-          quantity: 1
+          quantity: 1,
+          user_id: session.user.id, // Ensure user_id is sent if required
         })
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to add item to cart');
       }
-
+  
       const data = await response.json();
       console.log('Successfully added to cart:', data);
     } catch (error) {
       console.error('Error adding to cart:', error.message);
     }
   };
-
+  
   if (loading) {
     return <p>Loading...</p>;
   }
