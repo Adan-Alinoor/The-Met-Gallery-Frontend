@@ -40,7 +40,7 @@ const ArtworkDetailsPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: 1, // Adjust with the appropriate user ID logic
+          // user_id: 1, // Adjust with the appropriate user ID logic
           artwork_id: artwork.id,
           quantity: 1
         })
