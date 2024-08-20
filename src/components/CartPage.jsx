@@ -191,23 +191,32 @@ const CartPage = ({ onCartUpdate }) => {
           }
         });
     
-        if (response.ok) {
-          const data = await response.json();
-          if (data.items) {
-            setCartItems(data.items);
-            // Notify parent component about the cart update
-            onCartUpdate(data.items.length);
-          } else {
-            console.error('Cart items not found in response data');
-          }
-        } else {
-          const errorData = await response.json();
-          console.error('Failed to fetch cart items:', errorData.error || 'Unknown error');
+        if (!response.ok) {
+          throw new Error('Cart not found');
+
+//         if (response.ok) {
+//           const data = await response.json();
+//           if (data.items) {
+//             setCartItems(data.items);
+//             // Notify parent component about the cart update
+//             onCartUpdate(data.items.length);
+//           } else {
+//             console.error('Cart items not found in response data');
+//           }
+//         } else {
+//           const errorData = await response.json();
+//           console.error('Failed to fetch cart items:', errorData.error || 'Unknown error');
+
         }
+    
+        const data = await response.json();
+        setCartItems(data.cart_items || []);
+        onCartUpdate(data.cart_items?.length || 0);
       } catch (error) {
-        console.error('Error fetching cart items:', error);
+        console.error('Failed to fetch cart items:', error.message);
       }
     };
+    
 
     fetchCartItems();
   }, [onCartUpdate]);
