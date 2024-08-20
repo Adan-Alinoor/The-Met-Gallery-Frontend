@@ -30,6 +30,7 @@ import SideNavbar from './components/Admin Dashboard/SideNavbar';
 import { AuthProvider } from './components/AuthContext';
 
 import VerifyEmail from './components/VerifyEmail';
+import { io } from 'socket.io-client';
 
 const socket = io('https://the-met-gallery-backend.onrender.com', {
   transports: ['websocket']
