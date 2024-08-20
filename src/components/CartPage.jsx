@@ -185,8 +185,7 @@ const CartPage = ({ onCartUpdate }) => {
         const token = session?.accessToken;
         if (!token) throw new Error('No authentication token found');
     
-        const response = await fetch(`https://the-met-gallery-backend.onrender.com/view_cart/${session.user.id}`, {
-          method: 'GET',
+        const response = await fetch(`http://127.0.0.1:5555/view_cart/${session.user.id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -194,10 +193,10 @@ const CartPage = ({ onCartUpdate }) => {
     
         if (response.ok) {
           const data = await response.json();
-          console.log('Cart response data:', data); // Debugging line
-          if (data.cart_items) {
-            setCartItems(data.cart_items);
-            onCartUpdate(data.cart_items.length);
+          if (data.items) {
+            setCartItems(data.items);
+            // Notify parent component about the cart update
+            onCartUpdate(data.items.length);
           } else {
             console.error('Cart items not found in response data');
           }
@@ -219,7 +218,7 @@ const CartPage = ({ onCartUpdate }) => {
       const token = session?.accessToken;
       if (!token) throw new Error('No authentication token found');
 
-      const response = await fetch('https://the-met-gallery-backend.onrender.com/remove_from_cart', {
+      const response = await fetch('http://127.0.0.1:5555/remove_from_cart', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -232,7 +231,8 @@ const CartPage = ({ onCartUpdate }) => {
       });
 
       if (response.ok) {
-        setCartItems(prevItems => prevItems.filter(item => item.id !== artworkId));
+        setCartItems(prevItems => prevItems.filter(item => item.artwork_id !== artworkId));
+        // Notify parent component about the cart update
         onCartUpdate(cartItems.length - 1);
       } else {
         const errorData = await response.json();
@@ -247,7 +247,7 @@ const CartPage = ({ onCartUpdate }) => {
     if (newQuantity <= 0) return;
 
     const updatedItems = cartItems.map(item =>
-      item.id === artworkId ? { ...item, quantity: newQuantity } : item
+      item.artwork_id === artworkId ? { ...item, quantity: newQuantity } : item
     );
     setCartItems(updatedItems);
 
@@ -256,7 +256,7 @@ const CartPage = ({ onCartUpdate }) => {
       const token = session?.accessToken;
       if (!token) throw new Error('No authentication token found');
 
-      const response = await fetch('https://the-met-gallery-backend.onrender.com/update_cart_item', {
+      const response = await fetch('http://127.0.0.1:5555/update_cart_item', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -274,7 +274,7 @@ const CartPage = ({ onCartUpdate }) => {
         console.error('Failed to update item quantity:', errorData.error);
         setCartItems(prevItems =>
           prevItems.map(item =>
-            item.id === artworkId ? { ...item, quantity: item.quantity } : item
+            item.artwork_id === artworkId ? { ...item, quantity: item.quantity } : item
           )
         );
       }
@@ -282,7 +282,7 @@ const CartPage = ({ onCartUpdate }) => {
       console.error('Error updating item quantity:', error);
       setCartItems(prevItems =>
         prevItems.map(item =>
-          item.id === artworkId ? { ...item, quantity: item.quantity } : item
+          item.artwork_id === artworkId ? { ...item, quantity: item.quantity } : item
         )
       );
     }
@@ -313,26 +313,26 @@ const CartPage = ({ onCartUpdate }) => {
       ) : (
         <div className="cart-items-container">
           {cartItems.map(item => (
-            <div key={item.id} className="cart-item-card">
+            <div key={item.artwork_id} className="cart-item-card">
               <div className="cart-item-image">
-                <img src={item.image} alt={item.name} />
+                <img src={item.image} alt={item.title} />
               </div>
               <div className="cart-item-details">
-                <h2 className="item-title">{item.name}</h2>
+                <h2 className="item-title">{item.title}</h2>
                 <p className="item-description">{item.description}</p>
                 <p className="item-price">Price: Ksh {item.price}</p>
                 <div className="quantity-container">
-                  <label htmlFor={`quantity-${item.id}`}>Quantity:</label>
+                  <label htmlFor={`quantity-${item.artwork_id}`}>Quantity:</label>
                   <input
-                    id={`quantity-${item.id}`}
+                    id={`quantity-${item.artwork_id}`}
                     type="number"
                     value={item.quantity}
-                    onChange={(e) => handleQuantityChange(item.id, e)}
+                    onChange={(e) => handleQuantityChange(item.artwork_id, e)}
                     className="quantity-input"
                     min="1"
                   />
                 </div>
-                <button onClick={() => removeItemFromCart(item.id)} className="remove-item-button">Remove</button>
+                <button onClick={() => removeItemFromCart(item.artwork_id)} className="remove-item-button">Remove</button>
               </div>
             </div>
           ))}
@@ -347,3 +347,4 @@ const CartPage = ({ onCartUpdate }) => {
 };
 
 export default CartPage;
+
