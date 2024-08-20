@@ -20,7 +20,7 @@ const OrdersTickets = () => {
   const fetchPayments = () => {
     setLoading(true);
     axios
-      .get("http://127.0.0.1:5555/payments", {
+      .get("https://the-met-gallery-backend.onrender.com/payments", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ const OrdersTickets = () => {
 
   const fetchOrderDetails = (orderId) => {
     axios
-      .get(`http://127.0.0.1:5555/artworks/order/${orderId}`, {
+      .get(`https://the-met-gallery-backend.onrender.com/order/${orderId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,7 +52,7 @@ const OrdersTickets = () => {
 
   const fetchBookingDetails = (bookingId) => {
     axios
-      .get(`http://127.0.0.1:5555/bookings/${bookingId}`, {
+      .get(`https://the-met-gallery-backend.onrender.com/bookings/${bookingId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

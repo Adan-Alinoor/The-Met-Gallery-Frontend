@@ -21,7 +21,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5555/login', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/login', {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

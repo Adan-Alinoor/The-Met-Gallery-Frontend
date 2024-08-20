@@ -32,7 +32,7 @@ const MyEventsList = () => {
   }
 
   try {
-    const response = await axios.get('http://127.0.0.1:5555/events', {
+    const response = await axios.get('https://the-met-gallery-backend.onrender.com/events', {
       params: { user_specific: true }, // Add user_specific query parameter
       headers: {
         Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ const MyEventsList = () => {
     }
   
     try {
-      await axios.delete(`http://127.0.0.1:5555/events/${eventId}`, {
+      await axios.delete(`https://the-met-gallery-backend.onrender.com/events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

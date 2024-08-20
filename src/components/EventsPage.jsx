@@ -24,7 +24,7 @@ const EventsPage = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:5555/events', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/events', {
         headers: {
           'METHOD': 'GET',
           'Authorization': `Bearer ${token}`,
@@ -122,7 +122,7 @@ export default EventsPage;
 //     }
 
 //     try {
-//       const response = await fetch('http://127.0.0.1:5555/events', {
+//       const response = await fetch('https://the-met-gallery-backend.onrender.com/events', {
 //         headers: {
 //           'METHOD': 'GET',
 //           'Authorization': `Bearer ${token}`,

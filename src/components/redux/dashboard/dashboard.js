@@ -10,7 +10,7 @@ const initialState = {
 const fetchDetails = createAsyncThunk(GET_DETAILS, async () => {
   const session = JSON.parse(localStorage.getItem("session"));
   const token = session?.accessToken;
-  const DETAILS_API = "http://127.0.0.1:5555/dashboard";
+  const DETAILS_API = "https://the-met-gallery-backend.onrender.com/dashboard";
   const response = await fetch(DETAILS_API, {
     headers: {
       Authorization: `Bearer ${token}`,

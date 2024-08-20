@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await fetch('http://127.0.0.1:5000/verify-token', {
+          const response = await fetch('https://the-met-gallery-backend.onrender.com/verify-token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
     // Optionally, call the backend to invalidate the token
     try {
-      await fetch('http://127.0.0.1:5000/logout', {
+      await fetch('https://the-met-gallery-backend.onrender.com/logout', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,

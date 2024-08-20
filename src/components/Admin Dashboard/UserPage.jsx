@@ -21,7 +21,7 @@ const UserPage = () => {
   const fetchUsers = async () => {
     console.log('Fetching users...');
     try {
-      const response = await axios.get('http://127.0.0.1:5555/users');
+      const response = await axios.get('https://the-met-gallery-backend.onrender.com/users');
       setUsers(response.data); // Adjust based on actual response structure
       setLoading(false);
     } catch (err) {
@@ -54,9 +54,9 @@ const UserPage = () => {
 
     try {
       if (action === 'Add') {
-        await axios.post('http://127.0.0.1:5555/users', userData); // Ensure this is the correct endpoint
+        await axios.post('https://the-met-gallery-backend.onrender.com/users', userData); // Ensure this is the correct endpoint
       } else if (action === 'Edit') {
-        await axios.put(`http://127.0.0.1:5555/users/${selectedUser.id}`, userData); // Correct endpoint
+        await axios.put(`https://the-met-gallery-backend.onrender.com/users/${selectedUser.id}`, userData); // Correct endpoint
       }
       fetchUsers();
       handleClose();
@@ -67,7 +67,7 @@ const UserPage = () => {
 
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`http://127.0.0.1:5555/users/${userId}`); // Ensure this is the correct endpoint
+      await axios.delete(`https://the-met-gallery-backend.onrender.com/users/${userId}`); // Ensure this is the correct endpoint
       fetchUsers();
     } catch (err) {
       setError('Failed to delete user.');

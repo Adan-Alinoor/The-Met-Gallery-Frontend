@@ -27,7 +27,7 @@ const TicketBookingPage = () => {
       }
 
       try {
-        const response = await axios.get(`http://127.0.0.1:5555/events/${eventId}`, {
+        const response = await axios.get(`https://the-met-gallery-backend.onrender.com/events/${eventId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -62,19 +62,17 @@ const TicketBookingPage = () => {
   const handlePayment = async () => {
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
-    const userId = session?.user?.id
-
+    const userId = session?.user?.id;
+  
     if (!token) {
       navigate('/');
       return;
     }
-
+  
     try {
-      const response = await axios.post('http://127.0.0.1:5555/eventcheckout', {
+      const response = await axios.post('https://the-met-gallery-backend.onrender.com/eventcheckout', {
         user_id: userId,
-        event_id: eventId,
-        ticket_id: selectedItem.id,
-        ticket_type: selectedItem.type_name, //added
+        ticket_type: selectedItem.type_name, // Ensure this is correct
         total_amount: totalAmount,
         quantity: ticketQuantity,
         phone_number: phoneNumber,
@@ -83,7 +81,7 @@ const TicketBookingPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-
+  
       console.log('Payment response:', response.data);
       alert(`Payment of KES ${totalAmount} initiated for ${ticketQuantity} ticket(s).`);
       navigate('/my-bookings');
@@ -112,7 +110,7 @@ const TicketBookingPage = () => {
     };
 
     // try {
-    //   const response = await axios.post('http://127.0.0.1:5555/bookings', formData, {
+    //   const response = await axios.post('https://the-met-gallery-backend.onrender.com/bookings', formData, {
     //     headers: {
     //       'Authorization': `Bearer ${token}`,
     //     },

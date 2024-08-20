@@ -25,7 +25,7 @@ const MyBookings = () => {
 
     try {
       const response = await axios.get(
-        "http://127.0.0.1:5555/bookings?user_specific=true",
+        "https://the-met-gallery-backend.onrender.com/bookings?user_specific=true",
         {
           headers: {
             Authorization: `Bearer ${token}`,

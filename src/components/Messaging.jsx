@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Messaging.css';
 import Loading from './Loading';
 
-const socket = io.connect('http://localhost:5555');
+const socket = io.connect('https://the-met-gallery-backend.onrender.com');
 
 const Messaging = () => {
   const [users, setUsers] = useState([]);
@@ -19,7 +19,7 @@ const Messaging = () => {
   console.log('Retrieved token:', token);
 
   useEffect(() => {
-    axios.get('http://localhost:5555/users', {
+    axios.get('https://the-met-gallery-backend.onrender.com/users', {
       headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -31,7 +31,7 @@ const Messaging = () => {
         console.error('Error fetching users:', error);
       });
 
-    axios.get('http://localhost:5555/messages', {
+    axios.get('https://the-met-gallery-backend.onrender.com/messages', {
        headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -76,7 +76,7 @@ const Messaging = () => {
       message: newMessage,
     };
 
-    axios.post('http://localhost:5555/messages', messageData, {
+    axios.post('https://the-met-gallery-backend.onrender.com/messages', messageData, {
        headers: {
           'Authorization': `Bearer ${token}`,
         },

@@ -13,7 +13,7 @@
 //         const token = session?.accessToken;
 //         if (!token) throw new Error('No authentication token found');
 
-//         const response = await fetch(`http://127.0.0.1:5555/view_cart/${session.user.id}`, {
+//         const response = await fetch(`https://the-met-gallery-backend.onrender.com/view_cart/${session.user.id}`, {
 //           headers: {
 //             'Authorization': `Bearer ${token}`
 //           }
@@ -40,7 +40,7 @@
 //       const token = session?.accessToken;
 //       if (!token) throw new Error('No authentication token found');
 
-//       const response = await fetch('http://127.0.0.1:5555/remove_from_cart', {
+//       const response = await fetch('https://the-met-gallery-backend.onrender.com/remove_from_cart', {
 //         method: 'DELETE',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@
 //       const token = session?.accessToken;
 //       if (!token) throw new Error('No authentication token found');
 
-//       const response = await fetch('http://127.0.0.1:5555/update_cart_item', {
+//       const response = await fetch('https://the-met-gallery-backend.onrender.com/update_cart_item', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ const CartPage = ({ onCartUpdate }) => {
         const token = session?.accessToken;
         if (!token) throw new Error('No authentication token found');
     
-        const response = await fetch(`http://127.0.0.1:5555/view_cart/${session.user.id}`, {
+        const response = await fetch(`https://the-met-gallery-backend.onrender.com/view_cart/${session.user.id}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -219,7 +219,7 @@ const CartPage = ({ onCartUpdate }) => {
       const token = session?.accessToken;
       if (!token) throw new Error('No authentication token found');
 
-      const response = await fetch('http://127.0.0.1:5555/remove_from_cart', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/remove_from_cart', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -256,7 +256,7 @@ const CartPage = ({ onCartUpdate }) => {
       const token = session?.accessToken;
       if (!token) throw new Error('No authentication token found');
 
-      const response = await fetch('http://127.0.0.1:5555/update_cart_item', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/update_cart_item', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

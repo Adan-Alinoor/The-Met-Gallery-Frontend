@@ -22,7 +22,7 @@ const EventEditModal = ({ show, onHide, eventId, onUpdate }) => {
           const session = JSON.parse(localStorage.getItem('session'));
           const token = session && session.accessToken;
 
-          const response = await axios.get(`http://127.0.0.1:5555/events/${eventId}`, {
+          const response = await axios.get(`https://the-met-gallery-backend.onrender.com/events/${eventId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -48,7 +48,7 @@ const EventEditModal = ({ show, onHide, eventId, onUpdate }) => {
     const token = session && session.accessToken;
 
     try {
-      await axios.put(`http://127.0.0.1:5555/events/${eventId}`, event, {
+      await axios.put(`https://the-met-gallery-backend.onrender.com/events/${eventId}`, event, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
