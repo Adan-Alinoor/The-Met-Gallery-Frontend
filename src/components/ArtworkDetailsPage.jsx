@@ -102,7 +102,7 @@ const ArtworkDetailsPage = () => {
 
   const fetchArtwork = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5555/artworks/${id}`);
+      const response = await fetch(`https://the-met-gallery-backend.onrender.com/artworks/${id}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch artwork');
@@ -126,31 +126,31 @@ const ArtworkDetailsPage = () => {
       const session = JSON.parse(localStorage.getItem('session'));
       const token = session?.accessToken;
       if (!token) throw new Error('No authentication token found');
-
+  
       const response = await fetch('https://the-met-gallery-backend.onrender.com/add_to_cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          user_id: session.user.id, // Adjust with the appropriate user ID logic
           artwork_id: artwork.id,
-          quantity: 1
+          quantity: 1,
+          user_id: session.user.id, // Ensure user_id is sent if required
         })
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to add item to cart');
       }
-
+  
       const data = await response.json();
       console.log('Successfully added to cart:', data);
     } catch (error) {
       console.error('Error adding to cart:', error.message);
     }
   };
-
+  
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -174,11 +174,10 @@ const ArtworkDetailsPage = () => {
           <p><strong>Description:</strong> {artwork.description}</p>
           <p><strong>Price:</strong> {artwork.price}</p>
           <button className="add-to-cart" onClick={handleAddToCart}>
-            Add to Cart
+            <Link to={`/cart`}>Add to Cart</Link>
           </button>
         </div>
       </div>
-      <Link to="/cart" className="cart-link">Go to Cart</Link>
     </div>
   );
 };

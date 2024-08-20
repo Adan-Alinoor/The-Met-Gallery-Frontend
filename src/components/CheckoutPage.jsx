@@ -15,31 +15,41 @@ const CheckoutPage = () => {
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
     const userId = session?.user?.id;
-
+  
     if (!token || !userId) {
       navigate('/checkout');
       return;
     }
-
+  
     fetch(`https://the-met-gallery-backend.onrender.com/view_cart/${userId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch cart: ${response.statusText}`);
+        }
+        return response.json();
+      })
       .then((data) => {
-        if (data.items) {
+        console.log('Fetched cart data:', data); // Debugging log
+        if (data.items && Array.isArray(data.items)) {
           setOrderSummary(data.items);
-          setTotalAmount(data.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+          const calculatedTotalAmount = data.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          setTotalAmount(calculatedTotalAmount);
+          console.log('Order summary set with items:', data.items); // Additional debugging log
         } else {
           setOrderSummary([]);
           setTotalAmount(0);
+          console.warn('No items found in cart or data.items is not an array'); // Warning log
         }
       })
       .catch((error) => {
         console.error('Error fetching cart:', error);
       });
   }, [navigate]);
+  
 
   const handleInputChange = (event) => {
     setPhoneNumber(event.target.value);
@@ -82,8 +92,14 @@ const CheckoutPage = () => {
         items: items
       })
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to place order: ${response.statusText}`);
+      }
+      return response.json();
+    })
     .then((data) => {
+      console.log('Checkout response data:', data); // Debugging log
       if (data.message) {
         alert('Order placed successfully');
         navigate('/artworks');
@@ -103,11 +119,15 @@ const CheckoutPage = () => {
       <div className="order-summary">
         <h2>Order Summary</h2>
         <ul>
-          {orderSummary.map((item) => (
-            <li key={item.artwork_id}>
-              {item.title} - Ksh {item.price} x {item.quantity}
-            </li>
-          ))}
+          {orderSummary.length > 0 ? (
+            orderSummary.map((item) => (
+              <li key={item.artwork_id}>
+                {item.title} - Ksh {item.price} x {item.quantity}
+              </li>
+            ))
+          ) : (
+            <p>No items in your cart.</p>
+          )}
         </ul>
         <h2>Total Amount: Ksh {totalAmount}</h2>
       </div>
@@ -130,4 +150,3 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
-
