@@ -31,6 +31,10 @@ import { AuthProvider } from './components/AuthContext';
 
 import VerifyEmail from './components/VerifyEmail';
 
+const socket = io('https://the-met-gallery-backend.onrender.com', {
+  transports: ['websocket']
+});
+
 
 
 const App = () => {
