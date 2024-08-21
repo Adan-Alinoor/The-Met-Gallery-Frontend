@@ -60,6 +60,7 @@ const CheckoutPage = () => {
   };
 
   const handlePayment = () => {
+    setLoading(true);
     if (!phoneNumber) {
       alert('Please enter your phone number for M-Pesa payment');
       return;
@@ -109,6 +110,7 @@ const CheckoutPage = () => {
       console.error('Error placing order:', error);
       navigate('/checkout');
     });
+    setLoading(false);
   };
 
   if (loading) return <Loading />
