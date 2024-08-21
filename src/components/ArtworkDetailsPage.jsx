@@ -12,7 +12,7 @@ const ArtworkDetailsPage = () => {
   const fetchArtwork = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://the-met-gallery-backend.onrender.com:5000/artworks/${id}`);
+      const response = await fetch(`https://the-met-gallery-backend.onrender.com/artworks/${id}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch artwork');
@@ -34,7 +34,7 @@ const ArtworkDetailsPage = () => {
   const handleAddToCart = async () => {
     setLoading(true);
     try {  
-      const response = await fetch('https://the-met-gallery-backend.onrender.com:5000/add_to_cart', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/add_to_cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

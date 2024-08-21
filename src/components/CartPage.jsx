@@ -12,7 +12,7 @@ const CartPage = () => {
     const fetchCartItems = async () => {
       setLoading(true);
       try {    
-        const response = await fetch('https://the-met-gallery-backend.onrender.com:5000/view_cart');
+        const response = await fetch('https://the-met-gallery-backend.onrender.com/view_cart');
     
         if (!response.ok) {
           throw new Error('Cart not found');
@@ -35,7 +35,7 @@ const CartPage = () => {
   const removeItemFromCart = async (artworkId) => {
     setLoading(true);
     try {
-      const response = await fetch(`https://the-met-gallery-backend.onrender.com:5000/remove_from_cart/${artworkId}`, {
+      const response = await fetch(`https://the-met-gallery-backend.onrender.com/remove_from_cart/${artworkId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const CartPage = () => {
 
     try {
 
-      const response = await fetch(`https://the-met-gallery-backend.onrender.com:5000/update_cart_item/${artworkId}`, {
+      const response = await fetch(`https://the-met-gallery-backend.onrender.com/update_cart_item/${artworkId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

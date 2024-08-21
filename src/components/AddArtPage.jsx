@@ -33,7 +33,7 @@ const AddArtPage = ({ onNewArtwork = () => {} }) => {
     const token = session?.accessToken;
 
     try {
-      const response = await fetch('https://the-met-gallery-backend.onrender.com:5000/artworks', {
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/artworks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

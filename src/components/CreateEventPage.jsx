@@ -72,7 +72,7 @@ const CreateEventPage = () => {
 
     try {
       // Create the event
-      const eventResponse = await fetch("https://the-met-gallery-backend.onrender.com:5000/events", {
+      const eventResponse = await fetch("https://the-met-gallery-backend.onrender.com/events", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const CreateEventPage = () => {
 
       // Create tickets
       const ticketPromises = tickets.map((ticket) =>
-        fetch("https://the-met-gallery-backend.onrender.com:5000/admin/tickets", {
+        fetch("https://the-met-gallery-backend.onrender.com/admin/tickets", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,

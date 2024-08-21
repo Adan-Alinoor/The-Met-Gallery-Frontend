@@ -35,7 +35,7 @@ const ArtworkPage = () => {
   const fetchArtworks = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://the-met-gallery-backend.onrender.com:5000/artworks');
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/artworks');
 
       if (!response.ok) {
         throw new Error('Failed to fetch artworks');

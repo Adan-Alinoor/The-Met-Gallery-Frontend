@@ -19,7 +19,7 @@ const Messaging = () => {
   console.log('Retrieved token:', token);
 
   useEffect(() => {
-    axios.get('https://the-met-gallery-backend.onrender.com:5000/users', {
+    axios.get('https://the-met-gallery-backend.onrender.com/users', {
       headers: {
           'Authorization': `Bearer ${token}`,
         },

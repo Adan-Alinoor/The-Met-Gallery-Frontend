@@ -24,7 +24,7 @@ const CheckoutPage = () => {
       return;
     }
   
-    fetch(`https://the-met-gallery-backend.onrender.com:5000/view_cart`, {
+    fetch(`https://the-met-gallery-backend.onrender.com/view_cart`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -75,7 +75,7 @@ const CheckoutPage = () => {
       quantity: item.quantity
     }));
   
-    fetch('https://the-met-gallery-backend.onrender.com:5000/artworkcheckout', {
+    fetch('https://the-met-gallery-backend.onrender.com/artworkcheckout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
