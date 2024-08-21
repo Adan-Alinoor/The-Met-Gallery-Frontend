@@ -67,18 +67,18 @@ const App = () => {
     setEvents([...events, { ...newEvent, id: events.length + 1 }]);
   };
 
-  const removeItemFromCart = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
+  // const removeItemFromCart = (id) => {
+  //   setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  // };
 
-  const updateItemQuantity = (id, quantity) => {
-    if (quantity <= 0) return;
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      )
-    );
-  };
+  // const updateItemQuantity = (id, quantity) => {
+  //   if (quantity <= 0) return;
+  //   setCartItems((prevItems) =>
+  //     prevItems.map((item) =>
+  //       item.id === id ? { ...item, quantity } : item
+  //     )
+  //   );
+  // };
 
   const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
@@ -123,7 +123,7 @@ const App = () => {
           <Route path="/profile" element={<ProtectedRoute element={<UserProfile />} />} />
           <Route path="/artworks" element={<ArtworkPage />} />
           <Route path="/artworks/:id" element={<ArtworkDetailsPage />} />
-          <Route path="/cart" element={<CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} />} />
+          <Route path="/cart" element={<CartPage cartItems={cartItems} />} />
           <Route path="/add-art" element={<ProtectedRoute element={isArtist ? <AddArtPage /> : <Navigate to="/login" />} />} />
           <Route path="/events" element={<EventsPage events={events} />} />
           <Route path="/events/:eventId" element={<EventDetailPage events={events} />} />
