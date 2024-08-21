@@ -32,7 +32,7 @@ import { AuthProvider } from './components/AuthContext';
 import VerifyEmail from './components/VerifyEmail';
 import { io } from 'socket.io-client';
 
-const socket = io('wss://the-met-gallery-backend.onrender.com:5000', {
+const socket = io('https://the-met-gallery-backend.onrender.com', {
   transports: ['websocket']
 });
 
