@@ -146,6 +146,18 @@ const EventDetailPage = () => {
     fetchEvent();
   }, [eventId, navigate]);
 
+  const handleBookNowClick = () => {
+    const session = JSON.parse(localStorage.getItem('session'));
+    const token = session?.accessToken;
+
+    if (!token) {
+      toast.info("Please log in to book tickets.");
+      navigate('/login');  // Redirect to login page
+    } else {
+      navigate(`/events/${event.title}/${event.id}/book`);
+    }
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -186,14 +198,14 @@ const EventDetailPage = () => {
         <p>No tickets available</p>
       )}
       <div className="button-container">
-        <Link to={`/events/${event.title}/${event.id}/book`}>
-          <button className="back-to-events-button">Book Now</button>
-        </Link>
+        <button className="back-to-events-button" onClick={handleBookNowClick}>
+          Book Now
+        </button>
         <button className="back-to-events-button" onClick={() => navigate('/events')}>
           Back to Events
         </button>
       </div>
-      <ToastContainer /> 
+      <ToastContainer />
     </div>
   );
 };
