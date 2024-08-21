@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Messaging.css';
 import Loading from './Loading';
 
-const socket = io.connect('https://the-met-gallery-backend.onrender.com');
+const socket = io.connect('https://the-met-gallery-backend.onrender.com:5000');
 
 const Messaging = () => {
   const [users, setUsers] = useState([]);

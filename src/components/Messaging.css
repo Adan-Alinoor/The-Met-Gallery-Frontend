@@ -8,12 +8,12 @@
   background-color: #f0f0f0;
   padding: 10px;
   border-right: 1px solid #ccc;
-  color: #000;
 }
 
 .user-list div {
   padding: 10px;
   cursor: pointer;
+  color: #000;
 }
 
 .user-list .active {
