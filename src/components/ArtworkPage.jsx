@@ -98,7 +98,7 @@ const EventsPage = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('https://the-met-gallery-backend.onrender.com/events');
+      const response = await fetch('https://the-met-gallery-backend.onrender.com/artworks');
 
       if (!response.ok) {
         console.log('Response status:', response.status);
