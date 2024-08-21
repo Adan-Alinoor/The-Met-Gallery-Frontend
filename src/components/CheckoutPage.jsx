@@ -86,7 +86,7 @@ const CheckoutPage = () => {
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
-        user_id: userId,
+        user_id: session.user.id,
         phone_number: phoneNumber,
         items: items
       })
