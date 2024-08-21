@@ -33,7 +33,7 @@ const ArtworkManagement = () => {
     const token = session?.accessToken;
 
     try {
-      const response = await axios.get('https://the-met-gallery-backend.onrender.com//artworks', {
+      const response = await axios.get('https://the-met-gallery-backend.onrender.com:5000//artworks', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +73,7 @@ const ArtworkManagement = () => {
     };
 
     try {
-      await axios.post('https://the-met-gallery-backend.onrender.com/artworks', newArtwork, {
+      await axios.post('https://the-met-gallery-backend.onrender.com:5000/artworks', newArtwork, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ const ArtworkManagement = () => {
     };
 
     try {
-      await axios.put(`https://the-met-gallery-backend.onrender.com/artworks/${selectedArtworkId}`, updatedArtwork, {
+      await axios.put(`https://the-met-gallery-backend.onrender.com:5000/artworks/${selectedArtworkId}`, updatedArtwork, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ const ArtworkManagement = () => {
     const token = session?.accessToken;
 
     try {
-      await axios.delete(`https://the-met-gallery-backend.onrender.com/artworks/${artworkId}`, {
+      await axios.delete(`https://the-met-gallery-backend.onrender.com:5000/artworks/${artworkId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -142,7 +142,7 @@ const ArtworkManagement = () => {
     const token = session?.accessToken;
 
     try {
-      const response = await axios.get(`https://the-met-gallery-backend.onrender.com/artworks/${artworkId}`, {
+      const response = await axios.get(`https://the-met-gallery-backend.onrender.com:5000/artworks/${artworkId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

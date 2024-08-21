@@ -1,5 +1,4 @@
 {
-  "proxy": "https://the-met-gallery-backend.onrender.com",
   "name": "the-met-gallery",
   "private": true,
   "version": "0.0.0",

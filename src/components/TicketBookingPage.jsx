@@ -27,7 +27,7 @@ const TicketBookingPage = () => {
       }
 
       try {
-        const response = await axios.get(`https://the-met-gallery-backend.onrender.com/events/${eventId}`, {
+        const response = await axios.get(`https://the-met-gallery-backend.onrender.com:5000/events/${eventId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -70,7 +70,7 @@ const TicketBookingPage = () => {
     }
   
     try {
-      const response = await axios.post('https://the-met-gallery-backend.onrender.com/eventcheckout', {
+      const response = await axios.post('https://the-met-gallery-backend.onrender.com:5000/eventcheckout', {
         user_id: userId,
         ticket_type: selectedItem.type_name, // Ensure this is correct
         total_amount: totalAmount,
@@ -110,7 +110,7 @@ const TicketBookingPage = () => {
     };
 
     // try {
-    //   const response = await axios.post('https://the-met-gallery-backend.onrender.com/bookings', formData, {
+    //   const response = await axios.post('https://the-met-gallery-backend.onrender.com:5000/bookings', formData, {
     //     headers: {
     //       'Authorization': `Bearer ${token}`,
     //     },

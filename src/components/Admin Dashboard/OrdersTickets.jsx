@@ -20,7 +20,7 @@ const OrdersTickets = () => {
   const fetchPayments = () => {
     setLoading(true);
     axios
-      .get("https://the-met-gallery-backend.onrender.com/payments", {
+      .get("https://the-met-gallery-backend.onrender.com:5000/payments", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ const OrdersTickets = () => {
 
   const fetchOrderDetails = (orderId) => {
     axios
-      .get(`https://the-met-gallery-backend.onrender.com/order/${orderId}`, {
+      .get(`https://the-met-gallery-backend.onrender.com:5000/order/${orderId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,7 +52,7 @@ const OrdersTickets = () => {
 
   const fetchBookingDetails = (bookingId) => {
     axios
-      .get(`https://the-met-gallery-backend.onrender.com/bookings/${bookingId}`, {
+      .get(`https://the-met-gallery-backend.onrender.com:5000/bookings/${bookingId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

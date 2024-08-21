@@ -16,7 +16,7 @@ const UserProfile = () => {
       try {
         const session = JSON.parse(localStorage.getItem('session'));
         const token = session && session.accessToken;
-        const response = await axios.get('https://the-met-gallery-backend.onrender.com/user', {
+        const response = await axios.get('https://the-met-gallery-backend.onrender.com:5000/user', {
           headers: {
             Authorization: `Bearer ${token}`
           }

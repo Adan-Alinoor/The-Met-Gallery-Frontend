@@ -37,7 +37,7 @@ const EventManagement = () => {
     const token = session?.accessToken;
 
     try {
-      const response = await axios.get("https://the-met-gallery-backend.onrender.com/events", {
+      const response = await axios.get("https://the-met-gallery-backend.onrender.com:5000/events", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -72,7 +72,7 @@ const EventManagement = () => {
     };
 
     try {
-      await axios.post("https://the-met-gallery-backend.onrender.com/events", newEvent, {
+      await axios.post("https://the-met-gallery-backend.onrender.com:5000/events", newEvent, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ const EventManagement = () => {
     const token = session?.accessToken;
 
     try {
-      await axios.delete(`https://the-met-gallery-backend.onrender.com/events/${eventId}`, {
+      await axios.delete(`https://the-met-gallery-backend.onrender.com:5000/events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

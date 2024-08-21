@@ -7,7 +7,7 @@ const VerifyEmail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://the-met-gallery-backend.onrender.com/verify/${token}`)
+    fetch(`https://the-met-gallery-backend.onrender.com:5000/verify/${token}`)
       .then((response) => response.json())
       .then((data) => {
         if (response.ok) {

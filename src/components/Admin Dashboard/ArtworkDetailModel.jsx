@@ -13,7 +13,7 @@ const ArtworkDetailsModal = ({ show, onHide, artworkId }) => {
         const session = JSON.parse(localStorage.getItem('session'));
         const token = session?.accessToken;
 
-        const response = await fetch(`https://the-met-gallery-backend.onrender.com/${artworkId}`, {
+        const response = await fetch(`https://the-met-gallery-backend.onrender.com:5000/${artworkId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

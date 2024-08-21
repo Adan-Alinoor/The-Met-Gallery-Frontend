@@ -25,7 +25,7 @@ const MyBookings = () => {
 
     try {
       const response = await axios.get(
-        "https://the-met-gallery-backend.onrender.com/bookings?user_specific=true",
+        "https://the-met-gallery-backend.onrender.com:5000/bookings?user_specific=true",
         {
           headers: {
             Authorization: `Bearer ${token}`,

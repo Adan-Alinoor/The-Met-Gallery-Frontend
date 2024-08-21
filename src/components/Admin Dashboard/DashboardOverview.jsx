@@ -20,7 +20,7 @@ function DashboardOverview() {
     const fetchDashboardData = async () => {
       try {
         const dashboardResponse = await axios.get(
-          "https://the-met-gallery-backend.onrender.com/dashboard",
+          "https://the-met-gallery-backend.onrender.com:5000/dashboard",
           {
             headers: {
               Authorization: `Bearer ${token}`,

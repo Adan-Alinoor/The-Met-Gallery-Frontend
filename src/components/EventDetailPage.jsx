@@ -22,7 +22,7 @@ const EventDetailPage = () => {
     }
 
     try {
-      const response = await fetch(`https://the-met-gallery-backend.onrender.com/events/${eventId}`, {
+      const response = await fetch(`https://the-met-gallery-backend.onrender.com:5000/events/${eventId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
