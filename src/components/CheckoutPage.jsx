@@ -16,44 +16,18 @@ const CheckoutPage = () => {
     setLoading(true);
     setOrderSummary(pCartItems);
     setTotalAmount(pTotalAmount);
+    
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
-  
+
     if (!token) {
       navigate('/login');
+      setLoading(false);
       return;
     }
-  
-    // fetch(`https://the-met-gallery-backend.onrender.com/view_cart`, {
-    //   headers: {
-    //     'Authorization': `Bearer ${token}`
-    //   }
-    // })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error(`Failed to fetch cart: ${response.statusText}`);
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log('Fetched cart data:', data); // Debugging log
-    //     if (data.items && Array.isArray(data.items)) {
-    //       setOrderSummary(data.items);
-    //       const calculatedTotalAmount = data.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    //       setTotalAmount(calculatedTotalAmount);
-    //       console.log('Order summary set with items:', data.items); // Additional debugging log
-    //     } else {
-    //       setOrderSummary([]);
-    //       setTotalAmount(0);
-    //       console.warn('No items found in cart or data.items is not an array'); // Warning log
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching cart:', error);
-    //   });
-      setLoading(false);
-  }, [navigate]);
-  
+
+    setLoading(false);
+  }, [navigate, pCartItems, pTotalAmount]);
 
   const handleInputChange = (event) => {
     setPhoneNumber(event.target.value);
@@ -61,56 +35,57 @@ const CheckoutPage = () => {
 
   const handlePayment = () => {
     setLoading(true);
+    
     if (!phoneNumber) {
       alert('Please enter your phone number for M-Pesa payment');
+      setLoading(false);
       return;
     }
-  
+
     if (orderSummary.length === 0) {
       alert('No items in your cart');
+      setLoading(false);
       return;
     }
-  
+
     const items = orderSummary.map(item => ({
       artwork_id: item.artwork_id,
       quantity: item.quantity
     }));
 
-    const session = JSON.parse(localStorage.getItem('session'));
-    const token = session?.accessToken;
-  
-    fetch('https://the-met-gallery-backend.onrender.com/artworkcheckout', {
+    fetch('https://your-server-url/api/payment', { // Replace with your backend URL
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user_id: session.user.id,
-        phone_number: phoneNumber,
-        items: items
+        phoneNumber: phoneNumber,
+        amount: totalAmount,
+        userId: 'your-user-id' // Replace with actual user ID if available
       })
     })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`Failed to place order: ${response.statusText}`);
+        throw new Error('Network response was not ok');
       }
       return response.json();
     })
     .then((data) => {
-      console.log('Checkout response data:', data); // Debugging log
-      if (data.message) {
-        alert('Order placed successfully');
+      console.log('Payment response data:', data);
+      if (data.ResponseCode === '0') {
+        alert('Payment request sent successfully. Please check your phone.');
         navigate('/artworks');
       } else {
-        alert('Failed to place order');
+        alert('Failed to send payment request');
       }
     })
     .catch((error) => {
-      console.error('Error placing order:', error);
-      navigate('/checkout');
+      console.error('Error sending payment request:', error);
+      alert('Error processing payment. Please try again.');
+    })
+    .finally(() => {
+      setLoading(false);
     });
-    setLoading(false);
   };
 
   if (loading) return <Loading />

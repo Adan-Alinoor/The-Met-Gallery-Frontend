@@ -1,28 +1,30 @@
-.user-profile {
-  background-color: #f8f9fa;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* UserProfile.css */
+.user-profile-card {
+  background-color: #ffffff; /* White background for the card */
+  border: 1px solid #ddd; /* Light border to define the card's edges */
+  border-radius: 8px; /* Rounded corners for the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for better depth */
 }
 
-.card {
-  border-radius: 12px;
+.btn-custom {
+  background-color: #6c63ff; /* Purple background */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners for the button */
+  padding: 10px 20px; /* Padding for button */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold font */
 }
 
-.card-title {
-  font-size: 1.5rem;
+.btn-custom:hover {
+  background-color: #5a54e2; /* Darker purple on hover */
+  color: white; /* White text on hover */
 }
 
 .card-text {
-  font-size: 1rem;
+  color: #34495e; /* Dark navy blue color for text */
 }
 
-.btn-primary {
-  background-color: #a74caf; /* Match icon color */
-  border-color: #a74caf; /* Match border color */
-}
-
-.btn-primary:hover {
-  background-color: #8e5a9b; /* Slightly darker shade for hover */
-  border-color: #8e5a9b; /* Match border color */
+.card-title {
+  color: #2c3e50; /* Dark navy blue for the title */
 }
