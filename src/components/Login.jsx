@@ -5,9 +5,9 @@ import './Login.css'; // Import the CSS file
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
