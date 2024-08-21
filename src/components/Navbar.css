@@ -28,7 +28,7 @@
 }
 
 .navbar-nav .nav-link:hover {
-  color: #b89b33; /* Slightly darker deep gold */
+  color: #5633b8; /* Slightly darker deep gold */
   transform: translateY(-3px);
   letter-spacing: 1px;
 }
