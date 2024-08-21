@@ -16,8 +16,9 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 8cm; /* Fixed width */
+  /*width: 8cm;  Fixed width */
   height: 6cm; /* Fixed height */
+  width:8cm;
 }
 
 .artwork-card:hover {
