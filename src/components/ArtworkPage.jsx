@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ArtworkPage.css';
 import SearchArt from './SearchArt';
+import Loading from './Loading';
 
 const ArtworkCard = ({ artwork }) => (
   <div key={artwork.id} className="col-md-3 col-sm-4 mb-4 artwork-card-wrapper">
@@ -32,6 +33,7 @@ const ArtworkPage = () => {
   const [searchArt, setSearchArt] = useState('');
 
   const fetchArtworks = async () => {
+    setLoading(true);
     try {
       const response = await fetch('https://the-met-gallery-backend.onrender.com/artworks');
 
@@ -53,7 +55,7 @@ const ArtworkPage = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center">Loading...</div>;
+    return <Loading />
   }
 
   if (error) {

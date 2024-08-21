@@ -12,6 +12,10 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
     return <FaUserAlt size={20} />;
   };
 
+  const session = JSON.parse(localStorage.getItem('session'));
+  const token = session?.accessToken;
+  const user = session?.user;
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">The Met Gallery</Link>
@@ -23,6 +27,11 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
           <li className="nav-item">
             <Link className="nav-link" to="/home">Home</Link>
           </li>
+          {user.id && (
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard/overview">Dashboard</Link>
+            </li>
+          )}
           <li className="nav-item">
             <Link className="nav-link" to="/artworks">Artworks</Link>
           </li>
@@ -48,6 +57,11 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
           <li className="nav-item">
             <Link className="nav-link" to="/messages">Messages</Link>
           </li>
+          {!token && (
+            <li className="nav-item">
+            <Link className="nav-link" to="/login">Login</Link>
+          </li>
+          )}
         </ul>
       </div>
     </nav>

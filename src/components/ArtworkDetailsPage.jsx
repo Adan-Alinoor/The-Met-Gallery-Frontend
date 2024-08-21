@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './ArtworkDetailsPage.css';
+import Loading from './Loading';
 
 const ArtworkDetailsPage = () => {
   const { id } = useParams();
@@ -9,8 +10,9 @@ const ArtworkDetailsPage = () => {
   const [error, setError] = useState(null);
 
   const fetchArtwork = async () => {
+    setLoading(true);
     try {
-      const response = await fetch(`https://the-met-gallery-backend.onrender.com/artworks/${id}`);
+      const response = await fetch(`http://127.0.0.1:5555/artworks/${id}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch artwork');
@@ -30,21 +32,16 @@ const ArtworkDetailsPage = () => {
   }, [id]);
 
   const handleAddToCart = async () => {
-    try {
-      const session = JSON.parse(localStorage.getItem('session'));
-      const token = session?.accessToken;
-      if (!token) throw new Error('No authentication token found');
-  
-      const response = await fetch('https://the-met-gallery-backend.onrender.com/add_to_cart', {
+    setLoading(true);
+    try {  
+      const response = await fetch('http://127.0.0.1:5555/add_to_cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           artwork_id: artwork.id,
           quantity: 1,
-          user_id: session.user.id, // Ensure user_id is sent if required
         })
       });
   
@@ -54,13 +51,14 @@ const ArtworkDetailsPage = () => {
   
       const data = await response.json();
       console.log('Successfully added to cart:', data);
+      setLoading(false);
     } catch (error) {
       console.error('Error adding to cart:', error.message);
     }
   };
   
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {

@@ -67,18 +67,6 @@ const App = () => {
     setEvents([...events, { ...newEvent, id: events.length + 1 }]);
   };
 
-  const addItemToCart = (item) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
-      if (existingItem) {
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        );
-      }
-      return [...prevItems, { ...item, quantity: 1 }];
-    });
-  };
-
   const removeItemFromCart = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
@@ -98,7 +86,12 @@ const App = () => {
     setIsLoggedIn(true);
   };
 
-  const ProtectedRoute = ({ element }) => {
+  const ProtectedRoute = ({ element }, admin) => {
+    if (admin === 'true') {
+      const session = JSON.parse(localStorage.getItem('session'));
+      const user = session?.user;
+      return isLoggedIn && user.role === 'admin' ? element : <Navigate to="/login" />;
+    }
     return isLoggedIn ? element : <Navigate to="/login" />;
   };
 
@@ -119,29 +112,29 @@ const App = () => {
           <Route path="/signup" element={<Registration />} />
 
           {/* Protected Routes */}
-          <Route path="/dashboard/overview" element={<ProtectedRoute element={<DashboardOverview />} />} />
-          <Route path="/dashboard/EventManagement" element={<ProtectedRoute element={<EventManagement />} />} />
-          <Route path="/dashboard/ArtworkManagement" element={<ProtectedRoute element={<ArtworkManagement />} />} />
-          <Route path="/dashboard/Ordertickets" element={<ProtectedRoute element={<OrdersTickets />} />} />
-          <Route path="/dashboard/users" element={<ProtectedRoute element={<UserPage />} />} />
-          <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
+          <Route path="/dashboard/overview" element={<ProtectedRoute element={<DashboardOverview />} admin='true' />} />
+          <Route path="/dashboard/EventManagement" element={<ProtectedRoute element={<EventManagement />} admin='true' />} />
+          <Route path="/dashboard/ArtworkManagement" element={<ProtectedRoute element={<ArtworkManagement />} admin='true' />} />
+          <Route path="/dashboard/Ordertickets" element={<ProtectedRoute element={<OrdersTickets />} admin='true' />} />
+          <Route path="/dashboard/users" element={<ProtectedRoute element={<UserPage />} admin='true' />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/messages" element={<ProtectedRoute element={<Messaging />} />} />
           <Route path="/profile" element={<ProtectedRoute element={<UserProfile />} />} />
-          <Route path="/artworks" element={<ProtectedRoute element={<ArtworkPage addItemToCart={addItemToCart} />} />} />
-          <Route path="/artworks/:id" element={<ProtectedRoute element={<ArtworkDetailsPage addItemToCart={addItemToCart} />} />} />
-          <Route path="/cart" element={<ProtectedRoute element={<CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} />} />} />
+          <Route path="/artworks" element={<ArtworkPage />} />
+          <Route path="/artworks/:id" element={<ArtworkDetailsPage />} />
+          <Route path="/cart" element={<CartPage cartItems={cartItems} removeItemFromCart={removeItemFromCart} updateItemQuantity={updateItemQuantity} />} />
           <Route path="/add-art" element={<ProtectedRoute element={isArtist ? <AddArtPage /> : <Navigate to="/login" />} />} />
-          <Route path="/events" element={<ProtectedRoute element={<EventsPage events={events} />} />} />
-          <Route path="/events/:eventId" element={<ProtectedRoute element={<EventDetailPage events={events} />} />} />
+          <Route path="/events" element={<EventsPage events={events} />} />
+          <Route path="/events/:eventId" element={<EventDetailPage events={events} />} />
           <Route path="/create-event" element={<ProtectedRoute element={<CreateEventPage addEvent={addEvent} />} />} />
-          <Route path="/events/:eventName/:eventId/book" element={<ProtectedRoute element={<TicketBookingPage events={events} />} />} />
+          <Route path="/events/:eventName/:eventId/book" element={<TicketBookingPage events={events} />} />
           <Route path="/my-events" element={<ProtectedRoute element={<MyEventsList events={events} />} />} />
           <Route path="/my-bookings" element={<ProtectedRoute element={<MyBookings />} />} />
           <Route path="/verify/:token" component={VerifyEmail} />
 
           {/* Fallback Route */}
-          <Route path="*" element={<Navigate to="/login" />} />
+          {/* <Route path="*" element={<Navigate to="/login" />} /> */}
         </Routes>
       </AuthProvider>
       </main>
