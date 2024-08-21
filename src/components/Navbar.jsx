@@ -27,7 +27,7 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
           <li className="nav-item">
             <Link className="nav-link" to="/home">Home</Link>
           </li>
-          {user.id && (
+          {user.role === 'admin' && (
             <li className="nav-item">
               <Link className="nav-link" to="/dashboard/overview">Dashboard</Link>
             </li>
@@ -49,19 +49,20 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
               {cartItemsCount > 0 && <Badge pill variant="info" className="cart-badge">{cartItemsCount}</Badge>}
             </Link>
           </li>
-          <li className="nav-item">
+          {token ? (
+            <li className="nav-item">
             <Link className="nav-link" to="/profile">
               {getProfileIcon()}
             </Link>
           </li>
+          ) : (
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
+            </li>
+          )}
           <li className="nav-item">
             <Link className="nav-link" to="/messages">Messages</Link>
           </li>
-          {!token && (
-            <li className="nav-item">
-            <Link className="nav-link" to="/login">Login</Link>
-          </li>
-          )}
         </ul>
       </div>
     </nav>
