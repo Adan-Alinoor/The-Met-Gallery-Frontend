@@ -31,7 +31,7 @@ const Messaging = () => {
         console.error('Error fetching users:', error);
       });
 
-    axios.get('wss://the-met-gallery-backend.onrender.com/messages', {
+    axios.get('https://the-met-gallery-backend.onrender.com/messages', {
        headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -76,7 +76,7 @@ const Messaging = () => {
       message: newMessage,
     };
 
-    axios.post('wss://the-met-gallery-backend.onrender.com/messages', messageData, {
+    axios.post('https://the-met-gallery-backend.onrender.com/messages', messageData, {
        headers: {
           'Authorization': `Bearer ${token}`,
         },
