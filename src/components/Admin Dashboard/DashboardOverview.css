@@ -1,11 +1,15 @@
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* Container Styles */
 .dashboard-overview {
   background-color: #f8f9fa;
   padding: 20px;
+  min-height: 100vh; /* Ensure the container covers the full height */
 }
 
 /* Card Styles */
@@ -14,9 +18,11 @@ body {
   border: 1px solid #dcdcdc;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
+  width: 999px; /* Fixed width */
+  margin: 0 auto; /* Center the card horizontally */
 }
 
+/* Title and Stat Styles */
 .widget-title {
   color: #4586F0;
   font-size: 18px;
@@ -64,6 +70,8 @@ body {
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   background-color: #ffffff;
+  width: 999px; /* Fixed width */
+  margin: 0 auto; /* Center the section horizontally */
 }
 
 .dashboard-section h2 {
@@ -84,4 +92,34 @@ body {
 
 .dashboard-section p {
   color: #888888;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .widget, .dashboard-section {
+    width: 100%; /* Adjust width to full on smaller screens */
+    max-width: 999px; /* Ensure it does not exceed the fixed width */
+  }
+}
+
+@media (max-width: 768px) {
+  .widget, .dashboard-section {
+    width: 100%; /* Adjust width to full on smaller screens */
+    max-width: 100%; /* Ensure it takes full width on smaller devices */
+  }
+}
+
+/* Ensure proper alignment for Rows and Columns */
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.col-md-4, .col-md-12 {
+  display: flex;
+  justify-content: center;
+}
+
+.col-md-4 {
+  margin-bottom: 15px; /* Space between columns on smaller screens */
 }
