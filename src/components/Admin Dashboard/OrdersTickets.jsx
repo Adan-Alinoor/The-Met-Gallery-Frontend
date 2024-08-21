@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Table, Container, Spinner, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+//import "./OrdersTickects.css"; 
+import "./OrderTickets.css"
 
 const OrdersTickets = () => {
   const [payments, setPayments] = useState([]);
