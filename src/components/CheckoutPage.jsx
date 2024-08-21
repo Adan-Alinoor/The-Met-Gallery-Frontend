@@ -24,33 +24,33 @@ const CheckoutPage = () => {
       return;
     }
   
-    fetch(`https://the-met-gallery-backend.onrender.com/view_cart`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch cart: ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log('Fetched cart data:', data); // Debugging log
-        if (data.items && Array.isArray(data.items)) {
-          setOrderSummary(data.items);
-          const calculatedTotalAmount = data.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-          setTotalAmount(calculatedTotalAmount);
-          console.log('Order summary set with items:', data.items); // Additional debugging log
-        } else {
-          setOrderSummary([]);
-          setTotalAmount(0);
-          console.warn('No items found in cart or data.items is not an array'); // Warning log
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching cart:', error);
-      });
+    // fetch(`https://the-met-gallery-backend.onrender.com/view_cart`, {
+    //   headers: {
+    //     'Authorization': `Bearer ${token}`
+    //   }
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error(`Failed to fetch cart: ${response.statusText}`);
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log('Fetched cart data:', data); // Debugging log
+    //     if (data.items && Array.isArray(data.items)) {
+    //       setOrderSummary(data.items);
+    //       const calculatedTotalAmount = data.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    //       setTotalAmount(calculatedTotalAmount);
+    //       console.log('Order summary set with items:', data.items); // Additional debugging log
+    //     } else {
+    //       setOrderSummary([]);
+    //       setTotalAmount(0);
+    //       console.warn('No items found in cart or data.items is not an array'); // Warning log
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching cart:', error);
+    //   });
       setLoading(false);
   }, [navigate]);
   
