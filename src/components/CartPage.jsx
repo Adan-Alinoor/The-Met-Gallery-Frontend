@@ -1,239 +1,51 @@
-// import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import './CartPage.css';
-
-// const CartPage = () => {
-//   const [cartItems, setCartItems] = useState([]);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const fetchCartItems = async () => {
-//       try {
-//         const session = JSON.parse(localStorage.getItem('session'));
-//         const token = session?.accessToken;
-//         if (!token) throw new Error('No authentication token found');
-
-//         const response = await fetch(`https://the-met-gallery-backend.onrender.com/view_cart/${session.user.id}`, {
-//           headers: {
-//             'Authorization': `Bearer ${token}`
-//           }
-//         });
-
-//         if (response.ok) {
-//           const data = await response.json();
-//           setCartItems(Array.isArray(data.items) ? data.items : []);
-//         } else {
-//           const errorData = await response.json();
-//           console.error('Failed to fetch cart items:', errorData.error);
-//         }
-//       } catch (error) {
-//         console.error('Error fetching cart items:', error);
-//       }
-//     };
-
-//     fetchCartItems();
-//   }, []);
-
-//   const removeItemFromCart = async (artworkId) => {
-//     try {
-//       const session = JSON.parse(localStorage.getItem('session'));
-//       const token = session?.accessToken;
-//       if (!token) throw new Error('No authentication token found');
-
-//       const response = await fetch('https://the-met-gallery-backend.onrender.com/remove_from_cart', {
-//         method: 'DELETE',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${token}`
-//         },
-//         body: JSON.stringify({
-//           user_id: session.user.id,
-//           artwork_id: artworkId
-//         })
-//       });
-
-//       if (response.ok) {
-//         setCartItems(prevItems => prevItems.filter(item => item.artwork_id !== artworkId));
-//       } else {
-//         const errorData = await response.json();
-//         console.error('Failed to remove item from cart:', errorData.error);
-//       }
-//     } catch (error) {
-//       console.error('Error removing item from cart:', error);
-//     }
-//   };
-
-//   const updateItemQuantity = async (artworkId, newQuantity) => {
-//     if (newQuantity <= 0) return;
-
-//     const updatedItems = cartItems.map(item =>
-//       item.artwork_id === artworkId ? { ...item, quantity: newQuantity } : item
-//     );
-//     setCartItems(updatedItems);
-
-//     try {
-//       const session = JSON.parse(localStorage.getItem('session'));
-//       const token = session?.accessToken;
-//       if (!token) throw new Error('No authentication token found');
-
-//       const response = await fetch('https://the-met-gallery-backend.onrender.com/update_cart_item', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${token}`
-//         },
-//         body: JSON.stringify({
-//           user_id: session.user.id,
-//           artwork_id: artworkId,
-//           quantity: newQuantity
-//         })
-//       });
-
-//       if (!response.ok) {
-//         const errorData = await response.json();
-//         console.error('Failed to update item quantity:', errorData.error);
-//         // Revert the quantity change if the update fails
-//         setCartItems(prevItems =>
-//           prevItems.map(item =>
-//             item.artwork_id === artworkId ? { ...item, quantity: item.quantity } : item
-//           )
-//         );
-//       }
-//     } catch (error) {
-//       console.error('Error updating item quantity:', error);
-//       // Revert the quantity change if there's an error
-//       setCartItems(prevItems =>
-//         prevItems.map(item =>
-//           item.artwork_id === artworkId ? { ...item, quantity: item.quantity } : item
-//         )
-//       );
-//     }
-//   };
-
-//   const handleQuantityChange = (id, event) => {
-//     const quantity = parseInt(event.target.value, 10);
-//     if (!isNaN(quantity) && quantity > 0) {
-//       updateItemQuantity(id, quantity);
-//     } else {
-//       console.warn('Invalid quantity:', quantity);
-//     }
-//   };
-
-//   const calculateTotalPrice = () => {
-//     return cartItems.reduce((total, item) => total + item.quantity * parseFloat(item.price || 0), 0).toFixed(2);
-//   };
-
-//   const handleProceedToCheckout = () => {
-//     navigate('/checkout', { state: { cartItems, totalAmount: calculateTotalPrice() } });
-//   };
-
-//   return (
-//     <div className="cart-page">
-//       <h1 className="page-title">Shopping Cart</h1>
-//       {cartItems.length === 0 ? (
-//         <p className="empty-cart-message">Your cart is empty. Please add items to your cart before proceeding to checkout.</p>
-//       ) : (
-//         <div className="cart-items-container">
-//           {cartItems.map(item => (
-//             <div key={item.artwork_id} className="cart-item-card">
-//               <div className="cart-item-image">
-//                 <img src={item.image} alt={item.title} />
-//               </div>
-//               <div className="cart-item-details">
-//                 <h2 className="item-title">{item.title}</h2>
-//                 <p className="item-description">{item.description}</p>
-//                 <p className="item-price">Price: Ksh {item.price}</p>
-//                 <div className="quantity-container">
-//                   <label htmlFor={`quantity-${item.artwork_id}`}>Quantity:</label>
-//                   <input
-//                     id={`quantity-${item.artwork_id}`}
-//                     type="number"
-//                     value={item.quantity}
-//                     onChange={(e) => handleQuantityChange(item.artwork_id, e)}
-//                     className="quantity-input"
-//                     min="1"
-//                   />
-//                 </div>
-//                 <button onClick={() => removeItemFromCart(item.artwork_id)} className="remove-item-button">Remove</button>
-//               </div>
-//             </div>
-//           ))}
-//           <div className="cart-summary">
-//             <h2>Total: Ksh {calculateTotalPrice()}</h2>
-//             <button onClick={handleProceedToCheckout} className="checkout-button">Proceed to Checkout</button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default CartPage;
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
+import Loading from './Loading';
 
-const CartPage = ({ onCartUpdate }) => {
+const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
-      try {
-        const session = JSON.parse(localStorage.getItem('session'));
-        const token = session?.accessToken;
-        if (!token) throw new Error('No authentication token found');
+      setLoading(true);
+      try {    
+        const response = await fetch('https://the-met-gallery-backend.onrender.com/view_cart');
     
-        const response = await fetch(`https://the-met-gallery-backend.onrender.com/${session.user.id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-    
-        if (response.ok) {
-          const data = await response.json();
-          if (data.items) {
-            setCartItems(data.items);
-            // Notify parent component about the cart update
-            onCartUpdate(data.items.length);
-          } else {
-            console.error('Cart items not found in response data');
-          }
-        } else {
-          const errorData = await response.json();
-          console.error('Failed to fetch cart items:', errorData.error || 'Unknown error');
+        if (!response.ok) {
+          throw new Error('Cart not found');
         }
+    
+        const data = await response.json();
+        setCartItems(data.cart_items);
+        setLoading(false);
+
       } catch (error) {
-        console.error('Error fetching cart items:', error);
+        console.error('Failed to fetch cart items:', error.message);
+        setLoading(false);
       }
     };
+    
 
     fetchCartItems();
-  }, [onCartUpdate]);
+  }, []);
 
   const removeItemFromCart = async (artworkId) => {
+    setLoading(true);
     try {
-      const session = JSON.parse(localStorage.getItem('session'));
-      const token = session?.accessToken;
-      if (!token) throw new Error('No authentication token found');
-
-      const response = await fetch('https://the-met-gallery-backend.onrender.com/remove_from_cart', {
+      const response = await fetch(`https://the-met-gallery-backend.onrender.com/remove_from_cart/${artworkId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          user_id: session.user.id,
-          artwork_id: artworkId
-        })
       });
 
       if (response.ok) {
-        setCartItems(prevItems => prevItems.filter(item => item.artwork_id !== artworkId));
-        // Notify parent component about the cart update
-        onCartUpdate(cartItems.length - 1);
+        const data = await response.json();
+        setCartItems(data.cart_items);
+        setLoading(false);
       } else {
         const errorData = await response.json();
         console.error('Failed to remove item from cart:', errorData.error);
@@ -241,9 +53,11 @@ const CartPage = ({ onCartUpdate }) => {
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
+    setLoading(false);
   };
 
   const updateItemQuantity = async (artworkId, newQuantity) => {
+    setLoading(true);
     if (newQuantity <= 0) return;
 
     const updatedItems = cartItems.map(item =>
@@ -252,22 +66,21 @@ const CartPage = ({ onCartUpdate }) => {
     setCartItems(updatedItems);
 
     try {
-      const session = JSON.parse(localStorage.getItem('session'));
-      const token = session?.accessToken;
-      if (!token) throw new Error('No authentication token found');
 
-      const response = await fetch('https://the-met-gallery-backend.onrender.com/update_cart_item', {
-        method: 'POST',
+      const response = await fetch(`https://the-met-gallery-backend.onrender.com/update_cart_item/${artworkId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          user_id: session.user.id,
-          artwork_id: artworkId,
           quantity: newQuantity
         })
       });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCartItems(data.cart_items);
+      }
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -286,6 +99,7 @@ const CartPage = ({ onCartUpdate }) => {
         )
       );
     }
+    setLoading(false);
   };
 
   const handleQuantityChange = (id, event) => {
@@ -298,12 +112,14 @@ const CartPage = ({ onCartUpdate }) => {
   };
 
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.quantity * parseFloat(item.price), 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + item.quantity * parseFloat(item.artwork.price), 0).toFixed(2);
   };
 
   const handleProceedToCheckout = () => {
-    navigate('/checkout', { state: { cartItems, totalAmount: calculateTotalPrice() } });
+    navigate('/checkout', { state: { pCartItems: cartItems, pTotalAmount: calculateTotalPrice() } });
   };
+
+  if (loading) return <Loading />
 
   return (
     <div className="cart-page">
@@ -315,12 +131,12 @@ const CartPage = ({ onCartUpdate }) => {
           {cartItems.map(item => (
             <div key={item.artwork_id} className="cart-item-card">
               <div className="cart-item-image">
-                <img src={item.image} alt={item.title} />
+                <img src={item.artwork.image} alt={item.artwork.title} />
               </div>
               <div className="cart-item-details">
-                <h2 className="item-title">{item.title}</h2>
-                <p className="item-description">{item.description}</p>
-                <p className="item-price">Price: Ksh {item.price}</p>
+                <h2 className="item-title">{item.artwork.title}</h2>
+                <p className="item-description">{item.artwork.description}</p>
+                <p className="item-price">Price: Ksh {item.artwork.price}</p>
                 <div className="quantity-container">
                   <label htmlFor={`quantity-${item.artwork_id}`}>Quantity:</label>
                   <input

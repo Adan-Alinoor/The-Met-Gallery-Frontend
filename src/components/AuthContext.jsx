@@ -9,7 +9,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const verifyToken = async () => {
-      const token = localStorage.getItem('token');
+      const session = JSON.parse(localStorage.getItem("session"));
+      const token = session?.accessToken;
       if (token) {
         try {
           const response = await fetch('https://the-met-gallery-backend.onrender.com/verify-token', {

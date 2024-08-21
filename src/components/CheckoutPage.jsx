@@ -1,27 +1,30 @@
-
-
-
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './CheckoutPage.css';
+import Loading from './Loading';
 
 const CheckoutPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [orderSummary, setOrderSummary] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pCartItems, pTotalAmount } = location.state || {};
 
   useEffect(() => {
+    setLoading(true);
+    setOrderSummary(pCartItems);
+    setTotalAmount(pTotalAmount);
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
-    const userId = session?.user?.id;
   
-    if (!token || !userId) {
-      navigate('/checkout');
+    if (!token) {
+      navigate('/login');
       return;
     }
   
-    fetch(`https://the-met-gallery-backend.onrender.com/view_cart/${userId}`, {
+    fetch(`https://the-met-gallery-backend.onrender.com/view_cart`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -48,6 +51,7 @@ const CheckoutPage = () => {
       .catch((error) => {
         console.error('Error fetching cart:', error);
       });
+      setLoading(false);
   }, [navigate]);
   
 
@@ -58,15 +62,6 @@ const CheckoutPage = () => {
   const handlePayment = () => {
     if (!phoneNumber) {
       alert('Please enter your phone number for M-Pesa payment');
-      return;
-    }
-  
-    const session = JSON.parse(localStorage.getItem('session'));
-    const token = session?.accessToken;
-    const userId = session?.user?.id;
-  
-    if (!token || !userId) {
-      navigate('/checkout');
       return;
     }
   
@@ -113,6 +108,8 @@ const CheckoutPage = () => {
     });
   };
 
+  if (loading) return <Loading />
+
   return (
     <div className="checkout-page">
       <h1 className="page-title">Checkout</h1>
@@ -122,7 +119,7 @@ const CheckoutPage = () => {
           {orderSummary.length > 0 ? (
             orderSummary.map((item) => (
               <li key={item.artwork_id}>
-                {item.title} - Ksh {item.price} x {item.quantity}
+                {item.artwork.title} - Ksh {item.artwork.price} x {item.quantity}
               </li>
             ))
           ) : (
