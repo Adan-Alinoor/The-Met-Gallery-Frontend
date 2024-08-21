@@ -74,6 +74,9 @@ const CheckoutPage = () => {
       artwork_id: item.artwork_id,
       quantity: item.quantity
     }));
+
+    const session = JSON.parse(localStorage.getItem('session'));
+    const token = session?.accessToken;
   
     fetch('https://the-met-gallery-backend.onrender.com/artworkcheckout', {
       method: 'POST',
