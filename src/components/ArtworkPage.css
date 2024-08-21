@@ -1,7 +1,15 @@
 .gallery-background {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #494848, #ffffff, #747272);
   width: 100%;
+  flex: 1;
+  padding: 230px;
+  background-color: rgba(0, 31, 63, 0.85); 
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  width: calc(100% - 40px);
+  height: calc(100% - 80px);
+  overflow: hidden;
+  margin: 20px;
 }
 
 .artwork-card-wrapper {
