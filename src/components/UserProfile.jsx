@@ -39,8 +39,8 @@ const UserProfile = () => {
     navigate('/login');
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading profile: {error.message}</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (error) return <p className="text-center text-danger">Error loading profile: {error.message}</p>;
 
   if (!user) return <div className="text-center">No user data available</div>;
 
@@ -50,8 +50,8 @@ const UserProfile = () => {
         <Col md={6} lg={4}>
           <Card className="text-center p-4 shadow-sm user-profile-card">
             <Card.Body>
-              <PersonIcon fontSize="large" style={{ fontSize: 100, color: '#a74caf' }} />
-              <Card.Title className="my-3">{user.username}</Card.Title>
+              <PersonIcon fontSize="large" style={{ fontSize: 100, color: '#6c63ff' }} />
+              <Card.Title className="my-3" style={{ color: '#2c3e50' }}>{user.username}</Card.Title>
               <Card.Text>
                 <strong>Email:</strong> {user.email}
               </Card.Text>
@@ -68,5 +68,3 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-
-

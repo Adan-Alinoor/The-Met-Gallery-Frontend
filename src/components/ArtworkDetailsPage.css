@@ -4,8 +4,15 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f8f9fa;
-  padding: 10px;
+  flex: 1;
+  padding: 400px;
+  background-color: rgba(0, 31, 63, 0.85); 
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  width: calc(100% - 40px);
+  height: calc(100% - 80px);
+  overflow: hidden;
+  margin: 20px;
 }
 
 /* Cards Container */

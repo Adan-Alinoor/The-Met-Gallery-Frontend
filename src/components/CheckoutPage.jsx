@@ -171,11 +171,14 @@ const CheckoutPage = () => {
     setLoading(true);
     setOrderSummary(pCartItems);
     setTotalAmount(pTotalAmount);
+    
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
 
+
     if (!token) {
       navigate('/login');
+      setLoading(false);
       return;
     }
 
@@ -215,22 +218,28 @@ const CheckoutPage = () => {
 
   const handlePayment = () => {
     setLoading(true);
+    
     if (!phoneNumber) {
       alert('Please enter your phone number for M-Pesa payment');
+      setLoading(false);
       setLoading(false);
       return;
     }
 
+
     if (orderSummary.length === 0) {
       alert('No items in your cart');
       setLoading(false);
+      setLoading(false);
       return;
     }
+
 
     const items = orderSummary.map(item => ({
       artwork_id: item.artwork_id,
       quantity: item.quantity
     }));
+
 
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
@@ -238,13 +247,12 @@ const CheckoutPage = () => {
     fetch('https://the-met-gallery-backend.onrender.com/artworkcheckout', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user_id: session.user.id,
-        phone_number: phoneNumber,
-        items: items
+        phoneNumber: phoneNumber,
+        amount: totalAmount,
+        userId: 'your-user-id' // Replace with actual user ID if available
       })
     })
       .then((response) => {
