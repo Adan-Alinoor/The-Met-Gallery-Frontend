@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Messaging.css';
 import Loading from './Loading';
 
-const socket = io.connect('ws://the-met-gallery-backend.onrender.com:5000');
+const socket = io.connect('wss://the-met-gallery-backend.onrender.com:5000');
 
 const Messaging = () => {
   const [users, setUsers] = useState([]);
@@ -31,7 +31,7 @@ const Messaging = () => {
         console.error('Error fetching users:', error);
       });
 
-    axios.get('ws://the-met-gallery-backend.onrender.com:5000/messages', {
+    axios.get('wss://the-met-gallery-backend.onrender.com:5000/messages', {
        headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -76,7 +76,7 @@ const Messaging = () => {
       message: newMessage,
     };
 
-    axios.post('ws://the-met-gallery-backend.onrender.com:5000/messages', messageData, {
+    axios.post('wss://the-met-gallery-backend.onrender.com:5000/messages', messageData, {
        headers: {
           'Authorization': `Bearer ${token}`,
         },
