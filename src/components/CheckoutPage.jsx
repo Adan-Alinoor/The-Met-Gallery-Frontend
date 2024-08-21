@@ -62,56 +62,61 @@ const CheckoutPage = () => {
   const handlePayment = () => {
     setLoading(true);
     if (!phoneNumber) {
-      alert('Please enter your phone number for M-Pesa payment');
-      return;
+        alert('Please enter your phone number for M-Pesa payment');
+        return;
     }
-  
+
     if (orderSummary.length === 0) {
-      alert('No items in your cart');
-      return;
+        alert('No items in your cart');
+        return;
     }
-  
+
     const items = orderSummary.map(item => ({
-      artwork_id: item.artwork_id,
-      quantity: item.quantity
+        artwork_id: item.artwork_id,
+        quantity: item.quantity
     }));
 
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
-  
+
     fetch('https://the-met-gallery-backend.onrender.com/artworkcheckout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        user_id: session.user.id,
-        phone_number: phoneNumber,
-        items: items
-      })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            user_id: session.user.id,
+            phone_number: phoneNumber,
+            items: items
+        })
     })
     .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Failed to place order: ${response.statusText}`);
-      }
-      return response.json();
+        if (response.status === 401) {
+            alert('Session expired. Please log in again.');
+            navigate('/login');
+            return;
+        }
+        if (!response.ok) {
+            throw new Error(`Failed to place order: ${response.statusText}`);
+        }
+        return response.json();
     })
     .then((data) => {
-      console.log('Checkout response data:', data); // Debugging log
-      if (data.message) {
-        alert('Order placed successfully');
-        navigate('/artworks');
-      } else {
-        alert('Failed to place order');
-      }
+        console.log('Checkout response data:', data); // Debugging log
+        if (data.message) {
+            alert('Order placed successfully');
+            navigate('/artworks');
+        } else {
+            alert('Failed to place order');
+        }
     })
     .catch((error) => {
-      console.error('Error placing order:', error);
-      navigate('/checkout');
+        console.error('Error placing order:', error);
+        navigate('/checkout');
     });
     setLoading(false);
-  };
+};
 
   if (loading) return <Loading />
 
