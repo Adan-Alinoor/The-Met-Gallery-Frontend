@@ -27,7 +27,7 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
           <li className="nav-item">
             <Link className="nav-link" to="/home">Home</Link>
           </li>
-          {user.role === 'admin' && (
+          {user.role !== undefined && (
             <li className="nav-item">
               <Link className="nav-link" to="/dashboard/overview">Dashboard</Link>
             </li>
