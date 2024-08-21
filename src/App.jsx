@@ -90,7 +90,7 @@ const App = () => {
     if (admin === 'true') {
       const session = JSON.parse(localStorage.getItem('session'));
       const user = session?.user;
-      return isLoggedIn && user.role === 'admin' ? element : <Navigate to="/login" />;
+      return isLoggedIn && user ? element : <Navigate to="/login" />;
     }
     return isLoggedIn ? element : <Navigate to="/login" />;
   };
