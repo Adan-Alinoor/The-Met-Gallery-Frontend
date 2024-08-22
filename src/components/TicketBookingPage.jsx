@@ -49,13 +49,13 @@ const TicketBookingPage = () => {
       try {
         const item = JSON.parse(selectedValue);
         setSelectedItem(item);
-        setEventPrice(item.price); // Ensure this is updating correctly
+        setEventPrice(item.price);
       } catch (error) {
         console.error('Error parsing selected item:', error);
       }
     } else {
       setSelectedItem({});
-      setEventPrice(0); // Reset the price if no item is selected
+      setEventPrice(0);
     }
   };
 
@@ -72,7 +72,7 @@ const TicketBookingPage = () => {
     try {
       const response = await axios.post('https://the-met-gallery-backend.onrender.com/eventcheckout', {
         user_id: userId,
-        ticket_type: selectedItem.type_name, // Ensure this is correct
+        ticket_type: selectedItem.type_name,
         total_amount: totalAmount,
         quantity: ticketQuantity,
         phone_number: phoneNumber,
@@ -118,7 +118,7 @@ const TicketBookingPage = () => {
   
       console.log('Booking response:', response.data);
       alert('Booking successful!');
-      handlePayment(); // Initiate payment after successful booking
+      handlePayment();
     } catch (error) {
       console.error('Error posting data:', error);
       alert('Error submitting booking.');
@@ -131,14 +131,14 @@ const TicketBookingPage = () => {
 
   return (
     <div className="ticket-booking-page container">
-      <h1 className="text-center text-primary mb-4">Book Tickets for {eventName}</h1>
+      <h1 className="text-center mb-4">Book Tickets for {eventName}</h1>
       <form onSubmit={handleBooking}>
         <div className="form-group">
           <label htmlFor="phoneNumber">Phone Number</label>
           <input
             type="tel"
             id="phoneNumber"
-            className="form-control"
+            className="form-control form-control-sm"
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
             required
@@ -149,7 +149,7 @@ const TicketBookingPage = () => {
           <input
             type="number"
             id="ticketQuantity"
-            className="form-control"
+            className="form-control form-control-sm"
             value={ticketQuantity}
             onChange={handleTicketQuantityChange}
             min="1"
@@ -160,7 +160,7 @@ const TicketBookingPage = () => {
           <label htmlFor="dropdown">Select a Ticket</label>
           <select
             id="dropdown"
-            className="form-control"
+            className="form-control form-control-sm"
             value={selectedItem ? JSON.stringify(selectedItem) : ''}
             onChange={handleChange}
           >
