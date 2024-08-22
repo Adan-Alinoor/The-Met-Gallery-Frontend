@@ -8,12 +8,12 @@
   }
   
   .add-button {
-    background-color: #4586f0;
+    background-color: #061e46;
     border: none;
   }
   
   .add-button:hover {
-    background-color: #366ccf;
+    background-color: #051a42;
     
   }
   
@@ -45,7 +45,7 @@
   }
   
   .table th {
-    background-color: #4586f0;
+    background-color: #042252;
     color: white;
   }
   
@@ -86,12 +86,12 @@
   
   .pagination-button {
     margin: 0 5px;
-    background-color: #4586f0;
+    background-color: #062250;
     border: none;
     color: white;
   }
   
   .pagination-button.active-page {
-    background-color: #366ccf;
+    background-color: #062153;
   }
   
