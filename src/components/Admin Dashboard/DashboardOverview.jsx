@@ -10,7 +10,7 @@ function DashboardOverview() {
     users_count: 0,
     recent_transactions: [],
     bookings: [],
-    events: []
+    events: [],
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [transactionsPerPage] = useState(4); // Number of transactions per page
@@ -22,13 +22,15 @@ function DashboardOverview() {
     const fetchDashboardData = async () => {
       try {
         const dashboardResponse = await axios.get(
-          "https://the-met-gallery-backend.onrender.com:5000/dashboard",
+          "https://the-met-gallery-backend.onrender.com/dashboard",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
+
+        console.log("Fetched dashboard data:", dashboardResponse.data); // Debugging log
 
         setDashboardData({
           ...dashboardResponse.data,
@@ -105,12 +107,18 @@ function DashboardOverview() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentTransactions.map((transaction) => (
-                    <tr key={transaction.id}>
-                      <td>Order {transaction.id}</td>
-                      <td>{transaction.amount}</td>
+                  {currentTransactions.length > 0 ? (
+                    currentTransactions.map((transaction) => (
+                      <tr key={transaction.id}>
+                        <td>Order {transaction.id}</td>
+                        <td>{transaction.amount}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="2">No transactions available</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </Table>
               <Pagination>
@@ -132,12 +140,13 @@ function DashboardOverview() {
         <Col md={12} className="d-flex justify-content-center">
           <section className="dashboard-section">
             <h2>Bookings</h2>
-            {dashboardData.bookings && dashboardData.bookings.length > 0 ? (
+            {dashboardData.booking_data &&
+            dashboardData.booking_data.length > 0 ? (
               <ul>
-                {dashboardData.bookings.map((booking) => (
+                {dashboardData.booking_data.map((booking) => (
                   <li key={booking.id}>
-                    Booking ID: {booking.id}, Event ID: {booking.event_id}, Date:{" "}
-                    {new Date(booking.booking_date).toLocaleDateString()}
+                    Booking ID: {booking.id}, Event ID: {booking.event_id},
+                    Date: {new Date(booking.booking_date).toLocaleDateString()}
                   </li>
                 ))}
               </ul>
@@ -151,9 +160,9 @@ function DashboardOverview() {
         <Col md={12} className="d-flex justify-content-center">
           <section className="dashboard-section">
             <h2>Events</h2>
-            {dashboardData.events && dashboardData.events.length > 0 ? (
+            {dashboardData.event_data && dashboardData.event_data.length > 0 ? (
               <ul>
-                {dashboardData.events.map((event) => (
+                {dashboardData.event_data.map((event) => (
                   <li key={event.id}>
                     {event.title} -{" "}
                     {new Date(event.start_date).toLocaleDateString()} to{" "}

@@ -33,7 +33,7 @@ const ArtworkManagement = () => {
     const token = session?.accessToken;
 
     try {
-      const response = await axios.get('https://the-met-gallery-backend.onrender.com:5000//artworks', {
+      const response = await axios.get('https://the-met-gallery-backend.onrender.com/artworks', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +73,7 @@ const ArtworkManagement = () => {
     };
 
     try {
-      await axios.post('https://the-met-gallery-backend.onrender.com:5000/artworks', newArtwork, {
+      await axios.post('https://the-met-gallery-backend.onrender.com/artworks', newArtwork, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ const ArtworkManagement = () => {
     };
 
     try {
-      await axios.put(`https://the-met-gallery-backend.onrender.com:5000/artworks/${selectedArtworkId}`, updatedArtwork, {
+      await axios.put(`https://the-met-gallery-backend.onrender.com/artworks/${selectedArtworkId}`, updatedArtwork, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ const ArtworkManagement = () => {
     const token = session?.accessToken;
 
     try {
-      await axios.delete(`https://the-met-gallery-backend.onrender.com:5000/artworks/${artworkId}`, {
+      await axios.delete(`https://the-met-gallery-backend.onrender.com/artworks/${artworkId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -142,7 +142,7 @@ const ArtworkManagement = () => {
     const token = session?.accessToken;
 
     try {
-      const response = await axios.get(`https://the-met-gallery-backend.onrender.com:5000/artworks/${artworkId}`, {
+      const response = await axios.get(`https://the-met-gallery-backend.onrender.com/artworks/${artworkId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -282,16 +282,6 @@ const ArtworkManagement = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Artist</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter artist"
-                value={selectedArtwork.artist || ''}
-                onChange={(e) => setSelectedArtwork({ ...selectedArtwork, artist: e.target.value })}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
               <Form.Label>Description</Form.Label>
               <Form.Control
                 as="textarea"
@@ -319,16 +309,6 @@ const ArtworkManagement = () => {
                 placeholder="Enter price"
                 value={selectedArtwork.price || ''}
                 onChange={(e) => setSelectedArtwork({ ...selectedArtwork, price: e.target.value })}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Status</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter status"
-                value={selectedArtwork.status || ''}
-                onChange={(e) => setSelectedArtwork({ ...selectedArtwork, status: e.target.value })}
                 required
               />
             </Form.Group>
@@ -357,16 +337,6 @@ const ArtworkManagement = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Artist</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter artist"
-                value={selectedArtwork.artist || ''}
-                onChange={(e) => setSelectedArtwork({ ...selectedArtwork, artist: e.target.value })}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
               <Form.Label>Description</Form.Label>
               <Form.Control
                 as="textarea"
@@ -397,24 +367,12 @@ const ArtworkManagement = () => {
                 required
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Status</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter status"
-                value={selectedArtwork.status || ''}
-                onChange={(e) => setSelectedArtwork({ ...selectedArtwork, status: e.target.value })}
-                required
-              />
-            </Form.Group>
             <Button variant="primary" type="submit">
               Update Artwork
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
-
-      
 
       <ToastContainer />
     </div>
