@@ -288,7 +288,7 @@ const CartPage = () => {
     const token = localStorage.getItem('authToken');
     if (!isAuthenticated()) {
       console.log('User is not authenticated. Redirecting to login.'); // Debug line
-      localStorage.setItem('redirectAfterLogin', '/checkout');
+      localStorage.setItem('redirectAfterLogin', '/cart');
       navigate('/login');
     } else {
       console.log('User is authenticated. Proceeding to checkout.'); // Debug line

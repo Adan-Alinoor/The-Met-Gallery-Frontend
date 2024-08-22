@@ -93,35 +93,36 @@ const TicketBookingPage = () => {
 
   const handleBooking = async (event) => {
     event.preventDefault();
-
+  
     const session = JSON.parse(localStorage.getItem('session'));
     const token = session?.accessToken;
-
+  
     if (!token) {
       navigate('/');
       return;
     }
-
+  
     const formData = {
       event_id: eventId,
       ticket_id: selectedItem.id,
       total_amount: totalAmount,
       quantity: ticketQuantity,
     };
-
-    // try {
-    //   const response = await axios.post('https://the-met-gallery-backend.onrender.com/bookings', formData, {
-    //     headers: {
-    //       'Authorization': `Bearer ${token}`,
-    //     },
-    //   });
-
-    //   console.log('Booking response:', response.data);
-    //   alert('Booking successful!');
-    // } catch (error) {
-    //   console.error('Error posting data:', error);
-    //   alert('Error submitting booking.');
-    // }
+  
+    try {
+      const response = await axios.post('https://the-met-gallery-backend.onrender.com/bookings', formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      console.log('Booking response:', response.data);
+      alert('Booking successful!');
+      handlePayment(); // Initiate payment after successful booking
+    } catch (error) {
+      console.error('Error posting data:', error);
+      alert('Error submitting booking.');
+    }
   };
 
   if (items === null) {
