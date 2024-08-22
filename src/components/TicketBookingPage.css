@@ -1,57 +1,44 @@
-.ticket-booking-page {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff; /* White background */
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.ticket-booking-page h1 {
-  color: #002d72; /* Navy Blue */
-}
-
-.ticket-booking-page p {
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.ticket-booking-page .form-control {
-  border-radius: 0.25rem;
-  margin-bottom: 15px;
-}
-
-.ticket-booking-page .btn {
-  border-radius: 0.25rem;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.ticket-booking-page .btn-primary {
+/* Custom button styles */
+.btn-primary {
   background-color: #6a1b9a; /* Purple */
-  border: none;
+  border-color: #6a1b9a; /* Purple */
 }
 
-.ticket-booking-page .btn-primary:hover {
+.btn-primary:hover {
   background-color: #4a148c; /* Darker purple */
+  border-color: #4a148c; /* Darker purple */
 }
 
-.ticket-booking-page .btn-success {
-  background-color: #002d72; /* Navy Blue */
-  border: none;
+.btn-success {
+  background-color: #28a745; /* Green */
+  border-color: #28a745; /* Green */
 }
 
-.ticket-booking-page .btn-success:hover {
-  background-color: #001c50; /* Darker navy blue */
+.btn-success:hover {
+  background-color: #218838; /* Darker green */
+  border-color: #218838; /* Darker green */
 }
 
-.ticket-booking-page .btn-secondary {
+.btn-secondary {
   background-color: #000000; /* Black */
-  border: none;
+  border-color: #000000; /* Black */
 }
 
-.ticket-booking-page .btn-secondary:hover {
+.btn-secondary:hover {
   background-color: #333333; /* Darker black */
+  border-color: #333333; /* Darker black */
+}
+
+.text-primary {
+  color: #6a1b9a; /* Purple */
+}
+
+/* Ensure the buttons align properly and have the correct styles */
+.d-flex .btn {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.d-flex .btn:last-child {
+  margin-right: 0;
 }

@@ -33,7 +33,6 @@ const TicketBookingPage = () => {
           },
         });
         setItems(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
         alert('Failed to fetch event data.');
@@ -82,7 +81,6 @@ const TicketBookingPage = () => {
         },
       });
   
-      console.log('Payment response:', response.data);
       alert(`Payment of KES ${totalAmount} initiated for ${ticketQuantity} ticket(s).`);
       navigate('/my-bookings');
     } catch (error) {
@@ -110,13 +108,12 @@ const TicketBookingPage = () => {
     };
   
     try {
-      const response = await axios.post('https://the-met-gallery-backend.onrender.com/bookings', formData, {
+      await axios.post('https://the-met-gallery-backend.onrender.com/bookings', formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
   
-      console.log('Booking response:', response.data);
       alert('Booking successful!');
       handlePayment();
     } catch (error) {
@@ -130,55 +127,75 @@ const TicketBookingPage = () => {
   }
 
   return (
-    <div className="ticket-booking-page container">
-      <h1 className="text-center mb-4">Book Tickets for {eventName}</h1>
-      <form onSubmit={handleBooking}>
-        <div className="form-group">
-          <label htmlFor="phoneNumber">Phone Number</label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            className="form-control form-control-sm"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="ticketQuantity">Ticket Quantity</label>
-          <input
-            type="number"
-            id="ticketQuantity"
-            className="form-control form-control-sm"
-            value={ticketQuantity}
-            onChange={handleTicketQuantityChange}
-            min="1"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="dropdown">Select a Ticket</label>
-          <select
-            id="dropdown"
-            className="form-control form-control-sm"
-            value={selectedItem ? JSON.stringify(selectedItem) : ''}
-            onChange={handleChange}
+    <div className="container my-5">
+      <h1 className="text-center text-primary mb-4">{`Book Tickets for ${eventName}`}</h1>
+      <div className="row justify-content-center">
+        <div className="col-lg-8 col-md-10">
+          <form onSubmit={handleBooking}>
+            <div className="mb-3">
+              <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+              <input
+                type="tel"
+                id="phoneNumber"
+                className="form-control form-control-sm"
+                value={phoneNumber}
+                onChange={handlePhoneNumberChange}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="ticketQuantity" className="form-label">Ticket Quantity</label>
+              <input
+                type="number"
+                id="ticketQuantity"
+                className="form-control form-control-sm"
+                value={ticketQuantity}
+                onChange={handleTicketQuantityChange}
+                min="1"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="dropdown" className="form-label">Select a Ticket</label>
+              <select
+                id="dropdown"
+                className="form-select form-select-sm"
+                value={selectedItem ? JSON.stringify(selectedItem) : ''}
+                onChange={handleChange}
+              >
+                <option value="" disabled>Select an option</option>
+                {items.tickets.map((item) => (
+                  <option key={item.id} value={JSON.stringify(item)}>
+                    {item.type_name} @ KSh.{item.price}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <p className="font-weight-bold mb-3">Total Amount: KES {totalAmount}</p>
+            <div className="d-flex justify-content-between">
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={handlePayment}
+              >
+                Pay with Mpesa
+              </button>
+              <button
+                type="submit"
+                className="btn btn-success"
+              >
+                Confirm Booking
+              </button>
+            </div>
+          </form>
+          <button
+            className="btn btn-secondary mt-4"
+            onClick={() => navigate('/events')}
           >
-            <option value="" disabled>Select an option</option>
-            {items.tickets.map((item) => (
-              <option key={item.id} value={JSON.stringify(item)}>
-                {item.type_name} @ KSh.{item.price}
-              </option>
-            ))}
-          </select>
+            Back to Events
+          </button>
         </div>
-        <p className="font-weight-bold">Total Amount: KES {totalAmount}</p>
-        <button type="button" className="btn btn-primary" onClick={handlePayment}>Pay with Mpesa</button>
-        <button type="submit" className="btn btn-success mt-2">Confirm Booking</button>
-      </form>
-      <button className="btn btn-secondary mt-4" onClick={() => navigate('/events')}>
-        Back to Events
-      </button>
+      </div>
     </div>
   );
 };
