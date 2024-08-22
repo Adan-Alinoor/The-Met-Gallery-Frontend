@@ -130,20 +130,40 @@ const TicketBookingPage = () => {
   }
 
   return (
-    <div className="ticket-booking-page">
-      <h1>Book Tickets for {eventName}</h1>
+    <div className="ticket-booking-page container">
+      <h1 className="text-center text-primary mb-4">Book Tickets for {eventName}</h1>
       <form onSubmit={handleBooking}>
-        <label>
-          Phone Number:
-          <input type="tel" value={phoneNumber} onChange={handlePhoneNumberChange} required />
-        </label>
-        <label>
-          Ticket Quantity:
-          <input type="number" value={ticketQuantity} onChange={handleTicketQuantityChange} min="1" required />
-        </label>
-        <div>
-          <label htmlFor="dropdown">Select a Ticket:</label>
-          <select id="dropdown" value={selectedItem ? JSON.stringify(selectedItem) : ''} onChange={handleChange}>
+        <div className="form-group">
+          <label htmlFor="phoneNumber">Phone Number</label>
+          <input
+            type="tel"
+            id="phoneNumber"
+            className="form-control"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="ticketQuantity">Ticket Quantity</label>
+          <input
+            type="number"
+            id="ticketQuantity"
+            className="form-control"
+            value={ticketQuantity}
+            onChange={handleTicketQuantityChange}
+            min="1"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="dropdown">Select a Ticket</label>
+          <select
+            id="dropdown"
+            className="form-control"
+            value={selectedItem ? JSON.stringify(selectedItem) : ''}
+            onChange={handleChange}
+          >
             <option value="" disabled>Select an option</option>
             {items.tickets.map((item) => (
               <option key={item.id} value={JSON.stringify(item)}>
@@ -152,11 +172,11 @@ const TicketBookingPage = () => {
             ))}
           </select>
         </div>
-        <p><strong>Total Amount:</strong> KES {totalAmount}</p>
-        <button type="button" onClick={handlePayment}>Pay with Mpesa</button>
-        {/* <button type="submit">Confirm Booking</button> */}
+        <p className="font-weight-bold">Total Amount: KES {totalAmount}</p>
+        <button type="button" className="btn btn-primary" onClick={handlePayment}>Pay with Mpesa</button>
+        <button type="submit" className="btn btn-success mt-2">Confirm Booking</button>
       </form>
-      <button className="back-to-events-button" onClick={() => navigate('/events')}>
+      <button className="btn btn-secondary mt-4" onClick={() => navigate('/events')}>
         Back to Events
       </button>
     </div>
@@ -164,9 +184,3 @@ const TicketBookingPage = () => {
 };
 
 export default TicketBookingPage;
-
-
-
-
-
-

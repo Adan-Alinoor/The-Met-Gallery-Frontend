@@ -1,129 +1,126 @@
-/* ArtworkManagement.css */
-
 /* Ensure the whole page is covered */
 html, body {
-    height: 100%;
-    margin: 0;
-  }
-  
-  .container-fluid {
-    height: 100%;
-  }
-  
-  .artwork-management-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 20px;
-    background-color: #f4f4f4; /* Light background color for contrast */
-  }
-  
-  .search-bar {
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 2px solid #4586f0;
-  }
-  
-  .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .action-buttons .btn-primary {
-    background-color: #4586f0;
-    border-color: #4586f0;
-  }
-  
-  .action-buttons .btn-primary:hover {
-    background-color: #356ac7;
-    border-color: #356ac7;
-  }
-  
-  .view-toggle-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px; /* Ensure space below the view toggle buttons */
-  }
-  
-  .view-toggle-buttons .btn-secondary {
-    background-color: #E2C044;
-    border-color: #E2C044;
-  }
-  
-  .view-toggle-buttons .btn-secondary:hover {
-    background-color: #bfa035;
-    border-color: #bfa035;
-  }
-  
-  .table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: rgba(69, 134, 240, 0.05);
-  }
-  
-  .table-hover tbody tr:hover {
-    background-color: rgba(69, 134, 240, 0.1);
-  }
-  
-  .card {
-    border: 2px solid #4586f0;
-    border-radius: 10px;
-  }
-  
-  .card-title {
-    color: #4586f0;
-    font-weight: bold;
-  }
-  
-  .card-text {
-    color: #333;
-  }
-  
-  .card .btn-info {
-    background-color: #4586f0;
-    border-color: #4586f0;
-  }
-  
-  .card .btn-info:hover {
-    background-color: #356ac7;
-    border-color: #356ac7;
-  }
-  
-  .card .btn-warning {
-    background-color: #E2C044;
-    border-color: #E2C044;
-  }
-  
-  .card .btn-warning:hover {
-    background-color: #bfa035;
-    border-color: #bfa035;
-  }
-  
-  .card .btn-danger {
-    background-color: #d9534f;
-    border-color: #d43f3a;
-  }
-  
-  .pagination .btn {
-    background-color: #4586f0;
-    border-color: #4586f0;
-    color: #fff;
-  }
-  
-  .pagination .btn:hover {
-    background-color: #356ac7;
-    border-color: #356ac7;
-  }
-  
-  /* Ensure that the table and cards are responsive */
-  .table, .card {
-    width: 100%;
-  }
-  
-  /* Adjust margins and paddings for responsiveness */
-  .mb-4 {
-    margin-bottom: 1.5rem;
-  }
-  .mt-4 {
-    margin-top: 1.5rem;
-  }
-  
+  height: 100%;
+  margin: 0;
+}
+
+.container-fluid {
+  height: 100%;
+}
+
+.artwork-management-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  background-color: rgba(0, 31, 63, 0.85); /* Match the background color from cart-page */
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 2px solid #0a2858; /* Primary color */
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.action-buttons .btn-primary {
+  background-color: #051d44; /* Primary color */
+  border-color: #06224e;
+}
+
+.action-buttons .btn-primary:hover {
+  background-color: #051c47; /* Hover state color */
+  border-color: #031841;
+}
+
+.view-toggle-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px; /* Ensure space below the view toggle buttons */
+}
+
+.view-toggle-buttons .btn-secondary {
+  background-color: #e2c044; /* Secondary color */
+  border-color: #e2c044;
+}
+
+.view-toggle-buttons .btn-secondary:hover {
+  background-color: #cfb034; /* Hover state color */
+  border-color: #cfb034;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(69, 134, 240, 0.05); /* Match the primary color lightened */
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(69, 134, 240, 0.1); /* Match the primary color lightened */
+}
+
+.card {
+  border: 2px solid #08234e; /* Primary color */
+  border-radius: 10px;
+}
+
+.card-title {
+  color: #08275a; /* Primary color */
+  font-weight: bold;
+}
+
+.card-text {
+  color: #6c757d; /* Text color */
+}
+
+.card .btn-info {
+  background-color: #05214e; /* Primary color */
+  border-color: #032357;
+}
+
+.card .btn-info:hover {
+  background-color: #061f4e; /* Hover state color */
+  border-color: #08214e;
+}
+
+.card .btn-warning {
+  background-color: #e2c044; /* Secondary color */
+  border-color: #e2c044;
+}
+
+.card .btn-warning:hover {
+  background-color: #cfb034; /* Hover state color */
+  border-color: #cfb034;
+}
+
+.card .btn-danger {
+  background-color: #d9534f; /* Danger color */
+  border-color: #d43f3a;
+}
+
+.pagination .btn {
+  background-color: #082553; /* Primary color */
+  border-color: #062b66;
+  color: #fff;
+}
+
+.pagination .btn:hover {
+  background-color: #081f4b; /* Hover state color */
+  border-color: #08214e;
+}
+
+/* Ensure that the table and cards are responsive */
+.table, .card {
+  width: 100%;
+}
+
+/* Adjust margins and paddings for responsiveness */
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+.mt-4 {
+  margin-top: 1.5rem;
+}

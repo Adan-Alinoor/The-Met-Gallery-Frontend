@@ -56,7 +56,7 @@
 }
 
 .info-card h1 {
-  color: #4586F0;
+  color: #072658;
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
@@ -73,7 +73,7 @@
 
 /* Add to Cart Button */
 .add-to-cart {
-  background-color: #4586F0;
+  background-color: #051f49;
   color: #ffffff;
   padding: 10px 20px;
   font-size: 1.2rem;
@@ -90,7 +90,7 @@
 }
 
 .add-to-cart:hover {
-  background-color: #326ad1;
+  background-color: #092250;
 }
 
 /* Responsive Adjustments */

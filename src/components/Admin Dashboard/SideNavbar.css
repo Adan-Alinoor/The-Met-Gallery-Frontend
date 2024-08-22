@@ -2,7 +2,7 @@
 
 /* General styles for the sidebar */
 .side-navbar {
-  background-color: #356ac7; /* Sidebar background color */
+  background-color: #052150; /* Sidebar background color */
   height: 100vh;
   width: 250px; /* Adjust width as needed */
   transition: width 0.3s ease;
@@ -25,7 +25,7 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  background-color: #356ac7;
+  background-color: #062150;
   width: 100%;
 }
 
@@ -33,7 +33,7 @@
 .navbar-toggler {
   background-color: #E2C044; /* Button color */
   border: none;
-  color: #356ac7; /* Toggler icon color */
+  color: #07214d; /* Toggler icon color */
   font-size: 20px; /* Adjust font size for the toggler icon */
   margin: 0;
   padding: 5px 10px;
@@ -67,7 +67,7 @@
 /* Style for active link */
 .nav-link.active {
   background-color: #E2C044; /* Active link background color */
-  color: #356ac7; /* Active link text color */
+  color: #0a275a; /* Active link text color */
 }
 
 /* Hover effect for links */

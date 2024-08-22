@@ -24,7 +24,7 @@ body {
 
 /* Title and Stat Styles */
 .widget-title {
-  color: #4586F0;
+  color: #0c2752ec;
   font-size: 18px;
   font-weight: 600;
 }
@@ -36,7 +36,7 @@ body {
 
 /* Table Styles */
 .table thead th {
-  background-color: #4586F0;
+  background-color: #0b2349;
   color: #ffffff;
 }
 
@@ -50,12 +50,12 @@ body {
 
 /* Pagination Styles */
 .pagination .page-item.active .page-link {
-  background-color: #4586F0;
-  border-color: #4586F0;
+  background-color: #071f46;
+  border-color: #071f46;
 }
 
 .pagination .page-link {
-  color: #4586F0;
+  color: #052861;
 }
 
 .pagination .page-link:hover {
@@ -75,7 +75,7 @@ body {
 }
 
 .dashboard-section h2 {
-  color: #4586F0;
+  color: #052963;
   font-size: 20px;
   margin-bottom: 10px;
 }
