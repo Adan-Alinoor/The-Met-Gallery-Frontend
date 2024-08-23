@@ -35,26 +35,26 @@ function UserManagement() {
 
   const handleDelete = async (userId) => {
     try {
-      const session = JSON.parse(localStorage.getItem("session"));
-      const token = session?.accessToken;
+        const session = JSON.parse(localStorage.getItem("session"));
+        const token = session?.accessToken;
 
-      await axios.delete(
-        `https://the-met-gallery-backend.onrender.com/user/${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        await axios.delete(
+            `https://the-met-gallery-backend.onrender.com/user/${userId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
-      // Remove user from local state
-      setUsers(users.filter((user) => user.id !== userId));
-      toast.success("User deleted successfully.");
+        // Remove user from local state
+        setUsers(users.filter((user) => user.id !== userId));
+        toast.success("User deleted successfully.");
     } catch (error) {
-      toast.error("Error deleting user.");
-      console.error("Error deleting user:", error);
+        toast.error("Error deleting user.");
+        console.error("Error deleting user:", error);
     }
-  };
+};
 
   return (
     <Container fluid className="user-management">
