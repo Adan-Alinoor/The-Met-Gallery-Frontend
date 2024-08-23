@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Card, Button, Alert } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./UserManagement.css"; // Custom CSS file
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -25,7 +25,7 @@ function UserManagement() {
 
         setUsers(response.data);
       } catch (error) {
-        setError("Error fetching users.");
+        toast.error("Error fetching users.");
         console.error("Error fetching users:", error);
       }
     };
@@ -38,59 +38,68 @@ function UserManagement() {
       const session = JSON.parse(localStorage.getItem("session"));
       const token = session?.accessToken;
 
-      await axios.delete(`https://the-met-gallery-backend.onrender.com/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `https://the-met-gallery-backend.onrender.com/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // Remove user from local state
       setUsers(users.filter((user) => user.id !== userId));
-      setSuccess("User deleted successfully.");
+      toast.success("User deleted successfully.");
     } catch (error) {
-      setError("Error deleting user.");
+      toast.error("Error deleting user.");
       console.error("Error deleting user:", error);
     }
   };
 
   return (
     <Container fluid className="user-management">
-      <Row className="justify-content-center g-3">
-        <Col md={12} className="d-flex justify-content-center">
-          <Card className="widget user-management-widget">
+      <Row className="justify-content-center g-4">
+        <Col lg={12} xl={10}>
+          <Card className="user-management-widget">
             <Card.Body>
-              <Card.Title className="widget-title">Manage Users</Card.Title>
-              {error && <Alert variant="danger">{error}</Alert>}
-              {success && <Alert variant="success">{success}</Alert>}
-              <div className="user-list">
+              <Card.Title className="widget-title">User Management</Card.Title>
+              <Row>
                 {users.length > 0 ? (
                   users.map((user) => (
-                    <Card className="user-card" key={user.id}>
-                      <Card.Body>
-                        <Row>
-                          <Col md={8} className="user-info">
-                            <h5>{user.username}</h5>
-                            <p>Email: {user.email}</p>
-                            <p>Role: {user.role}</p>
-                            <p>Created At: {new Date(user.created_at).toLocaleDateString()}</p>
-                          </Col>
-                          <Col md={4} className="user-actions">
-                            <Button variant="danger" onClick={() => handleDelete(user.id)}>
-                              Delete
-                            </Button>
-                          </Col>
-                        </Row>
-                      </Card.Body>
-                    </Card>
+                    <Col md={6} lg={4} key={user.id} className="mb-3">
+                      <Card className="user-card">
+                        <Card.Body>
+                          <Card.Title>{user.username}</Card.Title>
+                          <Card.Text>
+                            <strong>Email:</strong> {user.email}
+                          </Card.Text>
+                          <Card.Text>
+                            <strong>Role:</strong> {user.role}
+                          </Card.Text>
+                          <Card.Text>
+                            <strong>Created At:</strong> {new Date(user.created_at).toLocaleDateString()}
+                          </Card.Text>
+                          <Button
+                            variant="danger"
+                            onClick={() => handleDelete(user.id)}
+                          >
+                            Delete
+                          </Button>
+                        </Card.Body>
+                      </Card>
+                    </Col>
                   ))
                 ) : (
-                  <p>No users available</p>
+                  <Col>
+                    <p>No users available</p>
+                  </Col>
                 )}
-              </div>
+              </Row>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   );
 }

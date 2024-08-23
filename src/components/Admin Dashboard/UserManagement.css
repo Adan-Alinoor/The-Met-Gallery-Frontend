@@ -1,15 +1,16 @@
 /* Container for the entire user management page */
 .user-management {
-    background-color: #F8F9FA; /* Light background for contrast */
+    background-color: #f8f9fa; /* Light background for contrast */
     padding: 2rem;
   }
   
   /* Card widget styling */
   .user-management-widget {
-    background-color: #FFFFFF; /* White background for card */
-    border: 1px solid #E2C044; /* Goldish-yellow border */
+    background-color: #ffffff; /* White background for card */
+    border: 1px solid #e2c044; /* Goldish-yellow border */
     border-radius: 0.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem; /* Add padding inside the widget */
   }
   
   /* Card title styling */
@@ -21,33 +22,41 @@
   
   /* User card styling */
   .user-card {
-    margin-bottom: 1rem;
-    border: 1px solid #E2C044; /* Goldish-yellow border for user cards */
+    border: 1px solid #e2c044; /* Goldish-yellow border for user cards */
     border-radius: 0.5rem;
+    padding: 1rem; /* Add padding inside the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Add media query for responsiveness */
+  @media (max-width: 992px) { /* For tablets and smaller screens */
+    .user-card {
+      /* Adjust card width on smaller screens if needed */
+    }
+  }
+  
+  @media (max-width: 576px) { /* For mobile devices */
+    .user-card {
+      /* Adjust card width on smaller screens if needed */
+    }
   }
   
   /* User info section styling */
-  .user-info h5 {
+  .user-card .card-title {
     color: #052150; /* Deep blue color for usernames */
   }
   
-  .user-info p {
+  .user-card .card-text {
     color: #6c757d; /* Light grey for other text */
   }
   
   /* User actions section styling */
-  .user-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .user-actions .btn-danger {
-    background-color: #E2C044; /* Goldish-yellow background for delete button */
+  .btn-danger {
+    background-color: #e2c044; /* Goldish-yellow background for delete button */
     border: none;
   }
   
-  .user-actions .btn-danger:hover {
+  .btn-danger:hover {
     background-color: #d0b84f; /* Slightly darker gold for hover effect */
   }
   
