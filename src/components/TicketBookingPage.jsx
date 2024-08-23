@@ -180,12 +180,12 @@ const TicketBookingPage = () => {
               >
                 Pay with Mpesa
               </button>
-              <button
+              {/* <button
                 type="submit"
                 className="btn btn-success"
               >
                 Confirm Booking
-              </button>
+              </button> */}
             </div>
           </form>
           <button
