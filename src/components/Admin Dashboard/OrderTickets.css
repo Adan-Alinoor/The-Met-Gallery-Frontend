@@ -1,45 +1,83 @@
+/* OrderTickets.css */
+
+/* Table Container Styles */
 .table-container {
-    overflow-x: auto;
-  }
-  
-  .table-container table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table-container th, .table-container td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .table-container th {
-    background-color: #f0f0f0;
-  }
-  
-  .table-container tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .table-container tr:hover {
-    background-color: #ddd;
-  }
-  
-  .modal-body {
-    max-height: 500px;
-    overflow-y: auto;
-  }
-  
-  .modal-body img {
-    margin: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .modal-body h5 {
-    margin-top: 20px;
-  }
-  
-  .modal-body h6 {
-    margin-top: 10px;
-  }
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+  border: 1px solid #ddd;
+  padding: 12px; /* Increased padding for better readability */
+  text-align: left;
+}
+
+.table-container th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.table-container tr:nth-child(even) {
+  background-color: #f9f9f9; /* Slightly different shade for even rows */
+}
+
+.table-container tr:hover {
+  background-color: #f1f1f1; /* Lighter shade for hover effect */
+}
+
+/* Modal Body Styles */
+.modal-body {
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 20px; /* Added padding for spacing */
+}
+
+.modal-body img {
+  margin: 10px 0; /* Margin around images */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  max-width: 100%; /* Ensure images don't overflow */
+}
+
+/* Styling for Modal Content */
+.modal-body h5 {
+  margin-top: 20px;
+  font-size: 1.25rem; /* Larger font size for section headers */
+  color: #333; /* Slightly darker color for contrast */
+}
+
+.modal-body h6 {
+  margin-top: 10px;
+  font-size: 1rem; /* Font size for sub-sections */
+  color: #555; /* Slightly lighter color for sub-sections */
+}
+
+/* General Paragraph Styling */
+.modal-body p {
+  margin-bottom: 10px; /* Space between paragraphs */
+  line-height: 1.6; /* Improved readability with increased line-height */
+  color: #131212;
+}
+
+/* Additional styling for detail sections */
+.modal-body .details-section {
+  margin-bottom: 20px; /* Space between detail sections */
+  padding: 10px; /* Padding within detail sections */
+  border: 1px solid #ddd; /* Border around sections */
+  border-radius: 5px; /* Rounded corners for sections */
+  background-color: #f9f9f9; /* Background color for sections */
+}
+
+.modal-body .details-section h6 {
+  margin-bottom: 10px;
+  font-weight: bold; /* Bold font for section titles */
+}
+
+.modal-body .details-section p {
+  margin: 5px 0; /* Reduced margin for paragraphs within sections */
+}

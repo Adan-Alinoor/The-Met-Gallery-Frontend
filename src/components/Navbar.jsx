@@ -97,7 +97,7 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
   }
 
   const token = session?.accessToken;
-  const user = session?.user;
+  //const user = session?.user;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -110,11 +110,11 @@ const Navbar = ({ cartItemsCount, isArtist, userGender }) => {
           <li className="nav-item">
             <Link className="nav-link" to="/home">Home</Link>
           </li>
-          {user && (
+          {/* {user && (
             <li className="nav-item">
               <Link className="nav-link" to="/dashboard/overview">Dashboard</Link>
             </li>
-          )}
+          )} */}
           <li className="nav-item">
             <Link className="nav-link" to="/artworks">Artworks</Link>
           </li>
