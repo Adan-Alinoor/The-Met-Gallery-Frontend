@@ -25,11 +25,11 @@ import DashboardOverview from './components/Admin Dashboard/DashboardOverview';
 import EventManagement from './components/Admin Dashboard/EventManagement';
 import ArtworkManagement from './components/Admin Dashboard/ArtworkManagement';
 import OrdersTickets from './components/Admin Dashboard/OrdersTickets';
-import UserPage from './components/Admin Dashboard/UserPage';
 import SideNavbar from './components/Admin Dashboard/SideNavbar';
 import { AuthProvider } from './components/AuthContext';
 
 import VerifyEmail from './components/VerifyEmail';
+import UserManagement from './components/Admin Dashboard/UserManagement';
 
 
 
@@ -118,7 +118,7 @@ const App = () => {
           <Route path="/dashboard/EventManagement" element={<ProtectedRoute element={<EventManagement />} />} />
           <Route path="/dashboard/ArtworkManagement" element={<ProtectedRoute element={<ArtworkManagement />} />} />
           <Route path="/dashboard/Ordertickets" element={<ProtectedRoute element={<OrdersTickets />} />} />
-          <Route path="/dashboard/users" element={<ProtectedRoute element={<UserPage />} />} />
+          <Route path="/dashboard/users" element={<ProtectedRoute element={<UserManagement />} />} />
           <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/messages" element={<ProtectedRoute element={<Messaging />} />} />

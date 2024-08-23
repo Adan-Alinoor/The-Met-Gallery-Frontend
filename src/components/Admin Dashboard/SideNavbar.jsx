@@ -30,9 +30,9 @@ const SideNavbar = () => {
             <Nav.Item>
               <Nav.Link as={Link} to="/dashboard/EventManagement">Event Management</Nav.Link>
             </Nav.Item>
-            {/* <Nav.Item>
-              <Nav.Link as={Link} to="/dashboard/users">Users Management</Nav.Link>
-            </Nav.Item> */}
+            <Nav.Item>
+              <Nav.Link as={Link} to="/dashboard/users">User Management</Nav.Link>
+            </Nav.Item>
             <Nav.Item>
               <Nav.Link as={Link} to="/dashboard/Ordertickets">Payments</Nav.Link>
             </Nav.Item>
