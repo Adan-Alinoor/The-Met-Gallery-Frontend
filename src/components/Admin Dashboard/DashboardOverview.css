@@ -72,6 +72,7 @@ body {
   background-color: #ffffff;
   width: 999px; /* Fixed width */
   margin: 0 auto; /* Center the section horizontally */
+  color: black;
 }
 
 .dashboard-section h2 {

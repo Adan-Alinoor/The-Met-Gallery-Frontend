@@ -143,8 +143,19 @@ const OrdersTickets = () => {
           <Modal.Title>Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          
+          {selectedPayment && (
             <>
+              <div className="details-section">
+                <h5>Payment Details</h5>
+                <p><strong>Amount:</strong> ${selectedPayment.amount}</p>
+                <p><strong>Status:</strong> {selectedPayment.status}</p>
+                <p><strong>User ID:</strong> {selectedPayment.user_id}</p>
+                <p><strong>Phone Number:</strong> {selectedPayment.phone_number}</p>
+                <p><strong>Order ID:</strong> {selectedPayment.order_id || "Null"}</p>
+                <p><strong>Booking ID:</strong> {selectedPayment.booking_id || "Null"}</p>
+                <p><strong>Date:</strong> {new Date(selectedPayment.created_at).toLocaleDateString()}</p>
+              </div>
+
               {orderDetails && orderDetails.items && (
                 <div className="details-section">
                   <h5>Order Details</h5>
@@ -158,7 +169,6 @@ const OrdersTickets = () => {
                     </div>
                   ))}
                   <p><strong>Total Price:</strong> ${orderDetails.total_price}</p>
-                  <p><strong>Status:</strong> {orderDetails.status}</p>
                   <p><strong>Created At:</strong> {new Date(orderDetails.created_at).toLocaleDateString()}</p>
                 </div>
               )}
@@ -173,12 +183,11 @@ const OrdersTickets = () => {
                   <p><strong>Location:</strong> {bookingDetails.event.location}</p>
                   <p><strong>Time:</strong> {bookingDetails.event.time}</p>
                   <img src={bookingDetails.event.image_url} alt={bookingDetails.event.title} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                  <p><strong>Status:</strong> {bookingDetails.status}</p>
                   <p><strong>Created At:</strong> {new Date(bookingDetails.created_at).toLocaleDateString()}</p>
                 </div>
               )}
             </>
-          
+          )}
         </Modal.Body>
       </Modal>
     </Container>
